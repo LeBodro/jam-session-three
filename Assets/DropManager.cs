@@ -7,10 +7,10 @@ using UnityEngine.EventSystems;
 public class DropManager : MonoBehaviour
 {
     [SerializeField]
-    SnappingGrid[] grids;
+    SnappingGrid[] grids = null;
 
     [SerializeField]
-    List<Module> modules;
+    List<Module> modules = null;
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +63,7 @@ public class DropManager : MonoBehaviour
                 m.transform.position = cell.transform.position;
             }
         }
-        
+
         // TODO: Fallback to inventory when no candidate spot found
     }
 }

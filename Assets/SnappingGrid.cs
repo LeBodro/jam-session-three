@@ -6,19 +6,19 @@ using UnityEngine;
 public class SnappingGrid : MonoBehaviour
 {
     Cell[] cells;
-    BoxCollider2D collider;
+    BoxCollider2D dropCollider;
     // Start is called before the first frame update
     void Start()
     {
         List<Cell> childCells = new List<Cell>();
         GetComponentsInChildren<Cell>(false, childCells);
         cells = childCells.ToArray();
-        collider = GetComponent<BoxCollider2D>();
+        dropCollider = GetComponent<BoxCollider2D>();
     }
 
     public bool Contains(Vector3 droppedPosition)
     {
-        return collider.OverlapPoint(droppedPosition);
+        return dropCollider.OverlapPoint(droppedPosition);
     }
 
     public Cell GetDroppedOnCell(Vector3 droppedPosition)
@@ -31,7 +31,4 @@ public class SnappingGrid : MonoBehaviour
         }
         return null;
     }
-
-    // TODO: Make a public function for raycasting a mouse event on its own collider
-    // TODO: Make a public function for specifying a candidate Cell for the parent to snap to for the position
 }
