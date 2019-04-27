@@ -8,6 +8,7 @@ public class DropManager : SceneSingleton<DropManager>
 {
     [SerializeField]
     SnappingGrid[] grids = null;
+    [SerializeField]
     List<Module> modules = null;
     [SerializeField]
     SnappingGrid fallbackGrid = null;
