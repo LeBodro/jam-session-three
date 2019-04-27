@@ -4,46 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DropManager : MonoBehaviour
+public class DropManager : SceneSingleton<DropManager>
 {
     [SerializeField]
     SnappingGrid[] grids = null;
-
-    [SerializeField]
     List<Module> modules = null;
 
-    // Start is called before the first frame update
-    void Start()
+    public static void HandleDrop(Module m, PointerEventData data)
     {
-        foreach (Module m in modules)
-        {
-            RegisterModule(m);
-        }
+        Instance._HandleDrop(m, data);
     }
 
-    public void AddNewModule(Module m)
-    {
-        modules.Add(m);
-        RegisterModule(m);
-    }
-
-    public void RemoveModule(Module m)
-    {
-        modules.Remove(m);
-        UnregisterModule(m);
-    }
-
-    void RegisterModule(Module m)
-    {
-        m.OnDragRelease += HandleDrop;
-    }
-
-    void UnregisterModule(Module m)
-    {
-        m.OnDragRelease -= HandleDrop;
-    }
-
-    void HandleDrop(Module m, PointerEventData ped)
+    void _HandleDrop(Module m, PointerEventData data)
     {
         var droppedPosition = m.transform.position;
         SnappingGrid droppedOn = null;
@@ -56,14 +28,16 @@ public class DropManager : MonoBehaviour
             }
         }
 
-        if(droppedOn != null)
+        if (droppedOn != null)
         {
             Cell cell = droppedOn.GetDroppedOnCell(droppedPosition);
-            if (cell != null) {
+            if (cell != null)
+            {
                 m.transform.position = cell.transform.position;
             }
         }
 
         // TODO: Fallback to inventory when no candidate spot found
     }
+
 }
