@@ -9,6 +9,8 @@ public class DropManager : SceneSingleton<DropManager>
     [SerializeField]
     SnappingGrid[] grids = null;
     List<Module> modules = null;
+    [SerializeField]
+    SnappingGrid fallbackGrid = null;
 
     public void Refresh()
     {
@@ -32,17 +34,26 @@ public class DropManager : SceneSingleton<DropManager>
                 break;
             }
         }
+        bool wasBound = false;
 
-        if (droppedOn != null)
+        if(droppedOn != null)
         {
             Cell cell = droppedOn.GetDroppedOnCell(droppedPosition);
-            if (cell != null)
-            {
-                m.transform.position = cell.transform.position;
+            if (cell != null && cell.IsFree) {
+                wasBound = true;
+                cell.Bind(m);
             }
         }
 
-        // TODO: Fallback to inventory when no candidate spot found
+        if (!wasBound)
+        {
+            Cell availableCell = fallbackGrid.FirstAvailableCell();
+            if (availableCell != null) {
+                availableCell.Bind(m);
+            } else {
+                // Holy shit. Nowhere to goooooo
+            }
+        }
     }
 
 }

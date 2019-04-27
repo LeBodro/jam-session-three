@@ -35,4 +35,16 @@ public class SnappingGrid : MonoBehaviour
         }
         return null;
     }
+
+    public Cell FirstAvailableCell()
+    {
+        foreach (Cell cell in cells)
+        {
+            if(cell.IsFree)
+            {
+                return cell;
+            }
+        }
+        return null;
+    }
 }
