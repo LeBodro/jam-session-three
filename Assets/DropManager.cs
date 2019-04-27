@@ -35,20 +35,15 @@ public class DropManager : MonoBehaviour
 
     void RegisterModule(Module m)
     {
-        m.OnDragRelease += (Module _m, PointerEventData ped) => {
-            HandleDrop(_m, ped);
-        };
+        m.OnDragRelease += HandleDrop;
     }
 
     void UnregisterModule(Module m)
     {
-        // Does that even make sense???
-        m.OnDragRelease -= (Module _m, PointerEventData ped) => {
-            HandleDrop(_m, ped);
-        };
+        m.OnDragRelease -= HandleDrop;
     }
 
-    private Action<Module, PointerEventData> HandleDrop(Module m, PointerEventData ped)
+    void HandleDrop(Module m, PointerEventData ped)
     {
         // TODO: Search into grids array for candiate spot to snap to and then snap to it.
         // TODO: Fallback to inventory when no candidate spot found
