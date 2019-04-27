@@ -16,22 +16,18 @@ public class Module : MonoBehaviour, IDraggable
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        dragPositionOffset = toWorldPosition(eventData) - transform.position;
+        // Note the position on the module where the mouse is relative to the transform
+        dragPositionOffset = MouseHelper.toWorldPosition(eventData.position) - transform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = toWorldPosition(eventData) - dragPositionOffset;
+        // Adjust the object position to take the original offset into account in order to feel like a draggable item
+        transform.position = MouseHelper.toWorldPosition(eventData.position) - dragPositionOffset;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         _onDragRelease(this, eventData);
-    }
-
-    private Vector3 toWorldPosition(PointerEventData eventData)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-        return new Vector3(ray.origin.x, ray.origin.y, 0);
     }
 }
