@@ -45,8 +45,25 @@ public class DropManager : MonoBehaviour
 
     void HandleDrop(Module m, PointerEventData ped)
     {
-        // TODO: Search into grids array for candiate spot to snap to and then snap to it.
+        var droppedPosition = m.transform.position;
+        SnappingGrid droppedOn = null;
+        foreach (SnappingGrid grid in grids)
+        {
+            if (grid.Contains(droppedPosition))
+            {
+                droppedOn = grid;
+                break;
+            }
+        }
+
+        if(droppedOn != null)
+        {
+            Cell cell = droppedOn.GetDroppedOnCell(droppedPosition);
+            if (cell != null) {
+                m.transform.position = cell.transform.position;
+            }
+        }
+        
         // TODO: Fallback to inventory when no candidate spot found
-        throw new NotImplementedException();
     }
 }
