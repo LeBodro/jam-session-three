@@ -12,14 +12,20 @@ public class Module : MonoBehaviour, IDraggable, IPointerUpHandler
         remove { _onDragRelease -= value; }
     }
 
+    event System.Action<Module, PointerEventData> _onDragStart = delegate { };
+    public event System.Action<Module, PointerEventData> OnDragStart
+    {
+        add { _onDragStart += value; }
+        remove { _onDragStart -= value; }
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // Note the position on the module where the mouse is relative to the transform
+        _onDragStart(this, eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Adjust the object position to take the original offset into account in order to feel like a draggable item
         transform.position = MouseHelper.toWorldPosition(eventData.position);
     }
 

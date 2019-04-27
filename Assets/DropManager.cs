@@ -12,6 +12,9 @@ public class DropManager : MonoBehaviour
     [SerializeField]
     List<Module> modules = null;
 
+    [SerializeField]
+    SnappingGrid fallbackGrid = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,14 +59,25 @@ public class DropManager : MonoBehaviour
             }
         }
 
+        bool wasBound = false;
+
         if(droppedOn != null)
         {
             Cell cell = droppedOn.GetDroppedOnCell(droppedPosition);
-            if (cell != null) {
-                m.transform.position = cell.transform.position;
+            if (cell != null && cell.IsFree) {
+                wasBound = true;
+                cell.Bind(m);
             }
         }
 
-        // TODO: Fallback to inventory when no candidate spot found
+        if (!wasBound)
+        {
+            Cell availableCell = fallbackGrid.FirstAvailableCell();
+            if (availableCell != null) {
+                availableCell.Bind(m);
+            } else {
+                // Holy shit. Nowhere to goooooo
+            }
+        }
     }
 }
