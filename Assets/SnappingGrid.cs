@@ -7,7 +7,10 @@ public class SnappingGrid : MonoBehaviour
 {
     Cell[] cells;
     BoxCollider2D dropCollider;
-    // Start is called before the first frame update
+
+    // Called from the editor when adding or resetting the component
+    void Reset() { FindObjectOfType<DropManager>().Refresh(); }
+
     void Start()
     {
         List<Cell> childCells = new List<Cell>();
@@ -25,7 +28,8 @@ public class SnappingGrid : MonoBehaviour
     {
         foreach (Cell cell in cells)
         {
-            if (cell.Contains(droppedPosition)) {
+            if (cell.Contains(droppedPosition))
+            {
                 return cell;
             }
         }

@@ -364,8 +364,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grids:
   - {fileID: 877906037}
-  modules:
-  - {fileID: 1908816881}
 --- !u!114 &1136497343
 MonoBehaviour:
   m_ObjectHideFlags: 0

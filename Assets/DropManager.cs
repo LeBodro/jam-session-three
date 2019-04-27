@@ -10,6 +10,11 @@ public class DropManager : SceneSingleton<DropManager>
     SnappingGrid[] grids = null;
     List<Module> modules = null;
 
+    public void Refresh()
+    {
+        grids = FindObjectsOfType<SnappingGrid>();
+    }
+
     public static void HandleDrop(Module m, PointerEventData data)
     {
         Instance._HandleDrop(m, data);
