@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SnappingGrid : MonoBehaviour
 {
-    [HideInInspector] [SerializeField] Cell[] cells;
-    [HideInInspector] [SerializeField] BoxCollider2D dropCollider;
+    [SerializeField] Cell[] cells;
+    [SerializeField] BoxCollider2D dropCollider;
 
     // Called from the editor when adding or resetting the component
     void Reset()
@@ -21,7 +21,7 @@ public class SnappingGrid : MonoBehaviour
 #if UNITY_EDITOR
     void Awake()
     {
-        if (dropCollider == null || cells.Length < transform.childCount)
+        if (dropCollider == null || cells.Length != transform.childCount)
             Debug.LogErrorFormat("You must reset the SnappingGrid component in the inspector for the GameObject named {0}.", name);
     }
 #endif
