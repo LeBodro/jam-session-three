@@ -5,8 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(Grid))]
 public class SnappingGrid : MonoBehaviour
 {
+    public enum PowerState
+    {
+        OFF,
+        ON,
+    }
+
     [SerializeField] BoxCollider2D dropCollider;
     [SerializeField] Grid grid;
+    [SerializeField] PowerState connectionState = PowerState.OFF;
 
     // Called from the editor when adding or resetting the component
     void Reset()
@@ -21,8 +28,18 @@ public class SnappingGrid : MonoBehaviour
         return dropCollider.OverlapPoint(droppedPosition);
     }
 
-    public void Snap(Transform target)
+    public void Snap(Module target)
     {
-        target.position = grid.CellToWorld(grid.WorldToCell(target.position)) + grid.cellSize * 0.5f;
+        Vector3 position = target.transform.position;
+        target.transform.position = grid.CellToWorld(grid.WorldToCell(position)) + grid.cellSize * 0.5f;
+        ProcessConnection(target);
+    }
+
+    void ProcessConnection(Module target)
+    {
+        if (connectionState == PowerState.OFF)
+            target.PowerOff();
+        else
+            target.PowerOn();
     }
 }

@@ -8,8 +8,8 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     [SerializeField] float incomePerClick = 1;
 
     int amountOfSimultaneousPresses = 0;
-    public bool IsDown { get { return amountOfSimultaneousPresses > 0; } }
-    public bool IsUp { get { return amountOfSimultaneousPresses == 0; } }
+    public bool IsDown { get => amountOfSimultaneousPresses > 0; }
+    public bool IsUp { get => amountOfSimultaneousPresses == 0; }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -32,11 +32,8 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 
         if (IsUp)
         {
-            Debug.Log("Button " + name + " clicked");
-            if (_isPowered)
-            {
-                // TODO: Generate income
-            }
+            if (isPowered)
+                GenerateIncome(incomePerClick);
         }
     }
 

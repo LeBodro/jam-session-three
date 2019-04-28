@@ -31,7 +31,7 @@ public class DropManager : SceneSingleton<DropManager>
         if (overGrid && !cellTaken)
         {
             SnappingGrid targetGrid = gridOverlap.GetComponent<SnappingGrid>();
-            targetGrid.Snap(dropped.transform);
+            targetGrid.Snap(dropped);
             dropped.ConfirmMovement();
         }
         else
