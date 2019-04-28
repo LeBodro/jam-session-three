@@ -6,10 +6,7 @@ using UnityEngine.EventSystems;
 
 public class DropManager : SceneSingleton<DropManager>
 {
-    [SerializeField]
-    SnappingGrid[] grids = null;
-    [SerializeField]
-    SnappingGrid fallbackGrid = null;
+    [SerializeField] SnappingGrid[] grids = null;
 
     public void Refresh()
     {
@@ -21,37 +18,31 @@ public class DropManager : SceneSingleton<DropManager>
         Instance._HandleDrop(m, data);
     }
 
-    void _HandleDrop(Module m, PointerEventData data)
+    void _HandleDrop(Module dropped, PointerEventData data)
     {
-        var droppedPosition = m.transform.position;
-        SnappingGrid droppedOn = null;
+        var droppedPosition = dropped.transform.position;
+        SnappingGrid targetGrid = null;
         foreach (SnappingGrid grid in grids)
         {
             if (grid.Contains(droppedPosition))
             {
-                droppedOn = grid;
+                targetGrid = grid;
                 break;
             }
         }
+
         bool wasBound = false;
 
-        if(droppedOn != null)
+        if (targetGrid != null)
         {
-            Cell cell = droppedOn.GetCellAtPosition(droppedPosition);
-            if (cell != null && cell.IsFree) {
-                wasBound = true;
-                cell.Bind(m);
-            }
+            targetGrid.Snap(dropped.transform);
+            dropped.ConfirmMovement();
+            wasBound = true;
         }
 
         if (!wasBound)
         {
-            Cell availableCell = fallbackGrid.FirstFreeCell();
-            if (availableCell != null) {
-                availableCell.Bind(m);
-            } else {
-                // Holy shit. Nowhere to goooooo
-            }
+            dropped.CancelMovement();
         }
     }
 }

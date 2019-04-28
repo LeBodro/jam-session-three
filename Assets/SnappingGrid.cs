@@ -1,57 +1,44 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Grid))]
 public class SnappingGrid : MonoBehaviour
 {
-    [SerializeField] Cell[] cells;
     [SerializeField] BoxCollider2D dropCollider;
+    [SerializeField] Grid grid;
+
+    Table<Cell> cells; // WIP branch: grid
 
     // Called from the editor when adding or resetting the component
     void Reset()
     {
+        grid = GetComponent<Grid>();
         FindObjectOfType<DropManager>().Refresh();
-        List<Cell> childCells = new List<Cell>();
-        GetComponentsInChildren<Cell>(false, childCells);
-        cells = childCells.ToArray();
         dropCollider = GetComponent<BoxCollider2D>();
     }
 
-#if UNITY_EDITOR
-    void Awake()
+    void Awake() // WIP branch: grid
     {
-        if (dropCollider == null || cells.Length != transform.childCount)
-            Debug.LogErrorFormat("You must reset the SnappingGrid component in the inspector for the GameObject named {0}.", name);
+        // determine number of cells from collider size
+        //
     }
-#endif
+
+    void PopulateCells() // WIP branch: grid
+    {
+        int width = (int)(dropCollider.size.x / (grid.cellSize.x + grid.cellGap.x));
+        int height = (int)(dropCollider.size.y / (grid.cellSize.y + grid.cellGap.y));
+        cells = new Table<Cell>(width, height, (x, y) => new Cell());
+    }
 
     public bool Contains(Vector3 droppedPosition)
     {
         return dropCollider.OverlapPoint(droppedPosition);
     }
 
-    public Cell GetCellAtPosition(Vector3 droppedPosition)
+    public void Snap(Transform target)
     {
-        foreach (Cell cell in cells)
-        {
-            if (cell.Contains(droppedPosition))
-            {
-                return cell;
-            }
-        }
-        return null;
-    }
-
-    public Cell FirstFreeCell()
-    {
-        foreach (Cell cell in cells)
-        {
-            if (cell.IsFree)
-            {
-                return cell;
-            }
-        }
-        return null;
+        // TODO: Check if place is taken
+        target.position = grid.CellToWorld(grid.WorldToCell(target.position)) + grid.cellSize * 0.5f;
     }
 }
