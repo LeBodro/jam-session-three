@@ -5,19 +5,26 @@ using UnityEngine;
 
 public class SnappingGrid : MonoBehaviour
 {
-    Cell[] cells;
-    BoxCollider2D dropCollider;
+    [HideInInspector] [SerializeField] Cell[] cells;
+    [HideInInspector] [SerializeField] BoxCollider2D dropCollider;
 
     // Called from the editor when adding or resetting the component
-    void Reset() { FindObjectOfType<DropManager>().Refresh(); }
-
-    void Start()
+    void Reset()
     {
+        FindObjectOfType<DropManager>().Refresh();
         List<Cell> childCells = new List<Cell>();
         GetComponentsInChildren<Cell>(false, childCells);
         cells = childCells.ToArray();
         dropCollider = GetComponent<BoxCollider2D>();
     }
+
+#if UNITY_EDITOR
+    void Awake()
+    {
+        if (dropCollider == null || cells.Length < transform.childCount)
+            Debug.LogErrorFormat("You must reset the SnappingGrid component in the inspector for the GameObject named {0}.", name);
+    }
+#endif
 
     public bool Contains(Vector3 droppedPosition)
     {
@@ -40,7 +47,7 @@ public class SnappingGrid : MonoBehaviour
     {
         foreach (Cell cell in cells)
         {
-            if(cell.IsFree)
+            if (cell.IsFree)
             {
                 return cell;
             }
