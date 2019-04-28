@@ -13,12 +13,6 @@ public class PCB : SnappingGrid
         m.PowerOff();
     }
 
-    internal override void BindToCell(Cell cell, Module m)
-    {
-        base.BindToCell(cell, m);
-        AddModule(m);
-    }
-
     void AddModule(Module m)
     {
         // do stuff related to button, clicker and chip

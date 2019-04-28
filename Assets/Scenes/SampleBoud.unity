@@ -121,7 +121,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 877906039}
-  - component: {fileID: 877906037}
   - component: {fileID: 877906036}
   - component: {fileID: 877906040}
   - component: {fileID: 877906038}
@@ -158,20 +157,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.2, y: 5.2}
   m_EdgeRadius: 0
---- !u!114 &877906037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 877906035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32683b6b8d18d4917a6132e6ea062c6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropCollider: {fileID: 877906036}
-  grid: {fileID: 877906038}
 --- !u!156049354 &877906038
 Grid:
   m_ObjectHideFlags: 0
@@ -211,7 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc16c1e7ce9d4b641b1636155f56e711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 877906037}
+  dropCollider: {fileID: 877906036}
+  grid: {fileID: 877906038}
 --- !u!1 &1000722114
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grids:
-  - {fileID: 877906037}
+  - {fileID: 877906040}
 --- !u!114 &1136497343
 MonoBehaviour:
   m_ObjectHideFlags: 0
