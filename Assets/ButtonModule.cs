@@ -6,10 +6,12 @@ using UnityEngine.EventSystems;
 public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] float incomePerClick = 1;
+    [SerializeField] SpriteRenderer up;
+    [SerializeField] SpriteRenderer down;
 
     int amountOfSimultaneousPresses = 0;
     public bool IsDown { get => amountOfSimultaneousPresses > 0; }
-    public bool IsUp { get => amountOfSimultaneousPresses == 0; }
+    public bool IsUp { get => !IsDown; }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -24,6 +26,8 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     public void Press()
     {
         amountOfSimultaneousPresses++;
+        down.enabled = IsDown;
+        up.enabled = IsUp;
     }
 
     public void Release()
@@ -35,6 +39,8 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
             if (isPowered)
                 GenerateIncome(incomePerClick);
         }
+        down.enabled = IsDown;
+        up.enabled = IsUp;
     }
 
     void OnDrawGizmos()
