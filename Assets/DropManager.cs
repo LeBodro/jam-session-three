@@ -9,8 +9,6 @@ public class DropManager : SceneSingleton<DropManager>
     [SerializeField]
     SnappingGrid[] grids = null;
     [SerializeField]
-    List<Module> modules = null;
-    [SerializeField]
     SnappingGrid fallbackGrid = null;
 
     public void Refresh()
@@ -39,7 +37,7 @@ public class DropManager : SceneSingleton<DropManager>
 
         if(droppedOn != null)
         {
-            Cell cell = droppedOn.GetDroppedOnCell(droppedPosition);
+            Cell cell = droppedOn.GetCellAtPosition(droppedPosition);
             if (cell != null && cell.IsFree) {
                 wasBound = true;
                 cell.Bind(m);
@@ -48,7 +46,7 @@ public class DropManager : SceneSingleton<DropManager>
 
         if (!wasBound)
         {
-            Cell availableCell = fallbackGrid.FirstAvailableCell();
+            Cell availableCell = fallbackGrid.FirstFreeCell();
             if (availableCell != null) {
                 availableCell.Bind(m);
             } else {
@@ -56,5 +54,4 @@ public class DropManager : SceneSingleton<DropManager>
             }
         }
     }
-
 }

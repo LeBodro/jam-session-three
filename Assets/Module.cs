@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Module : MonoBehaviour, IDraggable, IPointerUpHandler
+public class Module : MonoBehaviour, IDraggable
 {
     event System.Action<Module, PointerEventData> _onDragStart = delegate { };
     public event System.Action<Module, PointerEventData> OnDragStart
@@ -24,10 +24,5 @@ public class Module : MonoBehaviour, IDraggable, IPointerUpHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         DropManager.HandleDrop(this, eventData);
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        //throw new System.NotImplementedException();
     }
 }

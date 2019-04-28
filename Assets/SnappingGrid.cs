@@ -24,7 +24,7 @@ public class SnappingGrid : MonoBehaviour
         return dropCollider.OverlapPoint(droppedPosition);
     }
 
-    public Cell GetDroppedOnCell(Vector3 droppedPosition)
+    public Cell GetCellAtPosition(Vector3 droppedPosition)
     {
         foreach (Cell cell in cells)
         {
@@ -36,7 +36,7 @@ public class SnappingGrid : MonoBehaviour
         return null;
     }
 
-    public Cell FirstAvailableCell()
+    public Cell FirstFreeCell()
     {
         foreach (Cell cell in cells)
         {
