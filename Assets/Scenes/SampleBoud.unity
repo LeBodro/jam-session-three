@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 261686713}
   - component: {fileID: 261686712}
   m_Layer: 9
-  m_Name: Recycling
+  m_Name: Recycler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

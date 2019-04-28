@@ -28,11 +28,17 @@ public class SnappingGrid : MonoBehaviour
         return dropCollider.OverlapPoint(droppedPosition);
     }
 
-    public void Snap(Module target)
+    public bool TrySnap(Module target)
     {
         Vector3 position = target.transform.position;
-        target.transform.position = grid.CellToWorld(grid.WorldToCell(position)) + grid.cellSize * 0.5f;
+        Vector3 cellCenter = grid.CellToWorld(grid.WorldToCell(position)) + grid.cellSize * 0.5f;
+        target.transform.position = cellCenter;
+        Collider2D[] moduleOverlap = Physics2D.OverlapPointAll(cellCenter, LayerMask.GetMask("Draggable"));
+        foreach (var m in moduleOverlap)
+            if (m.transform != target.transform)
+                return false;
         ProcessConnection(target);
+        return true;
     }
 
     void ProcessConnection(Module target)
