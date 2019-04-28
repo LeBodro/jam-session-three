@@ -7,6 +7,13 @@ public class Module : MonoBehaviour, IDraggable
 {
     Vector3 lastAssignedPosition;
 
+    protected bool _isPowered = false;
+    public bool IsPowered {
+        get {
+            return _isPowered;
+        }
+    }
+
     event System.Action<Module, PointerEventData> _onDragStart = delegate { };
     public event System.Action<Module, PointerEventData> OnDragStart
     {
@@ -17,6 +24,7 @@ public class Module : MonoBehaviour, IDraggable
     void Start()
     {
         lastAssignedPosition = transform.position;
+        PowerOff();
     }
 
     public void CancelMovement()
@@ -29,17 +37,29 @@ public class Module : MonoBehaviour, IDraggable
         lastAssignedPosition = transform.position;
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void PowerOn()
+    {
+        Debug.Log("Power on");
+        _isPowered = true;
+    }
+
+    public void PowerOff()
+    {
+        Debug.Log("Power off");
+        _isPowered = false;
+    }
+
+    public virtual void OnBeginDrag(PointerEventData eventData)
     {
         _onDragStart(this, eventData);
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public virtual void OnDrag(PointerEventData eventData)
     {
         transform.position = MouseHelper.toWorldPosition(eventData.position);
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public virtual void OnEndDrag(PointerEventData eventData)
     {
         DropManager.HandleDrop(this, eventData);
     }
