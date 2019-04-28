@@ -43,6 +43,11 @@ public class SnappingGrid : MonoBehaviour
         return null;
     }
 
+    internal virtual void BindToCell(Cell cell, Module m)
+    {
+        cell.Bind(m);
+    }
+
     public Cell FirstFreeCell()
     {
         foreach (Cell cell in cells)

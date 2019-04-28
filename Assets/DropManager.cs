@@ -40,7 +40,7 @@ public class DropManager : SceneSingleton<DropManager>
             Cell cell = droppedOn.GetCellAtPosition(droppedPosition);
             if (cell != null && cell.IsFree) {
                 wasBound = true;
-                cell.Bind(m);
+                droppedOn.BindToCell(cell, m);
             }
         }
 

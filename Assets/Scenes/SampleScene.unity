@@ -1100,6 +1100,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32683b6b8d18d4917a6132e6ea062c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cells:
+  - {fileID: 1550209659}
+  - {fileID: 2077201340}
+  - {fileID: 738971282}
+  - {fileID: 1154097137}
+  - {fileID: 1132660333}
+  - {fileID: 720901826}
+  - {fileID: 1430473746}
+  - {fileID: 666780920}
+  - {fileID: 1470651508}
+  dropCollider: {fileID: 1248708225}
 --- !u!4 &1248708224
 Transform:
   m_ObjectHideFlags: 0
@@ -1298,8 +1309,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1300659478}
-  - component: {fileID: 1300659476}
   - component: {fileID: 1300659477}
+  - component: {fileID: 1300659476}
   m_Layer: 8
   m_Name: Draggable (1)
   m_TagString: Untagged
@@ -1316,7 +1327,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1300659475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2d46a38043b347eaa514a310186a024, type: 3}
+  m_Script: {fileID: 11500000, guid: 403ab72d8edb54bfe89c5e64fe13200a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &1300659477
@@ -1766,6 +1777,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32683b6b8d18d4917a6132e6ea062c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cells:
+  - {fileID: 1348627868}
+  - {fileID: 303806589}
+  - {fileID: 1282492984}
+  - {fileID: 2088641094}
+  - {fileID: 2146971963}
+  - {fileID: 1488392226}
+  - {fileID: 1229404156}
+  - {fileID: 2046429410}
+  - {fileID: 487849145}
+  dropCollider: {fileID: 1666371953}
 --- !u!4 &1666371955
 Transform:
   m_ObjectHideFlags: 0
@@ -1845,6 +1867,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32683b6b8d18d4917a6132e6ea062c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cells:
+  - {fileID: 1282567573}
+  - {fileID: 1232102612}
+  dropCollider: {fileID: 1930483508}
 --- !u!4 &1930483510
 Transform:
   m_ObjectHideFlags: 0
@@ -1941,12 +1967,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grids:
-  - {fileID: 1248708223}
-  - {fileID: 1666371954}
   - {fileID: 1930483509}
-  modules:
-  - {fileID: 16172255}
-  - {fileID: 1300659476}
+  - {fileID: 1666371954}
+  - {fileID: 1248708223}
   fallbackGrid: {fileID: 1930483509}
 --- !u!1 &2046429407
 GameObject:

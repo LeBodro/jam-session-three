@@ -1,16 +1,7 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(SnappingGrid))]
-public class PCB : MonoBehaviour
+public class PCB : SnappingGrid
 {
-    [SerializeField] SnappingGrid grid = null;
-
-    void Reset()
-    {
-        grid = GetComponent<SnappingGrid>();
-    }
-
     void Start()
     {
         //TODO: Register on module addition and removal
@@ -18,12 +9,20 @@ public class PCB : MonoBehaviour
 
     void RemoveModule(Module m)
     {
+        // TODO: Find a way to remove module when moved
+        m.PowerOff();
+    }
 
+    internal override void BindToCell(Cell cell, Module m)
+    {
+        base.BindToCell(cell, m);
+        AddModule(m);
     }
 
     void AddModule(Module m)
     {
         // do stuff related to button, clicker and chip
+        m.PowerOn();
     }
 
     void RefreshIncomeRate()
