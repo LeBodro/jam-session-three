@@ -5,22 +5,11 @@ using UnityEngine.EventSystems;
 
 public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 {
-    private int amountOfSimultaneousPresses = 0;
-    public bool IsDown {
-        get {
-            return amountOfSimultaneousPresses > 0;
-        }
-    }
-    public bool IsUp {
-        get {
-            return amountOfSimultaneousPresses == 0;
-        }
-    }
+    [SerializeField] float incomePerClick = 1;
 
-    void Start()
-    {
-        amountOfSimultaneousPresses = 0;
-    }
+    int amountOfSimultaneousPresses = 0;
+    public bool IsDown { get { return amountOfSimultaneousPresses > 0; } }
+    public bool IsUp { get { return amountOfSimultaneousPresses == 0; } }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -53,9 +42,12 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 
     void OnDrawGizmos()
     {
-        if (IsUp) {
+        if (IsUp)
+        {
             Gizmos.color = Color.blue;
-        } else {
+        }
+        else
+        {
             Gizmos.color = Color.red;
         }
         Gizmos.DrawSphere(transform.position + new Vector3(0.5f, 0.5f), 0.25f);
