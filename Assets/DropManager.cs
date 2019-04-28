@@ -20,27 +20,21 @@ public class DropManager : SceneSingleton<DropManager>
 
     void _HandleDrop(Module dropped, PointerEventData data)
     {
+
         var droppedPosition = dropped.transform.position;
-        SnappingGrid targetGrid = null;
-        foreach (SnappingGrid grid in grids)
-        {
-            if (grid.Contains(droppedPosition))
-            {
-                targetGrid = grid;
-                break;
-            }
-        }
+        Collider2D[] moduleOverlap = Physics2D.OverlapPointAll(droppedPosition, LayerMask.GetMask("Draggable"));
+        bool cellTaken = moduleOverlap.Length > 1;
 
-        bool wasBound = false;
+        Collider2D gridOverlap = Physics2D.OverlapPoint(droppedPosition, LayerMask.GetMask("Grid"));
+        bool overGrid = gridOverlap != null;
 
-        if (targetGrid != null)
+        if (overGrid && !cellTaken)
         {
+            SnappingGrid targetGrid = gridOverlap.GetComponent<SnappingGrid>();
             targetGrid.Snap(dropped.transform);
             dropped.ConfirmMovement();
-            wasBound = true;
         }
-
-        if (!wasBound)
+        else
         {
             dropped.CancelMovement();
         }

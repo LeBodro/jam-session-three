@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 877906036}
   - component: {fileID: 877906040}
   - component: {fileID: 877906038}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pcb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,8 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32683b6b8d18d4917a6132e6ea062c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cells:
-  - {fileID: 0}
   dropCollider: {fileID: 877906036}
   grid: {fileID: 877906038}
 --- !u!156049354 &877906038
@@ -346,7 +344,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grids:
   - {fileID: 877906037}
-  fallbackGrid: {fileID: 0}
 --- !u!114 &1136497343
 MonoBehaviour:
   m_ObjectHideFlags: 0
