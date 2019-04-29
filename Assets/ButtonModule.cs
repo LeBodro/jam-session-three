@@ -6,12 +6,18 @@ using UnityEngine.EventSystems;
 public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] float incomePerClick = 1;
-    [SerializeField] SpriteRenderer up;
-    [SerializeField] SpriteRenderer down;
+    [SerializeField] SpriteRenderer up = null;
+    [SerializeField] SpriteRenderer down = null;
 
     int amountOfSimultaneousPresses = 0;
     public bool IsDown { get => amountOfSimultaneousPresses > 0; }
     public bool IsUp { get => !IsDown; }
+
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+        base.OnBeginDrag(eventData);
+        amountOfSimultaneousPresses = 0;
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -33,11 +39,13 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     public void Release()
     {
         amountOfSimultaneousPresses--;
-
-        if (IsUp)
+        if (amountOfSimultaneousPresses < 0)
         {
-            if (isPowered)
-                GenerateIncome(incomePerClick);
+            amountOfSimultaneousPresses = 0;
+        } 
+        else if (IsUp && isPowered)
+        {
+            GenerateIncome(incomePerClick);
         }
         down.enabled = IsDown;
         up.enabled = IsUp;

@@ -28,7 +28,6 @@ public class DropManager : SceneSingleton<DropManager>
         Collider2D[] moduleOverlap = Physics2D.OverlapPointAll(droppedPosition, LayerMask.GetMask("Draggable"));
         bool cellTaken = moduleOverlap.Length > 1;
 
-
         if (overGrid && !cellTaken)
         {
             SnappingGrid targetGrid = gridOverlap.GetComponent<SnappingGrid>();
