@@ -16,8 +16,8 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     [SerializeField] float armSpeed = 5f;
     [Tooltip("Determines the length of the up/down motion")]
     [SerializeField] [Range(-1, 1)] float cutoff = 0f;
-    [SerializeField] SpriteRenderer up;
-    [SerializeField] SpriteRenderer down;
+    [SerializeField] SpriteRenderer up = null;
+    [SerializeField] SpriteRenderer down = null;
 
     bool? armWasDown = false;
     Direction facing = Direction.LEFT;

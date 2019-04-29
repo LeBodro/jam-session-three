@@ -63,7 +63,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         if (amountOfSimultaneousPresses <= 0) 
         {
             amountOfSimultaneousPresses = 0;
-            UpdateVisual();
+            RefreshVisual();
             return;
         }
 
