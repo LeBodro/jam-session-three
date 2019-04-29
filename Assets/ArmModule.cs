@@ -13,7 +13,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     private const float CELL_SIZE = 1f;
 
-    private bool lastArmStateDown = false;
+    private bool? lastArmStateDown = null;
 
     private Direction facing;
     private bool wasRecentlyDragged = false;
@@ -26,7 +26,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     void Start()
     {
         wasRecentlyDragged = false;
-        lastArmStateDown = false;
+        lastArmStateDown = null;
         calculatedFacingVector = Vector3.zero;
         facing = Direction.LEFT;
     }
@@ -42,10 +42,6 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             }
             calculatedFacingVector = Vector3.zero;
             facing = facing == Direction.LEFT ? Direction.RIGHT : Direction.LEFT;
-            if(currentArmStateDown)
-            {
-                PressNeighboringButton();
-            }
         }
     }
     private void PressNeighboringButton()
@@ -81,6 +77,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
+        lastArmStateDown = null;
         wasRecentlyDragged = true;
         if(GetArmStateDown())
         {
@@ -136,7 +133,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             return;
         }
         var currentArmStateDown = GetArmStateDown();
-        if(currentArmStateDown != lastArmStateDown)
+        if(!lastArmStateDown.HasValue || currentArmStateDown != lastArmStateDown.Value)
         {
             if (currentArmStateDown)
             {
@@ -147,7 +144,6 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
                 ReleaseNeighboringButton();
             }
         }
-
         lastArmStateDown = currentArmStateDown;
     }
 }
