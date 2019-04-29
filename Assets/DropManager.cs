@@ -6,19 +6,12 @@ using UnityEngine.EventSystems;
 
 public class DropManager : SceneSingleton<DropManager>
 {
-    [SerializeField] SnappingGrid[] grids = null;
-
-    public void Refresh()
+    public static void HandleDrop(Module m)
     {
-        grids = FindObjectsOfType<SnappingGrid>();
+        Instance._HandleDrop(m);
     }
 
-    public static void HandleDrop(Module m, PointerEventData data)
-    {
-        Instance._HandleDrop(m, data);
-    }
-
-    void _HandleDrop(Module dropped, PointerEventData data)
+    public void _HandleDrop(Module dropped)
     {
 
         var droppedPosition = dropped.transform.position;

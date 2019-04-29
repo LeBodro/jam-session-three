@@ -19,7 +19,6 @@ public class SnappingGrid : MonoBehaviour
     void Reset()
     {
         grid = GetComponent<Grid>();
-        FindObjectOfType<DropManager>().Refresh();
         dropCollider = GetComponent<BoxCollider2D>();
     }
 
