@@ -237,6 +237,8 @@ MonoBehaviour:
   - {fileID: 1462325279}
   - {fileID: 127427375}
   - {fileID: 1398041277}
+  price: 10
+  bought: 0
   armSpeed: 10
   cutoff: 0
   up: {fileID: 1462325279}
@@ -683,6 +685,8 @@ MonoBehaviour:
   sprites:
   - {fileID: 912469908}
   - {fileID: 1301131226}
+  price: 0
+  bought: 1
   incomePerClick: 1
   up: {fileID: 912469908}
   down: {fileID: 1301131226}
@@ -1343,6 +1347,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprites:
   - {fileID: 1908816883}
+  price: 0
+  bought: 0
 --- !u!61 &1908816882
 BoxCollider2D:
   m_ObjectHideFlags: 0

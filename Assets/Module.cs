@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 public class Module : MonoBehaviour, IDraggable
 {
     [SerializeField] SpriteRenderer[] sprites;
+    [SerializeField] float price;
+    [SerializeField] bool bought = false;
 
     Vector3 lastAssignedPosition;
     bool _isPowered = false;
@@ -46,6 +48,8 @@ public class Module : MonoBehaviour, IDraggable
 
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
+        if (!bought && !TryBuy()) return;
+
         IsBeingDragged = true;
         foreach (var s in sprites)
             s.sortingOrder += 3;
@@ -53,11 +57,13 @@ public class Module : MonoBehaviour, IDraggable
 
     public virtual void OnDrag(PointerEventData eventData)
     {
+        if (!bought) return;
         transform.position = MouseHelper.toWorldPosition(eventData.position);
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
+        if (!bought) return;
         IsBeingDragged = false;
         DropManager.HandleDrop(this, eventData);
         foreach (var s in sprites)
@@ -67,5 +73,11 @@ public class Module : MonoBehaviour, IDraggable
     protected void GenerateIncome(float increase)
     {
         Bank.Deposit(increase);
+    }
+
+    public bool TryBuy()
+    {
+        bought = bought || Bank.TryWithdraw(price);
+        return bought;
     }
 }

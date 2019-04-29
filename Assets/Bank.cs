@@ -61,7 +61,7 @@ public class Bank : SceneSingleton<Bank>
 
     bool _TryWithdraw(float amount)
     {
-        if (amount >= Balance)
+        if (amount > Balance)
         {
             return false;
         }

@@ -32,13 +32,11 @@ public class DropManager : SceneSingleton<DropManager>
         {
             SnappingGrid targetGrid = gridOverlap.GetComponent<SnappingGrid>();
             if (targetGrid.TrySnap(dropped))
+            {
                 dropped.ConfirmMovement();
-            else
-                dropped.CancelMovement();
+                return;
+            }
         }
-        else
-        {
-            dropped.CancelMovement();
-        }
+        dropped.CancelMovement();
     }
 }
