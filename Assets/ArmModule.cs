@@ -19,7 +19,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     [SerializeField] SpriteRenderer up;
     [SerializeField] SpriteRenderer down;
 
-    bool armWasDown = false;
+    bool? armWasDown = false;
     Direction facing = Direction.LEFT;
     bool wasRecentlyDragged = false;
     Vector3 calculatedFacingVector = Vector3.zero;
@@ -42,10 +42,6 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             }
             calculatedFacingVector = Vector3.zero;
             facing = facing == Direction.LEFT ? Direction.RIGHT : Direction.LEFT;
-            if (currentArmStateDown)
-            {
-                PressNeighboringButton();
-            }
         }
     }
 
@@ -83,6 +79,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
+        armWasDown = null;
         wasRecentlyDragged = true;
         if (IsArmDown)
         {
@@ -109,7 +106,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             return;
         }
         var armIsDown = IsArmDown;
-        if (armIsDown != armWasDown)
+        if (!armWasDown.HasValue || armIsDown != armWasDown.Value)
         {
             if (armIsDown)
             {
@@ -121,7 +118,6 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             }
             RefreshVisual();
         }
-
         armWasDown = armIsDown;
     }
 }
