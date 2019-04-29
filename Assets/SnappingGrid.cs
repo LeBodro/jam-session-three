@@ -32,7 +32,7 @@ public class SnappingGrid : MonoBehaviour
     {
         Vector3 position = target.transform.position;
         Vector3 cellCenter = grid.CellToWorld(grid.WorldToCell(position)) + grid.cellSize * 0.5f;
-        target.transform.position = cellCenter;
+        target.transform.position = new Vector3(cellCenter.x, cellCenter.y);
         Collider2D[] moduleOverlap = Physics2D.OverlapPointAll(cellCenter, LayerMask.GetMask("Draggable"));
         foreach (var m in moduleOverlap)
             if (m.transform != target.transform)

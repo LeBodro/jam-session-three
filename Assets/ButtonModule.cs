@@ -10,13 +10,14 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     [SerializeField] SpriteRenderer down = null;
 
     int amountOfSimultaneousPresses = 0;
+    bool wasRecentlyCancelled = false;
     public bool IsDown { get => amountOfSimultaneousPresses > 0; }
     public bool IsUp { get => !IsDown; }
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
-        amountOfSimultaneousPresses = 0;
+        CancelAllPresses();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -34,21 +35,38 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         amountOfSimultaneousPresses++;
         down.enabled = IsDown;
         up.enabled = IsUp;
+        wasRecentlyCancelled = false;
+    }
+
+    void UpdateVisual()
+    {
+        down.enabled = IsDown;
+        up.enabled = IsUp;
+    }
+
+    void CancelAllPresses()
+    {
+        amountOfSimultaneousPresses = 0;
+        wasRecentlyCancelled = true;
+        UpdateVisual();
     }
 
     public void Release()
     {
-        amountOfSimultaneousPresses--;
-        if (amountOfSimultaneousPresses < 0)
+        if (wasRecentlyCancelled)
         {
             amountOfSimultaneousPresses = 0;
-        } 
-        else if (IsUp && isPowered)
+            wasRecentlyCancelled = false;
+            UpdateVisual();
+            return;
+        }
+
+        amountOfSimultaneousPresses--;
+        if (IsUp && IsPowered)
         {
             GenerateIncome(incomePerClick);
         }
-        down.enabled = IsDown;
-        up.enabled = IsUp;
+        UpdateVisual();
     }
 
     void OnDrawGizmos()

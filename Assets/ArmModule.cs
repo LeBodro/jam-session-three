@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ArmModule : Module, IPointerUpHandler
+public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 {
     public enum Direction
     {
@@ -16,6 +16,7 @@ public class ArmModule : Module, IPointerUpHandler
     private bool lastArmStateDown = false;
 
     private Direction facing;
+    private bool wasRecentlyDragged = false;
     private Vector3 calculatedFacingVector = Vector3.zero;
 
     [SerializeField] float armSpeed = 5f;
@@ -24,6 +25,7 @@ public class ArmModule : Module, IPointerUpHandler
 
     void Start()
     {
+        wasRecentlyDragged = false;
         lastArmStateDown = false;
         calculatedFacingVector = Vector3.zero;
         facing = Direction.LEFT;
@@ -31,14 +33,35 @@ public class ArmModule : Module, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        // TODO: Rotate clockwise. Make sure to update the calculated facing vector
-        // TODO: Ignore when dragged!!
-        // Idea: Keep a flag that is set when dragging starts and is checked when OnPointerUp is called and is reset when OnPointerDown is called
+        if (!wasRecentlyDragged)
+        {
+            var currentArmStateDown = GetArmStateDown();
+            if(currentArmStateDown)
+            {
+                ReleaseNeighboringButton();
+            }
+            calculatedFacingVector = Vector3.zero;
+            facing = facing == Direction.LEFT ? Direction.RIGHT : Direction.LEFT;
+            if(currentArmStateDown)
+            {
+                PressNeighboringButton();
+            }
+        }
     }
-
-    public override void OnBeginDrag(PointerEventData eventData)
+    private void PressNeighboringButton()
     {
-        base.OnBeginDrag(eventData);
+        var neighbor = GetNeighboringModule();
+        if (neighbor)
+        {
+            ButtonModule bm = neighbor.GetComponent<ButtonModule>();
+            if (bm)
+            {
+                bm.Press();
+            }
+        }
+    }
+    private void ReleaseNeighboringButton()
+    {
         var neighbor = GetNeighboringModule();
         if (neighbor)
         {
@@ -50,17 +73,18 @@ public class ArmModule : Module, IPointerUpHandler
         }
     }
 
-    public override void OnEndDrag(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        base.OnEndDrag(eventData);
-        var neighbor = GetNeighboringModule();
-        if (neighbor)
+        wasRecentlyDragged = false;
+    }
+
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+        base.OnBeginDrag(eventData);
+        wasRecentlyDragged = true;
+        if(GetArmStateDown())
         {
-            ButtonModule bm = neighbor.GetComponent<ButtonModule>();
-            if (bm)
-            {
-                bm.Press();
-            }
+            ReleaseNeighboringButton();
         }
     }
 
@@ -76,7 +100,7 @@ public class ArmModule : Module, IPointerUpHandler
 
     void OnDrawGizmos()
     {
-        if (!isPowered) {
+        if (!IsPowered) {
             return;
         }
         Gizmos.color = GetNeighboringModule() ? Color.green : Color.yellow;
@@ -108,27 +132,19 @@ public class ArmModule : Module, IPointerUpHandler
 
     void Update()
     {
-        if (!isPowered) {
+        if (!IsPowered) {
             return;
         }
         var currentArmStateDown = GetArmStateDown();
         if(currentArmStateDown != lastArmStateDown)
         {
-            var neighbor = GetNeighboringModule();
-            if (neighbor)
+            if (currentArmStateDown)
             {
-                ButtonModule bm = neighbor.GetComponent<ButtonModule>();
-                if (bm)
-                {
-                    if (currentArmStateDown)
-                    {
-                        bm.Press();
-                    }
-                    else
-                    {
-                        bm.Release();
-                    }
-                }
+                PressNeighboringButton();
+            }
+            else
+            {
+                ReleaseNeighboringButton();
             }
         }
 

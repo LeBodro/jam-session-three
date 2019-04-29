@@ -6,10 +6,13 @@ using UnityEngine.EventSystems;
 public class Module : MonoBehaviour, IDraggable
 {
     Vector3 lastAssignedPosition;
-    protected bool isPowered { get; private set; }
+    private bool _isPowered = false;
+    private bool _isBeingDragged = false;
+    protected bool IsPowered { get => _isPowered && !_isBeingDragged; }
 
     void Start()
     {
+        _isBeingDragged = false;
         lastAssignedPosition = transform.position;
         PowerOff();
     }
@@ -26,15 +29,18 @@ public class Module : MonoBehaviour, IDraggable
 
     public void PowerOn()
     {
-        isPowered = true;
+        _isPowered = true;
     }
 
     public void PowerOff()
     {
-        isPowered = false;
+        _isPowered = false;
     }
 
-    public virtual void OnBeginDrag(PointerEventData eventData) { }
+    public virtual void OnBeginDrag(PointerEventData eventData)
+    {
+        _isBeingDragged = true;
+    }
 
     public virtual void OnDrag(PointerEventData eventData)
     {
@@ -43,6 +49,7 @@ public class Module : MonoBehaviour, IDraggable
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
+        _isBeingDragged = false;
         DropManager.HandleDrop(this, eventData);
     }
 
