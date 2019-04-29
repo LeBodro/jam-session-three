@@ -11,44 +11,45 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
         RIGHT,
     }
 
-    private const float CELL_SIZE = 1f;
-
-    private bool lastArmStateDown = false;
-
-    private Direction facing;
-    private bool wasRecentlyDragged = false;
-    private Vector3 calculatedFacingVector = Vector3.zero;
+    const float OFFSET_DISTANCE = 1f;
 
     [SerializeField] float armSpeed = 5f;
-    // between -1 and +1. Determines the length of the up/down motion
-    [SerializeField] float cutoff = 0f;
+    [Tooltip("Determines the length of the up/down motion")]
+    [SerializeField] [Range(-1, 1)] float cutoff = 0f;
+    [SerializeField] SpriteRenderer up;
+    [SerializeField] SpriteRenderer down;
 
-    void Start()
+    bool armWasDown = false;
+    Direction facing = Direction.LEFT;
+    bool wasRecentlyDragged = false;
+    Vector3 calculatedFacingVector = Vector3.zero;
+    IDictionary<Direction, Vector3> offsetByDirection = new Dictionary<Direction, Vector3>()
     {
-        wasRecentlyDragged = false;
-        lastArmStateDown = false;
-        calculatedFacingVector = Vector3.zero;
-        facing = Direction.LEFT;
-    }
+        {Direction.LEFT, Vector3.left * OFFSET_DISTANCE},
+        {Direction.RIGHT, Vector3.right * OFFSET_DISTANCE}
+    };
+
+    bool IsArmDown { get => Mathf.Sin(Time.time * armSpeed) > cutoff; }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         if (!wasRecentlyDragged)
         {
-            var currentArmStateDown = GetArmStateDown();
-            if(currentArmStateDown)
+            var currentArmStateDown = IsArmDown;
+            if (currentArmStateDown)
             {
                 ReleaseNeighboringButton();
             }
             calculatedFacingVector = Vector3.zero;
             facing = facing == Direction.LEFT ? Direction.RIGHT : Direction.LEFT;
-            if(currentArmStateDown)
+            if (currentArmStateDown)
             {
                 PressNeighboringButton();
             }
         }
     }
-    private void PressNeighboringButton()
+
+    void PressNeighboringButton()
     {
         var neighbor = GetNeighboringModule();
         if (neighbor)
@@ -60,7 +61,8 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             }
         }
     }
-    private void ReleaseNeighboringButton()
+
+    void ReleaseNeighboringButton()
     {
         var neighbor = GetNeighboringModule();
         if (neighbor)
@@ -82,63 +84,34 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     {
         base.OnBeginDrag(eventData);
         wasRecentlyDragged = true;
-        if(GetArmStateDown())
+        if (IsArmDown)
         {
             ReleaseNeighboringButton();
         }
     }
 
+    void RefreshVisual()
+    {
+        down.enabled = IsArmDown;
+        up.enabled = !down.enabled;
+    }
+
     Collider2D GetNeighboringModule()
     {
-        return Physics2D.OverlapPoint(GetCheckSpot(), LayerMask.GetMask("Draggable"));
-    }
-
-    Vector3 GetCheckSpot()
-    {
-        return transform.position + transform.TransformDirection(GetDirectionalVector()) * CELL_SIZE;
-    }
-
-    void OnDrawGizmos()
-    {
-        if (!IsPowered) {
-            return;
-        }
-        Gizmos.color = GetNeighboringModule() ? Color.green : Color.yellow;
-        Gizmos.DrawSphere(GetCheckSpot(), 0.1f);
-    }
-
-    private Vector3 GetDirectionalVector()
-    {
-        if (calculatedFacingVector == Vector3.zero)
-        {
-            switch (facing)
-            {
-                case Direction.RIGHT:
-                    calculatedFacingVector = Vector3.right;
-                    break;
-                default:
-                case Direction.LEFT:
-                    calculatedFacingVector = Vector3.left;
-                    break;
-            }
-        }
-        return calculatedFacingVector;
-    }
-
-    bool GetArmStateDown()
-    {
-        return Mathf.Sin(Time.time * armSpeed) > cutoff;
+        Vector3 positionToCheck = transform.position + offsetByDirection[facing];
+        return Physics2D.OverlapPoint(positionToCheck, LayerMask.GetMask("Draggable"));
     }
 
     void Update()
     {
-        if (!IsPowered) {
+        if (!IsPowered)
+        {
             return;
         }
-        var currentArmStateDown = GetArmStateDown();
-        if(currentArmStateDown != lastArmStateDown)
+        var armIsDown = IsArmDown;
+        if (armIsDown != armWasDown)
         {
-            if (currentArmStateDown)
+            if (armIsDown)
             {
                 PressNeighboringButton();
             }
@@ -146,8 +119,9 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             {
                 ReleaseNeighboringButton();
             }
+            RefreshVisual();
         }
 
-        lastArmStateDown = currentArmStateDown;
+        armWasDown = armIsDown;
     }
 }

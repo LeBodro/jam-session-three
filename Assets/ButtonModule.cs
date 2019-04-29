@@ -33,12 +33,11 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     public void Press()
     {
         amountOfSimultaneousPresses++;
-        down.enabled = IsDown;
-        up.enabled = IsUp;
         wasRecentlyCancelled = false;
+        RefreshVisual();
     }
 
-    void UpdateVisual()
+    void RefreshVisual()
     {
         down.enabled = IsDown;
         up.enabled = IsUp;
@@ -48,7 +47,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     {
         amountOfSimultaneousPresses = 0;
         wasRecentlyCancelled = true;
-        UpdateVisual();
+        RefreshVisual();
     }
 
     public void Release()
@@ -57,7 +56,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         {
             amountOfSimultaneousPresses = 0;
             wasRecentlyCancelled = false;
-            UpdateVisual();
+            RefreshVisual();
             return;
         }
 
@@ -66,7 +65,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         {
             GenerateIncome(incomePerClick);
         }
-        UpdateVisual();
+        RefreshVisual();
     }
 
     void OnDrawGizmos()
