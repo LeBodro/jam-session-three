@@ -213,7 +213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127427373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.56, y: 4.1, z: 0}
+  m_LocalPosition: {x: -0.8450001, y: -3.985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1462325278}
@@ -237,7 +237,7 @@ MonoBehaviour:
   - {fileID: 1462325279}
   - {fileID: 127427375}
   - {fileID: 1398041277}
-  price: 10
+  price: 20
   bought: 0
   armSpeed: 10
   cutoff: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
   sprites:
   - {fileID: 912469908}
   - {fileID: 1301131226}
-  price: 0
+  price: 10
   bought: 1
   incomePerClick: 1
   up: {fileID: 912469908}
@@ -770,7 +770,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912469905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.72, y: -0.73, z: 0}
+  m_LocalPosition: {x: 1.7549999, y: -3.985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1301131225}
@@ -1356,13 +1356,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1908816880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2d46a38043b347eaa514a310186a024, type: 3}
+  m_Script: {fileID: 11500000, guid: a778af2c67efce6439c4a56bbde17794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
   - {fileID: 1908816883}
-  price: 0
+  price: 100
   bought: 0
+  incomeDelay: 1
+  incomePerTick: 10
 --- !u!61 &1908816882
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1445,7 +1447,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908816880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.575, y: 1.875, z: 0}
+  m_LocalPosition: {x: 0.45499986, y: -3.985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
