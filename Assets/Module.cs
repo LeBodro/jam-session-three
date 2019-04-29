@@ -5,10 +5,17 @@ using UnityEngine.EventSystems;
 
 public class Module : MonoBehaviour, IDraggable
 {
+    [SerializeField] SpriteRenderer[] sprites;
+
     Vector3 lastAssignedPosition;
     private bool _isPowered = false;
     private bool _isBeingDragged = false;
     protected bool IsPowered { get => _isPowered && !_isBeingDragged; }
+
+    void Reset()
+    {
+        sprites = GetComponentsInChildren<SpriteRenderer>();
+    }
 
     void Start()
     {
@@ -40,6 +47,8 @@ public class Module : MonoBehaviour, IDraggable
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
         _isBeingDragged = true;
+        foreach (var s in sprites)
+            s.sortingOrder += 3;
     }
 
     public virtual void OnDrag(PointerEventData eventData)
@@ -51,6 +60,8 @@ public class Module : MonoBehaviour, IDraggable
     {
         _isBeingDragged = false;
         DropManager.HandleDrop(this, eventData);
+        foreach (var s in sprites)
+            s.sortingOrder -= 3;
     }
 
     protected void GenerateIncome(float increase)

@@ -233,6 +233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebba4120d3d0493baa8073198082dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 1462325279}
+  - {fileID: 127427375}
+  - {fileID: 1398041277}
   armSpeed: 10
   cutoff: 0
   up: {fileID: 1462325279}
@@ -676,6 +680,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ab72d8edb54bfe89c5e64fe13200a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 912469908}
+  - {fileID: 1301131226}
   incomePerClick: 1
   up: {fileID: 912469908}
   down: {fileID: 1301131226}
@@ -1334,6 +1341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d46a38043b347eaa514a310186a024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 1908816883}
 --- !u!61 &1908816882
 BoxCollider2D:
   m_ObjectHideFlags: 0
