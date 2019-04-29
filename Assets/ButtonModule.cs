@@ -32,6 +32,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 
     public void Press()
     {
+        if (IsBeingDragged) return;
         amountOfSimultaneousPresses++;
         wasRecentlyCancelled = false;
         RefreshVisual();
@@ -52,6 +53,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 
     public void Release()
     {
+        if (IsBeingDragged) return;
         if (wasRecentlyCancelled)
         {
             amountOfSimultaneousPresses = 0;
@@ -60,7 +62,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
             return;
         }
 
-        if (amountOfSimultaneousPresses <= 0) 
+        if (amountOfSimultaneousPresses <= 0)
         {
             amountOfSimultaneousPresses = 0;
             RefreshVisual();
@@ -73,18 +75,5 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
             GenerateIncome(incomePerClick);
         }
         RefreshVisual();
-    }
-
-    void OnDrawGizmos()
-    {
-        if (IsUp)
-        {
-            Gizmos.color = Color.blue;
-        }
-        else
-        {
-            Gizmos.color = Color.red;
-        }
-        Gizmos.DrawSphere(transform.position + new Vector3(0.5f, 0.5f), 0.25f);
     }
 }
