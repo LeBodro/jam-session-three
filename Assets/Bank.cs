@@ -13,10 +13,10 @@ public class Bank : SceneSingleton<Bank>
 
     [SerializeField]
     float _balance;
-    public float Balance
+    private float Balance
     {
         get => _balance;
-        private set
+        set
         {
             float difference = value - _balance;
             if (value > 0)
@@ -30,6 +30,14 @@ public class Bank : SceneSingleton<Bank>
             Debug.LogFormat("Bank balance is now {0} ClickCoins.", value);
             _onTransaction(difference, _balance);
         }
+    }
+
+    /// <summary>
+    /// Gets the current balance from the singleton
+    /// </summary>
+    public static float GetBalance()
+    {
+        return Instance.Balance;
     }
 
     /// <summary>

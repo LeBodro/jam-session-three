@@ -42,6 +42,8 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             }
             calculatedFacingVector = Vector3.zero;
             facing = facing == Direction.LEFT ? Direction.RIGHT : Direction.LEFT;
+            up.flipX = facing == Direction.RIGHT;
+            down.flipX = facing == Direction.RIGHT;
         }
     }
 
