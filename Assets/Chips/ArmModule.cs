@@ -14,7 +14,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     const float OFFSET_DISTANCE = 1f;
 
-    [SerializeField] Stat hertz = null;
+    Stat hertz = null;
     [Tooltip("Determines the length of the up/down motion")]
     [SerializeField] [Range(-1, 1)] float cutoff = 0f;
     [SerializeField] SpriteRenderer up = null;

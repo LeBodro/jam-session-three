@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class VirtualClickerModule : Module
 {
-    [SerializeField] float incomeDelay = 1;
-    [SerializeField] float incomePerTick = 1;
+    Stat incomeDelay = null;
+    Stat incomePerTick = null;
 
     float accumulator;
+
+    void Start()
+    {
+        incomeDelay = stats[STAT_HERTZ];
+        incomePerTick = stats[STAT_INCOME];
+    }
 
     void Update()
     {
         if (!IsPowered) return;
         accumulator += Time.deltaTime;
-        if (accumulator >= incomeDelay)
+        if (accumulator >= incomeDelay.ProcessedValue)
         {
-            accumulator -= incomeDelay;
-            Bank.Deposit(incomePerTick);
+            accumulator -= incomeDelay.ProcessedValue;
+            Bank.Deposit(incomePerTick.ProcessedValue);
         }
     }
 
     public override void Tierify(int tier)
     {
         price = tier;
-        incomePerTick *= Mathf.Pow(2, tier);
+        incomePerTick.BaseValue *= Mathf.Pow(2, tier);
         base.Tierify(tier);
     }
 }

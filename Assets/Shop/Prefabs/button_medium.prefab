@@ -126,7 +126,7 @@ MonoBehaviour:
   sprites:
   - {fileID: 2052922218857699094}
   - {fileID: 2052922220315645784}
-  bought: 1
+  bought: 0
   tierMaterials: {fileID: 11400000, guid: acacf8abd14dfed4ebac22cf30da8a8b, type: 2}
   incomePerClick:
     referenceName: 
@@ -146,8 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-  - referenceName: hertz
-    baseValue: 0
   - referenceName: income
     baseValue: 1
 --- !u!1 &2052922220315645786

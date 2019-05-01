@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] Stat incomePerClick = null;
+    Stat incomePerClick = null;
     [SerializeField] SpriteRenderer up = null;
     [SerializeField] SpriteRenderer down = null;
 

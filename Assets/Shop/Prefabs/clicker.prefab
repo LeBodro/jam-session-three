@@ -151,8 +151,6 @@ MonoBehaviour:
   stats:
   - referenceName: hertz
     baseValue: 5
-  - referenceName: income
-    baseValue: 5
 --- !u!1 &648728842049642636
 GameObject:
   m_ObjectHideFlags: 0
