@@ -21,4 +21,11 @@ public class StatDictionnary : MonoBehaviour
         foreach (var stat in stats)
             stat.Update();
     }
+
+    public bool ApplyModifier(string statName, float multiplier, float duration)
+    {
+        if (!statDict.ContainsKey(statName)) return false;
+        statDict[statName].AddModifier(multiplier, duration);
+        return true;
+    }
 }

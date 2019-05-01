@@ -69,6 +69,9 @@ public class Stat
     {
         bonuses = UpdateModifierList(bonuses);
         maluses = UpdateModifierList(maluses);
+        #if UNITY_EDITOR
+            isDirty = true;
+        #endif
     }
 
     IList<Modifier> UpdateModifierList(IList<Modifier> modifiers)
