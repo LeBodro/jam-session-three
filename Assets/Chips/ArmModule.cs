@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 {
+    private const float TAU = Mathf.PI * 2;
     public enum Direction
     {
         LEFT,
@@ -13,7 +14,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     const float OFFSET_DISTANCE = 1f;
 
-    [SerializeField] float speed = 5f;
+    [SerializeField] Stat hertz = null;
     [Tooltip("Determines the length of the up/down motion")]
     [SerializeField] [Range(-1, 1)] float cutoff = 0f;
     [SerializeField] SpriteRenderer up = null;
@@ -29,7 +30,12 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
         {Direction.RIGHT, Vector3.right * OFFSET_DISTANCE}
     };
 
-    bool IsArmDown { get => Mathf.Sin(Time.time * speed) > cutoff; }
+    bool IsArmDown { get => Mathf.Sin(Time.time * hertz.ProcessedValue * TAU) > cutoff; }
+
+    void Start()
+    {
+        hertz = stats[STAT_HERTZ];
+    }
 
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -126,7 +132,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     public override void Tierify(int tier)
     {
         price = tier;
-        speed *= Mathf.Pow(2, tier);
+        hertz.BaseValue *= Mathf.Pow(2, tier);
         base.Tierify(tier);
     }
 }

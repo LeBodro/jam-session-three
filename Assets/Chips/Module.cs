@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(StatDictionnary))]
 public class Module : MonoBehaviour, IDraggable
 {
+    protected const string STAT_HERTZ = "hertz";
+    protected const string STAT_INCOME = "income";
+
     [SerializeField] protected float price;
     [SerializeField] protected StatDictionnary stats;
     [SerializeField] SpriteRenderer[] sprites;

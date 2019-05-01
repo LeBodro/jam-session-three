@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 648728840697959358}
   - component: {fileID: 648728840697959359}
   - component: {fileID: 648728840697959328}
+  - component: {fileID: 5216442340533130507}
   m_Layer: 8
   m_Name: clicker
   m_TagString: Untagged
@@ -121,17 +122,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebba4120d3d0493baa8073198082dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  price: 20
+  stats: {fileID: 5216442340533130507}
   sprites:
   - {fileID: 648728842049642638}
   - {fileID: 648728840697959358}
   - {fileID: 648728842111179308}
-  price: 20
   bought: 0
   tierMaterials: {fileID: 11400000, guid: acacf8abd14dfed4ebac22cf30da8a8b, type: 2}
-  speed: 5
+  hertz:
+    referenceName: 
+    baseValue: 0
   cutoff: 0
   up: {fileID: 648728842049642638}
   down: {fileID: 648728842111179308}
+--- !u!114 &5216442340533130507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648728840697959356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b345af11af8667e478cb7f6b10a4b80b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+  - referenceName: hertz
+    baseValue: 5
+  - referenceName: income
+    baseValue: 5
 --- !u!1 &648728842049642636
 GameObject:
   m_ObjectHideFlags: 0
