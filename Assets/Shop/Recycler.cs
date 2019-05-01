@@ -8,6 +8,7 @@ public class Recycler : SnappingGrid
     [SerializeField] SpriteButton button = null;
     [SerializeField] Transform disposal = null;
     [SerializeField] Animator anim = null;
+    [SerializeField] AudioSource sound = null;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class Recycler : SnappingGrid
             //Deactivate grid
         }
         anim.SetTrigger("Recycle");
+        sound.Play();
         //When animation ended, reactivate grid
     }
 }
