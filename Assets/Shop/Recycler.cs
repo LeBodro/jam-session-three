@@ -7,6 +7,7 @@ public class Recycler : SnappingGrid
     [SerializeField] Shop shop = null;
     [SerializeField] SpriteButton button = null;
     [SerializeField] Transform disposal = null;
+    [SerializeField] Animator anim = null;
 
     void Start()
     {
@@ -19,14 +20,13 @@ public class Recycler : SnappingGrid
         if (trashed != null)
         {
             shop.Populate(trashed.Tier + 1);
-            Destroy(trashed.gameObject, 0.67f); // insert animation delay here
+            Destroy(trashed.gameObject, 0.3f); // insert animation delay here
             trashed.enabled = false;
             trashed.transform.SetParent(disposal);
-            //Deactivate module component
+            trashed.Trash();
             //Deactivate grid
-            //Make module a child of disposal
         }
-        //Start animation (open doors and make chip fall through it)
-        //When animation ended, destroy chip and reactivate grid
+        anim.SetTrigger("Recycle");
+        //When animation ended, reactivate grid
     }
 }

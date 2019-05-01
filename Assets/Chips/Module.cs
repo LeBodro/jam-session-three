@@ -101,4 +101,10 @@ public class Module : MonoBehaviour, IDraggable
         foreach (var sprite in sprites)
             sprite.material = tierMaterials.Get(tier);
     }
+
+    public void Trash()
+    {
+        foreach (var s in sprites)
+            s.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+    }
 }
