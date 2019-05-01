@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(StatDictionnary))]
 public class Module : MonoBehaviour, IDraggable
 {
-    [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] protected float price;
+    [SerializeField] protected StatDictionnary stats;
+    [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] bool bought = false;
     [SerializeField] TierMaterials tierMaterials;
 
@@ -18,6 +20,7 @@ public class Module : MonoBehaviour, IDraggable
     void Reset()
     {
         sprites = GetComponentsInChildren<SpriteRenderer>();
+        stats = GetComponent<StatDictionnary>();
     }
 
     void Start()
