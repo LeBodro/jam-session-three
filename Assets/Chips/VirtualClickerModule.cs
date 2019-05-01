@@ -19,4 +19,10 @@ public class VirtualClickerModule : Module
             Bank.Deposit(incomePerTick);
         }
     }
+
+    public override void Tierify(int tier)
+    {
+        price = tier;
+        incomePerTick *= Mathf.Pow(2, tier);
+    }
 }

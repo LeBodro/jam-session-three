@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(SnappingGrid))]
 public class Shop : MonoBehaviour
 {
-    [SerializeField] Module[] modulePrefabs;
+    [SerializeField] Module[] modulePrefabs = null;
     [SerializeField] SnappingGrid stand;
 
     void Reset() => stand = GetComponent<SnappingGrid>();

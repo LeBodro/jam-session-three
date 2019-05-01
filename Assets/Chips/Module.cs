@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Module : MonoBehaviour, IDraggable
+public abstract class Module : MonoBehaviour, IDraggable
 {
     [SerializeField] SpriteRenderer[] sprites;
-    [SerializeField] float price;
+    [SerializeField] protected float price;
     [SerializeField] bool bought = false;
 
     Vector3 lastAssignedPosition;
@@ -80,4 +80,6 @@ public class Module : MonoBehaviour, IDraggable
         bought = bought || Bank.TryWithdraw(price);
         return bought;
     }
+
+    public abstract void Tierify(int tier);
 }

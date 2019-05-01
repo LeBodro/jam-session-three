@@ -9,7 +9,7 @@ public class MoneyBox : MonoBehaviour
     int currentShownBalance;
     [SerializeField] float speed = 0.25f;
 
-    [SerializeField] Text display;
+    [SerializeField] Text display = null;
 
     // Update is called once per frame
     void Update()

@@ -13,7 +13,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     const float OFFSET_DISTANCE = 1f;
 
-    [SerializeField] float armSpeed = 5f;
+    [SerializeField] float speed = 5f;
     [Tooltip("Determines the length of the up/down motion")]
     [SerializeField] [Range(-1, 1)] float cutoff = 0f;
     [SerializeField] SpriteRenderer up = null;
@@ -29,7 +29,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
         {Direction.RIGHT, Vector3.right * OFFSET_DISTANCE}
     };
 
-    bool IsArmDown { get => Mathf.Sin(Time.time * armSpeed) > cutoff; }
+    bool IsArmDown { get => Mathf.Sin(Time.time * speed) > cutoff; }
 
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -121,5 +121,11 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             RefreshVisual();
         }
         armWasDown = armIsDown;
+    }
+
+    public override void Tierify(int tier)
+    {
+        price = tier;
+        speed *= Mathf.Pow(2, tier);
     }
 }
