@@ -14,6 +14,9 @@ public class Module : MonoBehaviour, IDraggable
 
     Vector3 lastAssignedPosition;
     bool _isPowered = false;
+    public event System.Action<Module> OnBought = delegate { };
+
+    public int Tier { get; private set; }
     protected bool IsBeingDragged { get; private set; }
     protected bool IsPowered { get => _isPowered && !IsBeingDragged; }
 
@@ -81,12 +84,17 @@ public class Module : MonoBehaviour, IDraggable
 
     public bool TryBuy()
     {
-        bought = bought || Bank.TryWithdraw(price);
+        if (!bought)
+        {
+            bought = bought || Bank.TryWithdraw(price);
+            if (bought) OnBought(this);
+        }
         return bought;
     }
 
     public virtual void Tierify(int tier)
     {
+        Tier = tier;
         foreach (var sprite in sprites)
             sprite.material = tierMaterials.Get(tier);
     }
