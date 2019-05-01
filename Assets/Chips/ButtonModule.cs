@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] float incomePerClick = 1;
+    [SerializeField] Stat incomePerClick = null;
     [SerializeField] SpriteRenderer up = null;
     [SerializeField] SpriteRenderer down = null;
 
@@ -13,6 +13,11 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     bool wasRecentlyCancelled = false;
     public bool IsDown { get => amountOfSimultaneousPresses > 0; }
     public bool IsUp { get => !IsDown; }
+
+    void Start()
+    {
+        incomePerClick = stats[STAT_INCOME];
+    }
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
@@ -72,7 +77,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         amountOfSimultaneousPresses--;
         if (IsUp && IsPowered)
         {
-            GenerateIncome(incomePerClick);
+            GenerateIncome(incomePerClick.ProcessedValue);
         }
         RefreshVisual();
     }
@@ -80,7 +85,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     public override void Tierify(int tier)
     {
         price = tier;
-        incomePerClick *= Mathf.Pow(2, tier);
+        incomePerClick.BaseValue *= Mathf.Pow(2, tier);
         base.Tierify(tier);
     }
 }
