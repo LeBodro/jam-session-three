@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: TierMaterials
+  m_EditorClassIdentifier: Assembly-CSharp::TierMaterials
+  materials:
+  - {fileID: 2100000, guid: 7abfebfb22ac27e4b894a27908941890, type: 2}
+  - {fileID: 2100000, guid: 7abfebfb22ac27e4b894a27908941890, type: 2}
+  - {fileID: 2100000, guid: e6d110063d2bba148a793038dc05dfcb, type: 2}
+  - {fileID: 2100000, guid: 0ec6edb539d245142b8a14f7ce4e94d3, type: 2}
+  - {fileID: 2100000, guid: 4a9c20b5e7e146443884210739daa244, type: 2}
+  - {fileID: 2100000, guid: c75c0218ccc5161459e15f3266a6eaa5, type: 2}
+  - {fileID: 2100000, guid: 89170cedbee35bb44a4255b0266bfc25, type: 2}

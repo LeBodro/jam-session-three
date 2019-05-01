@@ -127,5 +127,6 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     {
         price = tier;
         speed *= Mathf.Pow(2, tier);
+        base.Tierify(tier);
     }
 }

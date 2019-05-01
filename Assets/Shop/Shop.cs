@@ -7,6 +7,7 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] Module[] modulePrefabs = null;
     [SerializeField] SnappingGrid stand;
+    [SerializeField] int slotCount;
 
     void Reset() => stand = GetComponent<SnappingGrid>();
 
@@ -14,7 +15,13 @@ public class Shop : MonoBehaviour
 
     void Populate()
     {
-        Module article = Instantiate(modulePrefabs[0], stand.GetCellCenter(0, 0), Quaternion.identity);
-        stand.TrySnap(article);
+        for (int i = 0; i < slotCount; i++)
+        {
+            int index = Random.Range(0, modulePrefabs.Length);
+            int tier = Random.Range(1, 3);
+            Module article = Instantiate(modulePrefabs[index], stand.GetCellCenter(i, 0), Quaternion.identity);
+            article.Tierify(tier);
+            stand.TrySnap(article);
+        }
     }
 }

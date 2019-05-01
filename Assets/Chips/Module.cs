@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class Module : MonoBehaviour, IDraggable
+public class Module : MonoBehaviour, IDraggable
 {
     [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] protected float price;
     [SerializeField] bool bought = false;
+    [SerializeField] TierMaterials tierMaterials;
 
     Vector3 lastAssignedPosition;
     bool _isPowered = false;
@@ -81,5 +82,9 @@ public abstract class Module : MonoBehaviour, IDraggable
         return bought;
     }
 
-    public abstract void Tierify(int tier);
+    public virtual void Tierify(int tier)
+    {
+        foreach (var sprite in sprites)
+            sprite.material = tierMaterials.Get(tier);
+    }
 }

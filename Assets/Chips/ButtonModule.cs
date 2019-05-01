@@ -81,5 +81,6 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     {
         price = tier;
         incomePerClick *= Mathf.Pow(2, tier);
+        base.Tierify(tier);
     }
 }
