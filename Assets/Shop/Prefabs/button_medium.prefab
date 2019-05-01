@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1856366837
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 02c1d926009a3c64b928e41137bd7a63, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -128,9 +128,6 @@ MonoBehaviour:
   - {fileID: 2052922220315645784}
   bought: 0
   tierMaterials: {fileID: 11400000, guid: acacf8abd14dfed4ebac22cf30da8a8b, type: 2}
-  incomePerClick:
-    referenceName: 
-    baseValue: 0
   up: {fileID: 2052922218857699094}
   down: {fileID: 2052922220315645784}
 --- !u!114 &7109967825661341587
@@ -213,8 +210,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1856366837
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5e250e3ab725bb2439f81ac32db06307, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

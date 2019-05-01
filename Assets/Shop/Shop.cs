@@ -7,7 +7,7 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] Module[] modulePrefabs = null;
     [SerializeField] SnappingGrid stand;
-    [SerializeField] int slotCount;
+    [SerializeField] int slotCount = 1;
 
     int availableTier = 1;
 
@@ -15,10 +15,14 @@ public class Shop : MonoBehaviour
 
     void Start() => Populate();
 
-    void Populate()
+    public void Populate(int maxTier = 1)
     {
+        availableTier = maxTier;
         for (int i = 0; i < slotCount; i++)
+        {
+            // check cell for vacancy
             AddArticle(i);
+        }
     }
 
     void ProcessTransaction(Module article, int freedSlot)
