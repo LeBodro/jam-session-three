@@ -40,7 +40,7 @@ public class SnappingGrid : MonoBehaviour
         return true;
     }
 
-    protected Module GetModuleAt(int x, int y)
+    public Module GetModuleAt(int x, int y)
     {
         Vector3 cellCenter = GetCellCenter(x, y);
         Collider2D candidate = Physics2D.OverlapPoint(cellCenter, LayerMask.GetMask("Draggable"));

@@ -19,7 +19,7 @@ public class Recycler : SnappingGrid
         if (trashed != null)
         {
             shop.Populate(trashed.Tier + 1);
-            Destroy(trashed.gameObject, 2); // insert animation delay here
+            Destroy(trashed.gameObject, 0.67f); // insert animation delay here
             trashed.enabled = false;
             trashed.transform.SetParent(disposal);
             //Deactivate module component

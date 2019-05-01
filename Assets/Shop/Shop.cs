@@ -7,7 +7,7 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] Module[] modulePrefabs = null;
     [SerializeField] SnappingGrid stand;
-    [SerializeField] int slotCount = 1;
+    [SerializeField] Vector2Int gridSize;
 
     int availableTier = 1;
 
@@ -18,26 +18,29 @@ public class Shop : MonoBehaviour
     public void Populate(int maxTier = 1)
     {
         availableTier = maxTier;
-        for (int i = 0; i < slotCount; i++)
+        for (int x = 0; x < gridSize.x; x++)
         {
-            // check cell for vacancy
-            AddArticle(i);
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                if (stand.GetModuleAt(x, y) == null)
+                    AddArticle(x, y);
+            }
         }
     }
 
     void ProcessTransaction(Module article, int freedSlot)
     {
-        availableTier = Mathf.Max(availableTier, article.Tier + 1);
-        AddArticle(freedSlot);
+        // Ka-ching!
     }
 
-    void AddArticle(int slotId)
+    void AddArticle(int x, int y)
     {
+        Debug.Log("add");
         int index = Random.Range(0, modulePrefabs.Length);
         int tier = Random.Range(1, availableTier + 1);
-        Module article = Instantiate(modulePrefabs[index], stand.GetCellCenter(slotId, 0), Quaternion.identity);
+        Module article = Instantiate(modulePrefabs[index], stand.GetCellCenter(x, y), Quaternion.identity);
         article.Tierify(tier);
-        article.OnBought += (a) => ProcessTransaction(a, slotId);
+        article.OnBought += (a) => ProcessTransaction(a, x);
         stand.TrySnap(article);
     }
 }
