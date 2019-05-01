@@ -30,7 +30,7 @@ public class Shop : MonoBehaviour
     void AddArticle(int slotId)
     {
         int index = Random.Range(0, modulePrefabs.Length);
-        int tier = Random.Range(1, 1 + 1);
+        int tier = Random.Range(1, availableTier + 1);
         Module article = Instantiate(modulePrefabs[index], stand.GetCellCenter(slotId, 0), Quaternion.identity);
         article.Tierify(tier);
         article.OnBought += (a) => ProcessTransaction(a, slotId);
