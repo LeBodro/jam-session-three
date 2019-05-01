@@ -32,11 +32,6 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     bool IsArmDown { get => Mathf.Sin(Time.time * hertz.ProcessedValue * TAU) > cutoff; }
 
-    void Start()
-    {
-        hertz = stats[STAT_HERTZ];
-    }
-
     public void OnPointerUp(PointerEventData eventData)
     {
         if (!wasRecentlyDragged)
@@ -131,8 +126,9 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     public override void Tierify(int tier)
     {
+        hertz = stats[STAT_HERTZ];
+        base.Tierify(tier);
         price = tier;
         hertz.BaseValue *= Mathf.Pow(2, tier);
-        base.Tierify(tier);
     }
 }

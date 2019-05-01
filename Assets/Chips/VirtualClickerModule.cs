@@ -9,12 +9,6 @@ public class VirtualClickerModule : Module
 
     float accumulator;
 
-    void Start()
-    {
-        incomeDelay = stats[STAT_HERTZ];
-        incomePerTick = stats[STAT_INCOME];
-    }
-
     void Update()
     {
         if (!IsPowered) return;
@@ -28,8 +22,10 @@ public class VirtualClickerModule : Module
 
     public override void Tierify(int tier)
     {
+        incomeDelay = stats[STAT_HERTZ];
+        incomePerTick = stats[STAT_INCOME];
+        base.Tierify(tier);
         price = tier;
         incomePerTick.BaseValue *= Mathf.Pow(2, tier);
-        base.Tierify(tier);
     }
 }
