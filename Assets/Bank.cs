@@ -27,7 +27,7 @@ public class Bank : SceneSingleton<Bank>
             {
                 _balance = 0;
             }
-            Debug.LogFormat("Bank balance is now {0} ClickCoins.", value);
+            //Debug.LogFormat("Bank balance is now {0} ClickCoins.", value);
             _onTransaction(difference, _balance);
         }
     }
