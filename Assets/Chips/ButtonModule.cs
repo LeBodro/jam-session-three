@@ -72,7 +72,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         amountOfSimultaneousPresses--;
         if (IsUp && IsPowered)
         {
-            GenerateIncome(incomePerClick.ProcessedValue);
+            GenerateIncome(incomePerClick.ProcessedDecimal);
         }
         RefreshVisual();
     }

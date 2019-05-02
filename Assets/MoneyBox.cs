@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MoneyBox : MonoBehaviour
 {
-    float velocity;
-    int currentShownBalance;
-    [SerializeField] float speed = 0.25f;
+    decimal velocity;
+    decimal currentShownBalance;
+    [SerializeField] decimal speed = 0.25m;
 
     [SerializeField] Text display = null;
+
+    void Awake()
+    {
+        OrderedQueuer.Queue(200, () => {
+            currentShownBalance = Bank.GetBalance();
+            Display();
+        });
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,15 +28,22 @@ public class MoneyBox : MonoBehaviour
         {
             return;
         }
-        velocity = currentBalance * Time.deltaTime * speed;
-        currentShownBalance += Mathf.CeilToInt(velocity);
+        velocity = currentBalance * (decimal)Time.deltaTime * speed;
+        currentShownBalance += velocity;
+        // Temporary for now, since we just show the full part of the decimal value
+        currentShownBalance = Math.Ceiling(currentShownBalance);
 
         if (currentShownBalance > currentBalance)
         {
-            currentShownBalance = (int)currentBalance;
+            currentShownBalance = currentBalance;
         }
 
+        Display();
+    }
+
+    void Display()
+    {
         // TODO: Format bank value for real display
-        display.text = Mathf.CeilToInt(currentShownBalance).ToString();
+        display.text = currentShownBalance.ToString("0");
     }
 }

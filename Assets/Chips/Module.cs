@@ -9,7 +9,7 @@ public class Module : MonoBehaviour, IDraggable
     protected const string STAT_HERTZ = "hertz";
     protected const string STAT_INCOME = "income";
 
-    [SerializeField] protected float price;
+    [SerializeField] protected decimal price;
     [SerializeField] protected StatDictionnary stats;
     [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] bool bought = false;
@@ -80,7 +80,7 @@ public class Module : MonoBehaviour, IDraggable
             s.sortingOrder -= 3;
     }
 
-    protected void GenerateIncome(float increase)
+    protected void GenerateIncome(decimal increase)
     {
         Bank.Deposit(increase);
     }

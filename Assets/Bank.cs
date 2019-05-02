@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class Bank : SceneSingleton<Bank>
 {
-    event System.Action<float, float> _onTransaction = delegate { };
-    public event System.Action<float, float> OnTransaction
+    event System.Action<decimal, decimal> _onTransaction = delegate { };
+    public event System.Action<decimal, decimal> OnTransaction
     {
         add { _onTransaction += value; }
         remove { _onTransaction -= value; }
     }
 
     [SerializeField]
-    float _balance;
-    private float Balance
+    float initialBalance;
+    decimal _balance;
+    private decimal Balance
     {
         get => _balance;
         set
         {
-            float difference = value - _balance;
+            decimal difference = value - _balance;
             if (value > 0)
             {
                 _balance = value;
@@ -32,10 +33,18 @@ public class Bank : SceneSingleton<Bank>
         }
     }
 
+    public override void Awake()
+    {
+        base.Awake();
+        OrderedQueuer.Queue(100, () => {
+            _balance = (decimal)initialBalance;
+        });
+    }
+
     /// <summary>
     /// Gets the current balance from the singleton
     /// </summary>
-    public static float GetBalance()
+    public static decimal GetBalance()
     {
         return Instance.Balance;
     }
@@ -44,7 +53,7 @@ public class Bank : SceneSingleton<Bank>
     /// Deposits money to the bank account.
     /// </summary>
     /// <param name="amount">Amount of money to deposit.</param>
-    public static void Deposit(float amount)
+    public static void Deposit(decimal amount)
     {
         Instance.Balance += amount;
     }
@@ -53,7 +62,7 @@ public class Bank : SceneSingleton<Bank>
     /// Withdraws money from the bank account. Cannot put the account below 0.
     /// </summary>
     /// <param name="amount">Amount of money to withdraw.</param>
-    public static void Withdraw(float amount)
+    public static void Withdraw(decimal amount)
     {
         Instance.Balance -= amount;
     }
@@ -62,12 +71,12 @@ public class Bank : SceneSingleton<Bank>
     /// Only withdraws money from the bank account if specified amount does not exceed balance.
     /// </summary>
     /// <param name="amount">Amount of money to withdraw.</param>
-    public static bool TryWithdraw(float amount)
+    public static bool TryWithdraw(decimal amount)
     {
         return Instance._TryWithdraw(amount);
     }
 
-    bool _TryWithdraw(float amount)
+    bool _TryWithdraw(decimal amount)
     {
         if (amount > Balance)
         {

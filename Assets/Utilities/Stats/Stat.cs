@@ -47,6 +47,7 @@ public class Stat
     }
 
     public int ProcessedInt { get { return Mathf.RoundToInt(ProcessedValue); } }
+    public decimal ProcessedDecimal { get { return (decimal)ProcessedValue; } }
 
     public KeyValuePair<string, Stat> ToKeyValuePair()
     {
