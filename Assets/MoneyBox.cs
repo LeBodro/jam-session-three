@@ -6,16 +6,17 @@ using UnityEngine.UI;
 
 public class MoneyBox : MonoBehaviour
 {
-    decimal velocity;
-    decimal currentShownBalance;
+    decimal displayDelta;
+    decimal displayedBalance;
     [SerializeField] decimal speed = 0.25m;
 
     [SerializeField] Text display = null;
 
     void Awake()
     {
-        OrderedQueuer.Queue(200, () => {
-            currentShownBalance = Bank.GetBalance();
+        PrioritizedStartQueue.Queue(200, () =>
+        {
+            displayedBalance = Bank.GetBalance();
             Display();
         });
     }
@@ -24,18 +25,18 @@ public class MoneyBox : MonoBehaviour
     void Update()
     {
         var currentBalance = Bank.GetBalance();
-        if (currentShownBalance == currentBalance)
+        if (displayedBalance == currentBalance)
         {
             return;
         }
-        velocity = currentBalance * (decimal)Time.deltaTime * speed;
-        currentShownBalance += velocity;
+        displayDelta = currentBalance * (decimal)Time.deltaTime * speed;
+        displayedBalance += displayDelta;
         // Temporary for now, since we just show the full part of the decimal value
-        currentShownBalance = Math.Ceiling(currentShownBalance);
+        displayedBalance = Math.Ceiling(displayedBalance);
 
-        if (currentShownBalance > currentBalance)
+        if (displayedBalance > currentBalance)
         {
-            currentShownBalance = currentBalance;
+            displayedBalance = currentBalance;
         }
 
         Display();
@@ -44,6 +45,6 @@ public class MoneyBox : MonoBehaviour
     void Display()
     {
         // TODO: Format bank value for real display
-        display.text = currentShownBalance.ToString("0");
+        display.text = displayedBalance.ToString("0");
     }
 }
