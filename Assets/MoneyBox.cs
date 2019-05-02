@@ -45,6 +45,6 @@ public class MoneyBox : MonoBehaviour
     void Display()
     {
         // TODO: Format bank value for real display
-        display.text = displayedBalance.ToString("0");
+        display.text = displayedBalance.ToString("0.00");
     }
 }
