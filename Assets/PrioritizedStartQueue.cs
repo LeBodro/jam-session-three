@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class PrioritizedStartQueue : SceneSingleton<PrioritizedStartQueue>
+public class PrioritizedStartQueue : RAIISceneSingleton<PrioritizedStartQueue>
 {
     const string ERROR_MESSAGE = "PrioritizedStartQueue.{0}() has been called after the Start queue was processed.";
 
