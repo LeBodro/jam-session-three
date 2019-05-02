@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Bank : SceneSingleton<Bank>
 {
+    [SerializeField] float initialBalance;
+
+    decimal _balance;
+
     event System.Action<decimal, decimal> _onTransaction = delegate { };
     public event System.Action<decimal, decimal> OnTransaction
     {
@@ -11,9 +15,6 @@ public class Bank : SceneSingleton<Bank>
         remove { _onTransaction -= value; }
     }
 
-    [SerializeField]
-    float initialBalance;
-    decimal _balance;
     private decimal Balance
     {
         get => _balance;
@@ -36,7 +37,8 @@ public class Bank : SceneSingleton<Bank>
     public override void Awake()
     {
         base.Awake();
-        OrderedQueuer.Queue(100, () => {
+        PrioritizedStartQueue.Queue(100, () =>
+        {
             _balance = (decimal)initialBalance;
         });
     }
