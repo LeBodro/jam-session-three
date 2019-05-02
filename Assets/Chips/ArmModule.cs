@@ -14,12 +14,12 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     const float OFFSET_DISTANCE = 1f;
 
-    Stat hertz = null;
     [Tooltip("Determines the length of the up/down motion")]
     [SerializeField] [Range(-1, 1)] float cutoff = 0f;
     [SerializeField] SpriteRenderer up = null;
     [SerializeField] SpriteRenderer down = null;
 
+    Stat hertz = null;
     bool? armWasDown = false;
     Direction facing = Direction.LEFT;
     bool wasRecentlyDragged = false;
@@ -36,7 +36,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     {
         if (!wasRecentlyDragged)
         {
-            var currentArmStateDown = IsArmDown;
+            bool currentArmStateDown = IsArmDown;
             if (currentArmStateDown)
             {
                 ReleaseNeighboringButton();
@@ -108,7 +108,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
         {
             return;
         }
-        var armIsDown = IsArmDown;
+        bool armIsDown = IsArmDown;
         if (!armWasDown.HasValue || armIsDown != armWasDown.Value)
         {
             if (armIsDown)
