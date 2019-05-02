@@ -35,7 +35,6 @@ public class Shop : MonoBehaviour
 
     void AddArticle(int x, int y)
     {
-        Debug.Log("add");
         int index = Random.Range(0, modulePrefabs.Length);
         int tier = Random.Range(1, availableTier + 1);
         Module article = Instantiate(modulePrefabs[index], stand.GetCellCenter(x, y), Quaternion.identity);
