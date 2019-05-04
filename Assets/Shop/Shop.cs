@@ -12,7 +12,8 @@ public class Shop : MonoBehaviour
 
     List<Pool<Module>> modulePools;
     IList<Module> availableChips;
-    int availableTier = 1;
+    int availableTier = 0;
+    int tierCount = 6;
 
     void Reset() => stand = GetComponent<SnappingGrid>();
 
@@ -59,7 +60,7 @@ public class Shop : MonoBehaviour
         article.transform.position = position;
         stand.TrySnap(article);
 
-        int tier = Random.Range(1, availableTier + 1);
+        int tier = Random.Range(0, Mathf.Min(availableTier + 1, tierCount));
         article.Tierify(tier);
 
         article.OnBought += ProcessTransaction;
