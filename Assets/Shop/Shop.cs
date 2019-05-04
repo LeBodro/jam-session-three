@@ -2,25 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SnappingGrid))]
-public class Shop : MonoBehaviour
+public class Shop : SnappingGrid
 {
     [SerializeField] Module[] modulePrefabs = null;
-    [SerializeField] SnappingGrid stand;
-    [SerializeField] Vector2Int gridSize;
     [SerializeField] AudioSource moneySound;
 
     List<Pool<Module>> modulePools;
-    IList<Module> availableChips;
     int availableTier = 0;
     int tierCount = 6;
-
-    void Reset() => stand = GetComponent<SnappingGrid>();
 
     void Start()
     {
         InitializePools();
-        availableChips = new List<Module>(gridSize.x * gridSize.y);
         Populate();
     }
 
@@ -36,8 +29,7 @@ public class Shop : MonoBehaviour
 
     public void Populate(int maxTier = 1)
     {
-        foreach (var chip in availableChips) chip.RePool();
-        availableChips.Clear();
+        Clear();
         availableTier = maxTier;
         for (int x = 0; x < gridSize.x; x++)
             for (int y = 0; y < gridSize.y; y++)
@@ -46,7 +38,6 @@ public class Shop : MonoBehaviour
 
     void ProcessTransaction(Module article)
     {
-        availableChips.Remove(article);
         article.OnBought -= ProcessTransaction;
         moneySound.Play();
     }
@@ -56,15 +47,12 @@ public class Shop : MonoBehaviour
         int index = Random.Range(0, modulePrefabs.Length);
         Module article = modulePools[index].Get();
 
-        Vector2 position = stand.GetCellCenter(x, y);
-        article.transform.position = position;
-        stand.TrySnap(article);
+        article.transform.position = GetCellCenter(x, y);
+        TrySnap(article);
 
         int tier = Random.Range(0, Mathf.Min(availableTier + 1, tierCount));
         article.Tierify(tier);
 
         article.OnBought += ProcessTransaction;
-
-        availableChips.Add(article);
     }
 }

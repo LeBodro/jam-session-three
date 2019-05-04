@@ -13,7 +13,7 @@ public class SnappingGrid : MonoBehaviour
 
     [SerializeField] BoxCollider2D dropCollider;
     [SerializeField] Grid grid;
-    [SerializeField] Vector2Int gridSize;
+    [SerializeField] protected Vector2Int gridSize;
     [SerializeField] PowerState connectionState = PowerState.OFF;
 
     Module[] cells;
@@ -30,6 +30,15 @@ public class SnappingGrid : MonoBehaviour
         cells = new Module[gridSize.x * gridSize.y];
     }
 
+    protected void Clear()
+    {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i]?.RePool();
+            cells[i] = null;
+        }
+    }
+
     public bool Contains(Vector3 droppedPosition)
     {
         return dropCollider.OverlapPoint(droppedPosition);
@@ -38,19 +47,32 @@ public class SnappingGrid : MonoBehaviour
     public bool TrySnap(Module target)
     {
         Vector3 position = target.transform.position;
-        Vector3 cellCenter = GetCellCenter(grid.WorldToCell(position));
-        target.transform.position = new Vector3(cellCenter.x, cellCenter.y);
-        Collider2D[] moduleOverlap = Physics2D.OverlapPointAll(cellCenter, LayerMask.GetMask("Draggable"));
-        foreach (var m in moduleOverlap)
+        Vector3Int cellCoordinates = grid.WorldToCell(position);
+        Vector3 cellCenter = GetCellCenter(cellCoordinates);
+        int cellIndex = ToIndex(cellCoordinates);
+        if (cells[cellIndex] != null)
         {
-            if (m.transform != target.transform)
-            {
-                target.CancelMovement();
-                return false;
-            }
+            target.CancelMovement();
+            return false;
         }
+
+        target.transform.position = new Vector3(cellCenter.x, cellCenter.y);
+        cells[ToIndex(cellCoordinates)] = target;
+        target.OnRemoved += UnSnap;
         ProcessConnection(target);
+
         return true;
+    }
+
+    int ToIndex(Vector3Int coordinates) => ToIndex(coordinates.x, coordinates.y);
+    int ToIndex(int x, int y) => x + y * gridSize.x;
+
+    void UnSnap(Module unsnapped)
+    {
+        for (int i = 0; i < cells.Length; i++)
+            if (cells[i] == unsnapped)
+                cells[i] = null;
+        unsnapped.OnRemoved -= UnSnap;
     }
 
     public Module GetModuleAt(int x, int y)
@@ -77,5 +99,18 @@ public class SnappingGrid : MonoBehaviour
             target.PowerOff();
         else
             target.PowerOn();
+    }
+
+    public void OnDrawGizmos()
+    {
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                if (cells != null && cells.Length > 0)
+                    Gizmos.color = cells[ToIndex(x, y)] == null ? Color.green : Color.red;
+                Gizmos.DrawSphere(GetCellCenter(x, y), 0.25f);
+            }
+        }
     }
 }

@@ -442,6 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropCollider: {fileID: 261686714}
   grid: {fileID: 261686713}
+  gridSize: {x: 1, y: 1}
   connectionState: 0
   shop: {fileID: 1385817874}
   button: {fileID: 354137919}
@@ -1021,7 +1022,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.075, y: -0.075}
+  m_Offset: {x: 2.525, y: 2.575}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1032,7 +1033,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.1, y: 5.1}
+  m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
 --- !u!114 &877906037
 MonoBehaviour:
@@ -1048,6 +1049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropCollider: {fileID: 877906036}
   grid: {fileID: 877906038}
+  gridSize: {x: 4, y: 4}
   connectionState: 1
 --- !u!156049354 &877906038
 Grid:
@@ -1069,7 +1071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877906035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.075, y: -1.7, z: 0}
+  m_LocalPosition: {x: -2.575, y: -4.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1949411693}
@@ -1518,7 +1520,6 @@ GameObject:
   - component: {fileID: 1385817873}
   - component: {fileID: 1385817872}
   - component: {fileID: 1385817871}
-  - component: {fileID: 1385817870}
   - component: {fileID: 1385817874}
   - component: {fileID: 1385817875}
   m_Layer: 9
@@ -1528,21 +1529,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1385817870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1385817869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32683b6b8d18d4917a6132e6ea062c6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropCollider: {fileID: 1385817872}
-  grid: {fileID: 1385817871}
-  connectionState: 0
 --- !u!156049354 &1385817871
 Grid:
   m_ObjectHideFlags: 0
@@ -1608,12 +1594,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dba7153723df1e74f805466f2fbe9c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropCollider: {fileID: 1385817872}
+  grid: {fileID: 1385817871}
+  gridSize: {x: 3, y: 2}
+  connectionState: 0
   modulePrefabs:
   - {fileID: 2052922218857699088, guid: b8d4bf17207dcf14cb6eb31facafceeb, type: 3}
   - {fileID: 1708892060594584121, guid: 9c9465a4c770f8349bee41a71f95573a, type: 3}
   - {fileID: 648728840697959328, guid: 90fb2fe6f1ae1e74eb1c2bad4016b4a9, type: 3}
-  stand: {fileID: 1385817870}
-  gridSize: {x: 3, y: 2}
   moneySound: {fileID: 1385817875}
 --- !u!82 &1385817875
 AudioSource:
@@ -1930,7 +1918,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949411692}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.075, y: 0, z: 0}
+  m_LocalPosition: {x: 2.525, y: 2.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 877906039}

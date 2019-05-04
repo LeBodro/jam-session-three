@@ -39,6 +39,7 @@ public class Module : Poolable<Module>, IDraggable
     bool _isPowered = false;
     protected decimal price;
     public event System.Action<Module> OnBought = delegate { };
+    public event System.Action<Module> OnRemoved = delegate { };
 
     public int Tier { get; private set; }
     protected bool IsBeingDragged { get; private set; }
@@ -64,6 +65,7 @@ public class Module : Poolable<Module>, IDraggable
     public void CancelMovement()
     {
         transform.position = lastAssignedPosition;
+        DropManager.HandleDrop(this);
     }
 
     public void ConfirmMovement()
@@ -85,6 +87,7 @@ public class Module : Poolable<Module>, IDraggable
     {
         if (!bought && !TryBuy()) return;
 
+        OnRemoved(this);
         audio.PlayOneShot(disconnect);
         IsBeingDragged = true;
         foreach (var s in sprites)
@@ -160,6 +163,7 @@ public class Module : Poolable<Module>, IDraggable
     protected override void OnRePool()
     {
         base.OnRePool();
+        OnRemoved(this);
         transform.SetParent(null);
         OnBought = delegate { };
         IsPowered = false;
