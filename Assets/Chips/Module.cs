@@ -3,13 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[System.Serializable]
+public class ModuleData
+{
+    [SerializeField] public int tier;
+    [SerializeField] public bool bought;
+    [SerializeField] public bool powered;
+    [SerializeField] public ArmModule.Direction direction;
+    public ModuleData(int _tier, bool _bought, bool _powered, ArmModule.Direction _direction = ArmModule.Direction.LEFT)
+    {
+        tier = _tier;
+        bought = _bought;
+        powered = _powered;
+        direction = _direction;
+    }
+}
+
 [RequireComponent(typeof(StatDictionnary))]
 public class Module : MonoBehaviour, IDraggable
 {
     protected const string STAT_HERTZ = "hertz";
     protected const string STAT_INCOME = "income";
 
-    [SerializeField] protected decimal price;
     [SerializeField] protected StatDictionnary stats;
     [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] bool bought = false;
@@ -17,11 +32,16 @@ public class Module : MonoBehaviour, IDraggable
 
     Vector3 lastAssignedPosition;
     bool _isPowered = false;
+    protected decimal price;
     public event System.Action<Module> OnBought = delegate { };
 
     public int Tier { get; private set; }
     protected bool IsBeingDragged { get; private set; }
-    protected bool IsPowered { get => _isPowered && !IsBeingDragged; }
+    protected bool IsPowered
+    {
+        get => _isPowered && !IsBeingDragged;
+        private set => _isPowered = value;
+    }
 
     void Reset()
     {
@@ -106,5 +126,18 @@ public class Module : MonoBehaviour, IDraggable
     {
         foreach (var s in sprites)
             s.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+    }
+
+    public virtual string Serialize()
+    {
+        return JsonUtility.ToJson(new ModuleData(Tier, bought, IsPowered));
+    }
+
+    public virtual void Deserialize(string json)
+    {
+        ModuleData data = JsonUtility.FromJson<ModuleData>(json);
+        Tierify(data.tier);
+        bought = data.bought;
+        _isPowered = data.powered;
     }
 }
