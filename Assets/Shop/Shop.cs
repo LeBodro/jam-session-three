@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour
     [SerializeField] AudioSource moneySound;
 
     List<Pool<Module>> modulePools;
+    IList<Module> availableChips;
     int availableTier = 1;
 
     void Reset() => stand = GetComponent<SnappingGrid>();
@@ -18,6 +19,7 @@ public class Shop : MonoBehaviour
     void Start()
     {
         InitializePools();
+        availableChips = new List<Module>(gridSize.x * gridSize.y);
         Populate();
     }
 
@@ -33,19 +35,17 @@ public class Shop : MonoBehaviour
 
     public void Populate(int maxTier = 1)
     {
+        foreach (var chip in availableChips) chip.RePool();
+        availableChips.Clear();
         availableTier = maxTier;
         for (int x = 0; x < gridSize.x; x++)
-        {
             for (int y = 0; y < gridSize.y; y++)
-            {
-                if (stand.GetModuleAt(x, y) == null)
-                    AddArticle(x, y);
-            }
-        }
+                AddArticle(x, y);
     }
 
     void ProcessTransaction(Module article)
     {
+        availableChips.Remove(article);
         article.OnBought -= ProcessTransaction;
         moneySound.Play();
     }
@@ -63,5 +63,7 @@ public class Shop : MonoBehaviour
         article.Tierify(tier);
 
         article.OnBought += ProcessTransaction;
+
+        availableChips.Add(article);
     }
 }
