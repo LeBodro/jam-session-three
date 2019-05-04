@@ -26,6 +26,6 @@ public class VirtualClickerModule : Module
         incomePerTick = stats[STAT_INCOME];
         base.Tierify(tier);
         price = tier;
-        incomePerTick.BaseValue *= Mathf.Pow(2, tier);
+        incomePerTick.BaseValue = Mathf.Pow(2, tier);
     }
 }
