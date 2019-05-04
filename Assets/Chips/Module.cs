@@ -10,6 +10,7 @@ public class ModuleData
     [SerializeField] public bool bought;
     [SerializeField] public bool powered;
     [SerializeField] public ArmModule.Direction direction;
+
     public ModuleData(int _tier, bool _bought, bool _powered, ArmModule.Direction _direction = ArmModule.Direction.LEFT)
     {
         tier = _tier;
@@ -29,6 +30,10 @@ public class Module : Poolable<Module>, IDraggable
     [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] bool bought = false;
     [SerializeField] TierMaterials tierMaterials = null;
+
+    [SerializeField] new AudioSource audio;
+    [SerializeField] AudioClip connect;
+    [SerializeField] AudioClip disconnect;
 
     Vector3 lastAssignedPosition;
     bool _isPowered = false;
@@ -80,6 +85,7 @@ public class Module : Poolable<Module>, IDraggable
     {
         if (!bought && !TryBuy()) return;
 
+        audio.PlayOneShot(disconnect);
         IsBeingDragged = true;
         foreach (var s in sprites)
             s.sortingOrder += 3;
@@ -96,6 +102,7 @@ public class Module : Poolable<Module>, IDraggable
         if (!bought) return;
         IsBeingDragged = false;
         DropManager.HandleDrop(this);
+        audio.PlayOneShot(connect);
         foreach (var s in sprites)
             s.sortingOrder -= 3;
     }
