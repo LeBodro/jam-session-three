@@ -13,13 +13,21 @@ public class SnappingGrid : MonoBehaviour
 
     [SerializeField] BoxCollider2D dropCollider;
     [SerializeField] Grid grid;
+    [SerializeField] Vector2Int gridSize;
     [SerializeField] PowerState connectionState = PowerState.OFF;
+
+    Module[] cells;
 
     // Called from the editor when adding or resetting the component
     void Reset()
     {
         grid = GetComponent<Grid>();
         dropCollider = GetComponent<BoxCollider2D>();
+    }
+
+    void Awake()
+    {
+        cells = new Module[gridSize.x * gridSize.y];
     }
 
     public bool Contains(Vector3 droppedPosition)
@@ -34,8 +42,13 @@ public class SnappingGrid : MonoBehaviour
         target.transform.position = new Vector3(cellCenter.x, cellCenter.y);
         Collider2D[] moduleOverlap = Physics2D.OverlapPointAll(cellCenter, LayerMask.GetMask("Draggable"));
         foreach (var m in moduleOverlap)
+        {
             if (m.transform != target.transform)
+            {
+                target.CancelMovement();
                 return false;
+            }
+        }
         ProcessConnection(target);
         return true;
     }
@@ -59,6 +72,7 @@ public class SnappingGrid : MonoBehaviour
 
     void ProcessConnection(Module target)
     {
+        target.ConfirmMovement();
         if (connectionState == PowerState.OFF)
             target.PowerOff();
         else

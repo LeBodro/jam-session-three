@@ -6,14 +6,9 @@ using UnityEngine.EventSystems;
 
 public class DropManager : SceneSingleton<DropManager>
 {
-    public static void HandleDrop(Module m)
-    {
-        Instance._HandleDrop(m);
-    }
-
+    public static void HandleDrop(Module m) => Instance._HandleDrop(m);
     public void _HandleDrop(Module dropped)
     {
-
         var droppedPosition = dropped.transform.position;
         Collider2D gridOverlap = Physics2D.OverlapPoint(droppedPosition, LayerMask.GetMask("Grid"));
         bool overGrid = gridOverlap != null;
@@ -24,12 +19,7 @@ public class DropManager : SceneSingleton<DropManager>
         if (overGrid && !cellTaken)
         {
             SnappingGrid targetGrid = gridOverlap.GetComponent<SnappingGrid>();
-            if (targetGrid.TrySnap(dropped))
-            {
-                dropped.ConfirmMovement();
-                return;
-            }
+            targetGrid.TrySnap(dropped);
         }
-        dropped.CancelMovement();
     }
 }
