@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bank : SceneSingleton<Bank>
 {
-    [SerializeField] float initialBalance;
+    [SerializeField] float initialBalance = 10;
 
     decimal _balance;
 

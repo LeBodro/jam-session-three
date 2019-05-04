@@ -13,7 +13,7 @@ public class VirtualClickerModule : Module
     {
         if (!IsPowered) return;
         accumulator += Time.deltaTime;
-        if (accumulator >= incomeDelay.ProcessedValue)
+        if (accumulator >= 1 / incomeDelay.ProcessedValue)
         {
             accumulator -= incomeDelay.ProcessedValue;
             Bank.Deposit(incomePerTick.ProcessedDecimal);

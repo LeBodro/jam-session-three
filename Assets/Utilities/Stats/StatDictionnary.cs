@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StatDictionnary : MonoBehaviour
 {
-    [SerializeField] Stat[] stats;
+    [SerializeField] Stat[] stats = null;
 
     IDictionary<string, Stat> statDict;
 

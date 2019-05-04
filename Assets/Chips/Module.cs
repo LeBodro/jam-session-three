@@ -28,7 +28,7 @@ public class Module : Poolable<Module>, IDraggable
     [SerializeField] protected StatDictionnary stats;
     [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] bool bought = false;
-    [SerializeField] TierMaterials tierMaterials;
+    [SerializeField] TierMaterials tierMaterials = null;
 
     Vector3 lastAssignedPosition;
     bool _isPowered = false;
