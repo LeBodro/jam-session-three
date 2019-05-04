@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [RequireComponent(typeof(SnappingGrid))]
 public class Shop : MonoBehaviour
 {
     [SerializeField] Module[] modulePrefabs = null;
     [SerializeField] SnappingGrid stand;
     [SerializeField] Vector2Int gridSize;
+    [SerializeField] AudioSource moneySound;
 
     List<Pool<Module>> modulePools;
     int availableTier = 1;
@@ -47,7 +47,7 @@ public class Shop : MonoBehaviour
     void ProcessTransaction(Module article)
     {
         article.OnBought -= ProcessTransaction;
-        // Ka-ching!
+        moneySound.Play();
     }
 
     void AddArticle(int x, int y)
