@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 00964564f8d99b34987f808e410b89d4
+guid: 9e3a00c0a56de7f4e98c50fa16ed4e0c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: digitalNumbers
+  fontName: pricetag
   fontNames:
-  - digitalNumbers
+  - pricetag
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 2

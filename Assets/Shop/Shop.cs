@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shop : SnappingGrid
 {
+    [SerializeField] PriceTag[] tags;
     [SerializeField] Module[] modulePrefabs = null;
     [SerializeField] AudioSource moneySound;
 
@@ -42,6 +43,11 @@ public class Shop : SnappingGrid
         moneySound.Play();
     }
 
+    protected override void OnUnsnap(Module m, int index)
+    {
+        tags[index].Hide();
+    }
+
     void AddArticle(int x, int y)
     {
         int index = Random.Range(0, modulePrefabs.Length);
@@ -52,6 +58,7 @@ public class Shop : SnappingGrid
 
         int tier = Random.Range(0, Mathf.Min(availableTier + 1, tierCount));
         article.Tierify(tier);
+        tags[ToIndex(x, y)].DisplayPrice(article.Price);
 
         article.OnBought += ProcessTransaction;
     }

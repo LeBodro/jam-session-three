@@ -128,7 +128,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     {
         hertz = stats[STAT_HERTZ];
         base.Tierify(tier);
-        price = tier;
+        Price = tier;
         hertz.BaseValue = Mathf.Pow(2, tier);
     }
 }

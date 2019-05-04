@@ -37,11 +37,11 @@ public class Module : Poolable<Module>, IDraggable
 
     Vector3 lastAssignedPosition;
     bool _isPowered = false;
-    protected decimal price;
     public event System.Action<Module> OnBought = delegate { };
     public event System.Action<Module> OnRemoved = delegate { };
 
     public int Tier { get; private set; }
+    public decimal Price { get; protected set; }
     protected bool IsBeingDragged { get; private set; }
     protected bool IsPowered
     {
@@ -119,7 +119,7 @@ public class Module : Poolable<Module>, IDraggable
     {
         if (!bought)
         {
-            bought = bought || Bank.TryWithdraw(price);
+            bought = bought || Bank.TryWithdraw(Price);
             if (bought) OnBought(this);
         }
         return bought;

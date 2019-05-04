@@ -58,22 +58,28 @@ public class SnappingGrid : MonoBehaviour
 
         target.transform.position = new Vector3(cellCenter.x, cellCenter.y);
         cells[ToIndex(cellCoordinates)] = target;
-        target.OnRemoved += UnSnap;
+        target.OnRemoved += Unsnap;
         ProcessConnection(target);
 
         return true;
     }
 
     int ToIndex(Vector3Int coordinates) => ToIndex(coordinates.x, coordinates.y);
-    int ToIndex(int x, int y) => x + y * gridSize.x;
+    protected int ToIndex(int x, int y) => x + y * gridSize.x;
 
-    void UnSnap(Module unsnapped)
+    void Unsnap(Module unsnapped)
     {
+        int index = 0;
         for (int i = 0; i < cells.Length; i++)
             if (cells[i] == unsnapped)
-                cells[i] = null;
-        unsnapped.OnRemoved -= UnSnap;
+                index = i;
+        cells[index] = null;
+        OnUnsnap(unsnapped, index);
+
+        unsnapped.OnRemoved -= Unsnap;
     }
+
+    protected virtual void OnUnsnap(Module unsnapped, int index) { }
 
     public Module GetModuleAt(int x, int y)
     {
