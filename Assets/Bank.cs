@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,15 +22,7 @@ public class Bank : SceneSingleton<Bank>
         set
         {
             decimal difference = value - _balance;
-            if (value > 0)
-            {
-                _balance = value;
-            }
-            else
-            {
-                _balance = 0;
-            }
-            //Debug.LogFormat("Bank balance is now {0} ClickCoins.", value);
+            _balance = Math.Max(value, 0);
             _onTransaction(difference, _balance);
         }
     }
