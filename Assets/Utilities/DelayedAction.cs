@@ -2,39 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DelayedAction : MonoBehaviour
+public class DelayedAction : RAIISceneSingleton<DelayedAction>
 {
-    float delay;
-    System.Action action;
-
-    public static void Invoke(System.Action action, float delay)
+    public static void Invoke(System.Action action, float delay) => Instance._Invoke(action, delay);
+    void _Invoke(System.Action action, float delay)
     {
-        var holder = new GameObject();
-        var invoker = holder.AddComponent<DelayedAction>();
-        invoker.delay = delay;
-        invoker.action = action;
-        invoker.StartCoroutine(invoker.WaitTimeImpl());
+        StartCoroutine(InvokeCoroutine(action, delay));
     }
 
-    public static void NextFrame(System.Action action)
-    {
-        var holder = new GameObject();
-        var invoker = holder.AddComponent<DelayedAction>();
-        invoker.action = action;
-        invoker.StartCoroutine(invoker.NextFrameImpl());
-    }
-
-    IEnumerator WaitTimeImpl()
+    IEnumerator InvokeCoroutine(System.Action action, float delay)
     {
         yield return new WaitForSeconds(delay);
         action();
-        Destroy(gameObject);
     }
 
-    IEnumerator NextFrameImpl()
+    public static void NextFrame(System.Action action) => Instance._NextFrame(action);
+    void _NextFrame(System.Action action)
+    {
+        StartCoroutine(NextFrameCoroutine(action));
+    }
+
+    IEnumerator NextFrameCoroutine(System.Action action)
     {
         yield return null;
         action();
-        Destroy(gameObject);
     }
 }

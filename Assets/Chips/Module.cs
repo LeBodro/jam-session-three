@@ -20,7 +20,7 @@ public class ModuleData
 }
 
 [RequireComponent(typeof(StatDictionnary))]
-public class Module : MonoBehaviour, IDraggable
+public class Module : Poolable<Module>, IDraggable
 {
     protected const string STAT_HERTZ = "hertz";
     protected const string STAT_INCOME = "income";
@@ -126,6 +126,7 @@ public class Module : MonoBehaviour, IDraggable
     {
         foreach (var s in sprites)
             s.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        enabled = false;
     }
 
     public virtual string Serialize()
@@ -139,5 +140,22 @@ public class Module : MonoBehaviour, IDraggable
         Tierify(data.tier);
         bought = data.bought;
         _isPowered = data.powered;
+    }
+
+    protected override void OnDePool()
+    {
+        base.OnDePool();
+        enabled = true;
+        foreach (var s in sprites)
+            s.maskInteraction = SpriteMaskInteraction.None;
+    }
+
+    protected override void OnRePool()
+    {
+        base.OnRePool();
+        transform.SetParent(null);
+        OnBought = delegate { };
+        IsPowered = false;
+        bought = false;
     }
 }

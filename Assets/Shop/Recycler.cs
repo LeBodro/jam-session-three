@@ -21,8 +21,7 @@ public class Recycler : SnappingGrid
         if (trashed != null)
         {
             shop.Populate(trashed.Tier + 1);
-            Destroy(trashed.gameObject, 0.3f); // insert animation delay here
-            trashed.enabled = false;
+            trashed.RePool(0.3f);
             trashed.transform.SetParent(disposal);
             trashed.Trash();
             //Deactivate grid

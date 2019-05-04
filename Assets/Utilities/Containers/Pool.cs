@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Pool<T>
+public class Pool<T> where T : Poolable<T>
 {
     readonly Stack<T> _objects;
     readonly Func<T> _objectGenerator;
@@ -18,12 +18,9 @@ public class Pool<T>
     {
         if (_objects.Count > 0)
         {
-            return _objects.Pop();
+            return _objects.Pop().DePool(this);
         }
-        else
-        {
-            return _objectGenerator();
-        }
+        return _objectGenerator().DePool(this);
     }
 
     public void Put(T item)
