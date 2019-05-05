@@ -4,29 +4,14 @@ using UnityEngine;
 
 public class Shop : SnappingGrid
 {
+    [SerializeField] ModuleFactory modules;
     [SerializeField] PriceTag[] tags;
-    [SerializeField] Module[] modulePrefabs = null;
     [SerializeField] AudioSource moneySound;
 
-    List<Pool<Module>> modulePools;
     int availableTier = 0;
     int tierCount = 6;
 
-    void Start()
-    {
-        InitializePools();
-        Populate();
-    }
-
-    void InitializePools()
-    {
-        modulePools = new List<Pool<Module>>(modulePrefabs.Length);
-        for (int i = 0; i < modulePrefabs.Length; i++)
-        {
-            int prefabIndex = i;
-            modulePools.Add(new Pool<Module>(() => Instantiate(modulePrefabs[prefabIndex])));
-        }
-    }
+    void Start() => Populate();
 
     public void Populate(int maxTier = 1)
     {
@@ -50,8 +35,8 @@ public class Shop : SnappingGrid
 
     void AddArticle(int x, int y)
     {
-        int index = Random.Range(0, modulePrefabs.Length);
-        Module article = modulePools[index].Get();
+        int index = Random.Range(0, modules.Count);
+        Module article = modules.Get(index);
 
         article.transform.position = GetCellCenter(x, y);
         TrySnap(article);

@@ -428,7 +428,7 @@ Transform:
   - {fileID: 81674043}
   - {fileID: 1629025546}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &261686716
 SpriteRenderer:
@@ -1442,7 +1442,7 @@ Transform:
   m_Children:
   - {fileID: 1949411693}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &940804662
 GameObject:
@@ -2370,7 +2370,7 @@ Transform:
   m_Children:
   - {fileID: 1677866926}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1385817874
 MonoBehaviour:
@@ -2388,6 +2388,7 @@ MonoBehaviour:
   grid: {fileID: 1385817871}
   gridSize: {x: 3, y: 2}
   connectionState: 0
+  modules: {fileID: 1618125431}
   tags:
   - {fileID: 1227408647}
   - {fileID: 1767122970}
@@ -2395,10 +2396,6 @@ MonoBehaviour:
   - {fileID: 994618615}
   - {fileID: 978999991}
   - {fileID: 1392123126}
-  modulePrefabs:
-  - {fileID: 2052922218857699088, guid: b8d4bf17207dcf14cb6eb31facafceeb, type: 3}
-  - {fileID: 1708892060594584121, guid: 9c9465a4c770f8349bee41a71f95573a, type: 3}
-  - {fileID: 648728840697959328, guid: 90fb2fe6f1ae1e74eb1c2bad4016b4a9, type: 3}
   moneySound: {fileID: 1385817875}
 --- !u!82 &1385817875
 AudioSource:
@@ -2585,6 +2582,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: {fileID: 810628610}
+--- !u!1 &1618125430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1618125432}
+  - component: {fileID: 1618125431}
+  m_Layer: 0
+  m_Name: ModuleFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1618125431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618125430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1609b8c34a0adea47a47416e75db66c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modulePrefabs:
+  - {fileID: 2052922218857699088, guid: b8d4bf17207dcf14cb6eb31facafceeb, type: 3}
+  - {fileID: 1708892060594584121, guid: 9c9465a4c770f8349bee41a71f95573a, type: 3}
+  - {fileID: 648728840697959328, guid: 90fb2fe6f1ae1e74eb1c2bad4016b4a9, type: 3}
+--- !u!4 &1618125432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618125430}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1629025545
 GameObject:
   m_ObjectHideFlags: 0
