@@ -82,12 +82,12 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
-        armWasDown = null;
-        wasRecentlyDragged = true;
         if (IsArmDown)
         {
             ReleaseNeighboringButton();
         }
+        armWasDown = null;
+        wasRecentlyDragged = true;
     }
 
     void RefreshVisual()
