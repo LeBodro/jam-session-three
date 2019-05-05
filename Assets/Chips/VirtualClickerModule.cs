@@ -16,7 +16,7 @@ public class VirtualClickerModule : Module
         if (accumulator >= 1 / incomeDelay.ProcessedValue)
         {
             accumulator -= incomeDelay.ProcessedValue;
-            Bank.Deposit(incomePerTick.ProcessedDecimal);
+            GenerateIncome(incomePerTick.ProcessedDecimal);
         }
     }
 

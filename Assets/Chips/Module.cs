@@ -113,6 +113,7 @@ public class Module : Poolable<Module>, IDraggable
     protected void GenerateIncome(decimal increase)
     {
         Bank.Deposit(increase);
+        PopUpMaker.ShowTransaction(transform.position, increase);
     }
 
     public bool TryBuy()
