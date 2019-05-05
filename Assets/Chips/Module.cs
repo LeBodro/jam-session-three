@@ -132,6 +132,11 @@ public class Module : Poolable<Module>, IDraggable
             sprite.material = tierMaterials.Get(tier);
     }
 
+    protected decimal CalculatePrice(float expCoef, float coef, float constant)
+    {
+        return (decimal)(Mathf.Pow(6, Tier * expCoef) + coef * Tier + constant);
+    }
+
     public void Trash()
     {
         foreach (var s in sprites)
