@@ -138,6 +138,11 @@ public class Module : Poolable<Module>, IDraggable
         return (decimal)(Mathf.Pow(6, Tier * expCoef) + coef * Tier + constant);
     }
 
+    protected float CalculateIncome(float expCoef, float coef, float constant)
+    {
+        return (Mathf.Pow(2, Tier * expCoef) + coef * Tier + constant);
+    }
+
     public void Trash()
     {
         foreach (var s in sprites)

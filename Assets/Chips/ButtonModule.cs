@@ -82,6 +82,6 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         incomePerClick = stats[STAT_INCOME];
         base.Tierify(tier);
         Price = CalculatePrice(2, 1.25f, 0.5f);
-        incomePerClick.BaseValue = Mathf.Pow(1.5f, tier);
+        incomePerClick.BaseValue = CalculateIncome(0.25f, 5, 1.25f);
     }
 }

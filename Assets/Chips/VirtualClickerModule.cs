@@ -27,7 +27,7 @@ public class VirtualClickerModule : Module
         incomePerTick = stats[STAT_INCOME];
         base.Tierify(tier);
         Price = CalculatePrice(3f, 2f, 1.25f);
-        incomePerTick.BaseValue = Mathf.Pow(1.25f, tier);
+        incomePerTick.BaseValue = CalculateIncome(0.15f, 3, 0.75f);
         hertz.BaseValue = Mathf.Pow(2, tier) * 0.5f;
     }
 }
