@@ -17,6 +17,28 @@ public class SaveGame : SceneSingleton<SaveGame>
 {
     [SerializeField] SnappingGrid[] grids;
 
+    void Start()
+    {
+        Load();
+    }
+
+    void Load()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "save_01.txt");
+        string json = string.Empty;
+        using (var stream = File.OpenText(path))
+        {
+            json = stream.ReadToEnd();
+        }
+        SaveData data = JsonUtility.FromJson<SaveData>(json);
+        PrioritizedStartQueue.Queue(200, () =>
+        {
+            Bank.SetBalance(decimal.Parse(data.bankBalance));
+        });
+        for (int i = 0; i < grids.Length; i++)
+            grids[i].Deserialize(data.grids[i]);
+    }
+
     public static void Save() => Instance._Save();
     void _Save()
     {

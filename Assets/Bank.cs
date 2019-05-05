@@ -16,7 +16,7 @@ public class Bank : SceneSingleton<Bank>
         remove { _onTransaction -= value; }
     }
 
-    private decimal Balance
+    decimal Balance
     {
         get => _balance;
         set
@@ -37,12 +37,14 @@ public class Bank : SceneSingleton<Bank>
     }
 
     /// <summary>
-    /// Gets the current balance from the singleton
+    /// Gets the current balance from the singleton.
     /// </summary>
-    public static decimal GetBalance()
-    {
-        return Instance.Balance;
-    }
+    public static decimal GetBalance() => Instance.Balance;
+
+    /// <summary>
+    /// Sets the current balance on the singleton.
+    /// </summary>
+    public static decimal SetBalance(decimal value) => Instance.Balance = value;
 
     /// <summary>
     /// Deposits money to the bank account.
