@@ -25,7 +25,8 @@ public class VirtualClickerModule : Module
         incomeDelay = stats[STAT_HERTZ];
         incomePerTick = stats[STAT_INCOME];
         base.Tierify(tier);
-        Price = (decimal)(Mathf.Pow(5, tier) + 8.75f * tier + 0.75f);
-        incomePerTick.BaseValue = Mathf.Pow(2, tier);
+        Price = CalculatePrice(3f, 2f, 1.25f);
+        incomePerTick.BaseValue = Mathf.Pow(1.25f, tier);
+        incomeDelay.BaseValue = Mathf.Pow(2, tier) * 0.5f;
     }
 }
