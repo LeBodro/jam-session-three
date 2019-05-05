@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VirtualClickerModule : Module
 {
-    Stat incomeDelay = null;
+    Stat hertz = null;
     Stat incomePerTick = null;
 
     float accumulator;
@@ -13,20 +13,21 @@ public class VirtualClickerModule : Module
     {
         if (!IsPowered) return;
         accumulator += Time.deltaTime;
-        if (accumulator >= 1 / incomeDelay.ProcessedValue)
+        float delay = 1 / hertz.ProcessedValue;
+        if (accumulator >= delay)
         {
-            accumulator -= incomeDelay.ProcessedValue;
+            accumulator -= delay;
             GenerateIncome(incomePerTick.ProcessedDecimal);
         }
     }
 
     public override void Tierify(int tier)
     {
-        incomeDelay = stats[STAT_HERTZ];
+        hertz = stats[STAT_HERTZ];
         incomePerTick = stats[STAT_INCOME];
         base.Tierify(tier);
         Price = CalculatePrice(3f, 2f, 1.25f);
         incomePerTick.BaseValue = Mathf.Pow(1.25f, tier);
-        incomeDelay.BaseValue = Mathf.Pow(2, tier) * 0.5f;
+        hertz.BaseValue = Mathf.Pow(2, tier) * 0.5f;
     }
 }
