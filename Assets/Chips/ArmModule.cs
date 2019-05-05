@@ -31,6 +31,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     };
 
     bool IsArmDown { get => Mathf.Sin(Time.time * hertz.ProcessedValue * TAU) > cutoff; }
+    protected override int Prefab { get => 2; }
 
     public void OnPointerUp(PointerEventData eventData)
     {

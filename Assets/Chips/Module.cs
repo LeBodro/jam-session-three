@@ -6,13 +6,17 @@ using UnityEngine.EventSystems;
 [System.Serializable]
 public class ModuleData
 {
+    [SerializeField] public int index;
+    [SerializeField] public int prefab;
     [SerializeField] public int tier;
     [SerializeField] public bool bought;
     [SerializeField] public bool powered;
     [SerializeField] public ArmModule.Direction direction;
 
-    public ModuleData(int _tier, bool _bought, bool _powered, ArmModule.Direction _direction = ArmModule.Direction.LEFT)
+    public ModuleData(int _index, int _prefab, int _tier, bool _bought, bool _powered, ArmModule.Direction _direction = ArmModule.Direction.LEFT)
     {
+        index = _index;
+        prefab = _prefab;
         tier = _tier;
         bought = _bought;
         powered = _powered;
@@ -48,6 +52,7 @@ public class Module : Poolable<Module>, IDraggable
         get => _isPowered && !IsBeingDragged;
         private set => _isPowered = value;
     }
+    protected virtual int Prefab { get => 0; }
 
     void Reset()
     {
@@ -150,14 +155,13 @@ public class Module : Poolable<Module>, IDraggable
         enabled = false;
     }
 
-    public virtual string Serialize()
+    public virtual ModuleData Serialize(int index)
     {
-        return JsonUtility.ToJson(new ModuleData(Tier, bought, IsPowered));
+        return new ModuleData(index, Prefab, Tier, bought, IsPowered);
     }
 
-    public virtual void Deserialize(string json)
+    public virtual void Deserialize(ModuleData data)
     {
-        ModuleData data = JsonUtility.FromJson<ModuleData>(json);
         Tierify(data.tier);
         bought = data.bought;
         _isPowered = data.powered;

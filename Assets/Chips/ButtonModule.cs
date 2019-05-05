@@ -13,6 +13,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     bool wasRecentlyCancelled = false;
     public bool IsDown { get => amountOfSimultaneousPresses > 0; }
     public bool IsUp { get => !IsDown; }
+    protected override int Prefab { get => 0; }
 
     public override void OnBeginDrag(PointerEventData eventData)
     {

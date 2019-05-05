@@ -1,6 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Text;
 using UnityEngine;
+
+[System.Serializable]
+public class SnappingGridData
+{
+    [SerializeField] public ModuleData[] modules;
+    public SnappingGridData(ModuleData[] _modules) => modules = _modules;
+}
 
 [RequireComponent(typeof(Grid))]
 public class SnappingGrid : MonoBehaviour
@@ -105,6 +111,24 @@ public class SnappingGrid : MonoBehaviour
             target.PowerOff();
         else
             target.PowerOn();
+    }
+
+    public SnappingGridData Serialize()
+    {
+        ModuleData[] modules = new ModuleData[cells.Length];
+        for (int i = 0; i < cells.Length; i++)
+            if (cells[i] != null)
+                modules[i] = cells[i].Serialize(i);
+        return new SnappingGridData(modules);
+    }
+
+    public void Deserialize(SnappingGridData data)
+    {
+        foreach (var module in data.modules)
+        {
+            // create module from pool
+            // give module its data
+        }
     }
 
     public void OnDrawGizmos()

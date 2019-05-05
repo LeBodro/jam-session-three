@@ -9,6 +9,8 @@ public class VirtualClickerModule : Module
 
     float accumulator;
 
+    protected override int Prefab { get => 1; }
+
     void Update()
     {
         if (!IsPowered) return;
