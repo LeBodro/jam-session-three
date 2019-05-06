@@ -1016,7 +1016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95649ae9e28204c5fa0c6eda8038e821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialBalance: 10
 --- !u!1 &529604575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,8 +1612,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc68626ad275e344ab390464c05ac54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availablePriceMask: {r: 0.19842473, g: 0.8584906, b: 0.71101135, a: 1}
-  unavailableColorMask: {r: 1, g: 0.7803922, b: 0, a: 1}
+  availablePriceMask: {r: 0.2, g: 0.85882354, b: 0.520455, a: 1}
+  unavailableColorMask: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
   price: {fileID: 1736371508}
   background: {fileID: 978999989}
 --- !u!1 &992973116
@@ -1784,8 +1783,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc68626ad275e344ab390464c05ac54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availablePriceMask: {r: 0.19842473, g: 0.8584906, b: 0.71101135, a: 1}
-  unavailableColorMask: {r: 1, g: 0.7803922, b: 0, a: 1}
+  availablePriceMask: {r: 0.2, g: 0.85882354, b: 0.520455, a: 1}
+  unavailableColorMask: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
   price: {fileID: 1159341287}
   background: {fileID: 994618613}
 --- !u!1 &1000722114
@@ -2138,8 +2137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc68626ad275e344ab390464c05ac54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availablePriceMask: {r: 0.19842473, g: 0.8584906, b: 0.71101135, a: 1}
-  unavailableColorMask: {r: 1, g: 0.7803922, b: 0, a: 1}
+  availablePriceMask: {r: 0.2, g: 0.85882354, b: 0.520455, a: 1}
+  unavailableColorMask: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
   price: {fileID: 274971505}
   background: {fileID: 1114539657}
 --- !u!1 &1159341285
@@ -2309,8 +2308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc68626ad275e344ab390464c05ac54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availablePriceMask: {r: 0.19842473, g: 0.8584906, b: 0.71101135, a: 1}
-  unavailableColorMask: {r: 1, g: 0.7803922, b: 0, a: 1}
+  availablePriceMask: {r: 0.2, g: 0.85882354, b: 0.520455, a: 1}
+  unavailableColorMask: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
   price: {fileID: 309854827}
   background: {fileID: 1227408645}
 --- !u!1 &1385817869
@@ -2595,8 +2594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc68626ad275e344ab390464c05ac54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availablePriceMask: {r: 0.19842473, g: 0.8584906, b: 0.71101135, a: 1}
-  unavailableColorMask: {r: 1, g: 0.7803922, b: 0, a: 1}
+  availablePriceMask: {r: 0.2, g: 0.85882354, b: 0.520455, a: 1}
+  unavailableColorMask: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
   price: {fileID: 810628610}
   background: {fileID: 1392123124}
 --- !u!1 &1618125430
@@ -3008,8 +3007,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc68626ad275e344ab390464c05ac54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availablePriceMask: {r: 0.19842473, g: 0.8584906, b: 0.71101135, a: 1}
-  unavailableColorMask: {r: 1, g: 0.7803922, b: 0, a: 1}
+  availablePriceMask: {r: 0.2, g: 0.85882354, b: 0.520455, a: 1}
+  unavailableColorMask: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
   price: {fileID: 529604577}
   background: {fileID: 1767122968}
 --- !u!1 &1910319858
