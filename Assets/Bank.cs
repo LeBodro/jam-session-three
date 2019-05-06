@@ -10,10 +10,10 @@ public class Bank : SceneSingleton<Bank>
     decimal _balance;
 
     event System.Action<decimal, decimal> _onTransaction = delegate { };
-    public event System.Action<decimal, decimal> OnTransaction
+    public static event System.Action<decimal, decimal> OnTransaction
     {
-        add { _onTransaction += value; }
-        remove { _onTransaction -= value; }
+        add { Instance._onTransaction += value; }
+        remove { Instance._onTransaction -= value; }
     }
 
     decimal Balance

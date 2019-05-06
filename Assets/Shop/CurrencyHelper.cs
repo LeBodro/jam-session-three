@@ -15,18 +15,18 @@
         else if (value < THOUSAND)
             return value.ToString("0");
         else if (value < MILLION)
-            return (value / THOUSAND).ToString("0") + "k";
+            return (value / THOUSAND).ToString("0.#") + "k";
         else if (value < BILLION)
-            return (value / MILLION).ToString("0") + "M";
+            return (value / MILLION).ToString("0.#") + "M";
         else if (value < TRILLION)
-            return (value / BILLION).ToString("0") + "B";
+            return (value / BILLION).ToString("0.#") + "B";
         else if (value < QUADRILLION)
-            return (value / TRILLION).ToString("0") + "T";
+            return (value / TRILLION).ToString("0.#") + "T";
         else if (value < QUINTILLION)
-            return (value / QUADRILLION).ToString("0") + "qd";
+            return (value / QUADRILLION).ToString("0.#") + "qd";
         else if (value < SEXTILLION)
-            return (value / QUINTILLION).ToString("0") + "Qn";
+            return (value / QUINTILLION).ToString("0.#") + "Qn";
         else
-            return (value / SEXTILLION).ToString("0") + "sx";
+            return (value / SEXTILLION).ToString("0.#") + "sx";
     }
 }
