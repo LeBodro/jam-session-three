@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [System.Serializable]
@@ -19,8 +20,9 @@ public class SnappingGrid : MonoBehaviour
 
     [SerializeField] BoxCollider2D dropCollider;
     [SerializeField] Grid grid;
-    [SerializeField] protected Vector2Int gridSize;
     [SerializeField] PowerState connectionState = PowerState.OFF;
+    [SerializeField] protected Vector2Int gridSize;
+    [SerializeField] protected ModuleFactory modules;
 
     Module[] cells;
 
@@ -115,19 +117,22 @@ public class SnappingGrid : MonoBehaviour
 
     public SnappingGridData Serialize()
     {
-        ModuleData[] modules = new ModuleData[cells.Length];
+        List<ModuleData> modules = new List<ModuleData>();
         for (int i = 0; i < cells.Length; i++)
             if (cells[i] != null)
-                modules[i] = cells[i].Serialize(i);
-        return new SnappingGridData(modules);
+                modules.Add(cells[i].Serialize(i));
+        return new SnappingGridData(modules.ToArray());
     }
 
     public void Deserialize(SnappingGridData data)
     {
-        foreach (var module in data.modules)
+        foreach (var mData in data.modules)
         {
-            // create module from pool
-            // give module its data
+            Module module = modules.Get(mData.prefab);
+            module.Deserialize(mData);
+            Debug.Log(name + ": " + mData.index % gridSize.y + " " + mData.index / gridSize.x);
+            module.transform.position = GetCellCenter(mData.index % gridSize.x, mData.index / gridSize.x);
+            TrySnap(module);
         }
     }
 

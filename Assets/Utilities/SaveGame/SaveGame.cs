@@ -17,14 +17,13 @@ public class SaveGame : SceneSingleton<SaveGame>
 {
     [SerializeField] SnappingGrid[] grids;
 
-    void Start()
-    {
-        Load();
-    }
+    //void Start() => Load();
 
     void Load()
     {
         string path = Path.Combine(Application.persistentDataPath, "save_01.txt");
+        if (!File.Exists(path)) return;
+
         string json = string.Empty;
         using (var stream = File.OpenText(path))
         {

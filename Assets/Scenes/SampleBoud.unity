@@ -492,8 +492,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropCollider: {fileID: 261686714}
   grid: {fileID: 261686713}
-  gridSize: {x: 1, y: 1}
   connectionState: 0
+  gridSize: {x: 1, y: 1}
+  modules: {fileID: 1618125431}
   shop: {fileID: 1385817874}
   button: {fileID: 354137919}
   disposal: {fileID: 562093110}
@@ -1415,8 +1416,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropCollider: {fileID: 877906036}
   grid: {fileID: 877906038}
-  gridSize: {x: 4, y: 4}
   connectionState: 1
+  gridSize: {x: 4, y: 4}
+  modules: {fileID: 1618125431}
 --- !u!156049354 &877906038
 Grid:
   m_ObjectHideFlags: 0
@@ -2386,8 +2388,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropCollider: {fileID: 1385817872}
   grid: {fileID: 1385817871}
-  gridSize: {x: 3, y: 2}
   connectionState: 0
+  gridSize: {x: 3, y: 2}
   modules: {fileID: 1618125431}
   tags:
   - {fileID: 1227408647}

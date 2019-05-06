@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Shop : SnappingGrid
 {
-    [SerializeField] ModuleFactory modules;
     [SerializeField] PriceTag[] tags;
     [SerializeField] AudioSource moneySound;
 
