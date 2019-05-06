@@ -8,7 +8,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     private const float TAU = Mathf.PI * 2;
     public enum Direction
     {
-        LEFT,
+        LEFT = 0,
         RIGHT,
     }
 
@@ -21,9 +21,8 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     Stat hertz = null;
     bool? armWasDown = false;
-    Direction facing = Direction.LEFT;
+    Direction facing;
     bool wasRecentlyDragged = false;
-    Vector3 calculatedFacingVector = Vector3.zero;
     IDictionary<Direction, Vector3> offsetByDirection = new Dictionary<Direction, Vector3>()
     {
         {Direction.LEFT, Vector3.left * OFFSET_DISTANCE},
@@ -42,11 +41,15 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             {
                 ReleaseNeighboringButton();
             }
-            calculatedFacingVector = Vector3.zero;
             facing = facing == Direction.LEFT ? Direction.RIGHT : Direction.LEFT;
-            up.flipX = facing == Direction.RIGHT;
-            down.flipX = facing == Direction.RIGHT;
+            RefreshArmDirection();
         }
+    }
+
+    void RefreshArmDirection()
+    {
+        up.flipX = facing == Direction.RIGHT;
+        down.flipX = facing == Direction.RIGHT;
     }
 
     void PressNeighboringButton()
@@ -131,5 +134,17 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
         base.Tierify(tier);
         Price = CalculatePrice(2.5f, 0.5f, 0.25f);
         hertz.BaseValue = Mathf.Pow(2, tier) * 0.5f;
+    }
+
+    public override ModuleData Serialize(int index)
+    {
+        return new ModuleData(index, Prefab, Tier, bought, IsPowered, facing);
+    }
+
+    public override void Deserialize(ModuleData data)
+    {
+        base.Deserialize(data);
+        facing = data.direction;
+        RefreshArmDirection();
     }
 }

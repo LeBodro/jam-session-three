@@ -31,8 +31,8 @@ public class Module : Poolable<Module>, IDraggable
     protected const string STAT_INCOME = "income";
 
     [SerializeField] protected StatDictionnary stats;
+    [SerializeField] protected bool bought = false;
     [SerializeField] SpriteRenderer[] sprites;
-    [SerializeField] bool bought = false;
     [SerializeField] TierMaterials tierMaterials = null;
 
     [SerializeField] new AudioSource audio;
@@ -64,7 +64,6 @@ public class Module : Poolable<Module>, IDraggable
     {
         IsBeingDragged = false;
         lastAssignedPosition = transform.position;
-        PowerOff();
     }
 
     public void CancelMovement()

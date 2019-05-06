@@ -15,27 +15,38 @@ public class SaveData
 
 public class SaveGame : SceneSingleton<SaveGame>
 {
+    const string DEFAULT_JSON = @"{""bankBalance"":""10.00"",""grids"":[{""modules"":[]},{""modules"":[
+                    {""index"":0,""prefab"":0,""tier"":0,""bought"":false,""powered"":false,""direction"":0},
+                    {""index"":1,""prefab"":1,""tier"":0,""bought"":false,""powered"":false,""direction"":0},
+                    {""index"":2,""prefab"":2,""tier"":0,""bought"":false,""powered"":false,""direction"":0}]
+                    },{""modules"":[]}]}";
+
     [SerializeField] SnappingGrid[] grids;
 
-    //void Start() => Load();
+    void Start() => Load();
 
     void Load()
     {
-        string path = Path.Combine(Application.persistentDataPath, "save_01.txt");
-        if (!File.Exists(path)) return;
+        string json = LoadJsonFromFile();
+        if (string.IsNullOrEmpty(json))
+            json = DEFAULT_JSON;
 
+        SaveData data = JsonUtility.FromJson<SaveData>(json);
+        Bank.SetBalance(decimal.Parse(data.bankBalance));
+        for (int i = 0; i < grids.Length; i++)
+            grids[i].Deserialize(data.grids[i]);
+    }
+
+    string LoadJsonFromFile()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "save_01.txt");
+        if (!File.Exists(path)) return string.Empty;
         string json = string.Empty;
         using (var stream = File.OpenText(path))
         {
             json = stream.ReadToEnd();
         }
-        SaveData data = JsonUtility.FromJson<SaveData>(json);
-        PrioritizedStartQueue.Queue(200, () =>
-        {
-            Bank.SetBalance(decimal.Parse(data.bankBalance));
-        });
-        for (int i = 0; i < grids.Length; i++)
-            grids[i].Deserialize(data.grids[i]);
+        return json;
     }
 
     public static void Save() => Instance._Save();

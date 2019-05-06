@@ -10,7 +10,7 @@ public class Shop : SnappingGrid
     int availableTier = 0;
     int tierCount = 6;
 
-    void Start() => Populate();
+    //void Start() => Populate();
 
     public void Populate(int maxTier = 1)
     {
@@ -45,5 +45,22 @@ public class Shop : SnappingGrid
         tags[ToIndex(x, y)].DisplayPrice(article.Price);
 
         article.OnBought += ProcessTransaction;
+    }
+
+    public override void Deserialize(SnappingGridData data)
+    {
+        foreach (var tag in tags) tag.Hide();
+        foreach (var mData in data.modules)
+        {
+            Module module = modules.Get(mData.prefab);
+            module.Deserialize(mData);
+            module.transform.position = GetCellCenter(mData.index % gridSize.x, mData.index / gridSize.x);
+            TrySnap(module);
+            if (!mData.bought)
+            {
+                tags[mData.index].DisplayPrice(module.Price);
+                module.OnBought += ProcessTransaction;
+            }
+        }
     }
 }

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Bank : SceneSingleton<Bank>
+﻿public class Bank : SceneSingleton<Bank>
 {
-    [SerializeField] float initialBalance = 10;
-
     decimal _balance;
 
     event System.Action<decimal, decimal> _onTransaction = delegate { };
@@ -22,18 +15,9 @@ public class Bank : SceneSingleton<Bank>
         set
         {
             decimal difference = value - _balance;
-            _balance = Math.Max(value, 0);
+            _balance = System.Math.Max(value, 0);
             _onTransaction(difference, _balance);
         }
-    }
-
-    public override void Awake()
-    {
-        base.Awake();
-        PrioritizedStartQueue.Queue(100, () =>
-        {
-            _balance = (decimal)initialBalance;
-        });
     }
 
     /// <summary>

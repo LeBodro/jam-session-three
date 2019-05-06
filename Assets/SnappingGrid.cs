@@ -124,13 +124,12 @@ public class SnappingGrid : MonoBehaviour
         return new SnappingGridData(modules.ToArray());
     }
 
-    public void Deserialize(SnappingGridData data)
+    public virtual void Deserialize(SnappingGridData data)
     {
         foreach (var mData in data.modules)
         {
             Module module = modules.Get(mData.prefab);
             module.Deserialize(mData);
-            Debug.Log(name + ": " + mData.index % gridSize.y + " " + mData.index / gridSize.x);
             module.transform.position = GetCellCenter(mData.index % gridSize.x, mData.index / gridSize.x);
             TrySnap(module);
         }
