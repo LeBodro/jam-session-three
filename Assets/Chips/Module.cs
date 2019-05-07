@@ -34,6 +34,7 @@ public class Module : Poolable<Module>, IDraggable
     [SerializeField] protected bool bought = false;
     [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] TierMaterials tierMaterials = null;
+    [SerializeField] Segment segment;
 
     [SerializeField] new AudioSource audio;
     [SerializeField] AudioClip connect;
@@ -85,6 +86,12 @@ public class Module : Poolable<Module>, IDraggable
     public void PowerOff()
     {
         _isPowered = false;
+    }
+
+    public Segment GetSegment()
+    {
+        // TODO: return actual segment, this was for dev.
+        return new Segment();
     }
 
     public virtual void OnBeginDrag(PointerEventData eventData)

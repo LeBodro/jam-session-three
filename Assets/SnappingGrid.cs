@@ -65,24 +65,30 @@ public class SnappingGrid : MonoBehaviour
         }
 
         target.transform.position = new Vector3(cellCenter.x, cellCenter.y);
-        cells[ToIndex(cellCoordinates)] = target;
+        cells[cellIndex] = target;
         target.OnRemoved += Unsnap;
-        ProcessConnection(target);
+        ProcessConnection(target, cellCoordinates);
 
         return true;
     }
 
     int ToIndex(Vector3Int coordinates) => ToIndex(coordinates.x, coordinates.y);
     protected int ToIndex(int x, int y) => x + y * gridSize.x;
+    protected Vector3Int FromIndex(int index) => new Vector3Int(index % gridSize.x, index / gridSize.x, 0);
 
     void Unsnap(Module unsnapped)
     {
         int index = 0;
         for (int i = 0; i < cells.Length; i++)
-            if (cells[i] == unsnapped)
+            if (cells[i] == unsnapped) {
                 index = i;
+                break;
+            }
         cells[index] = null;
         OnUnsnap(unsnapped, index);
+        if (connectionState == PowerState.ON) {
+            Synthetizer.RemoveSegment(FromIndex(index));
+        }
 
         unsnapped.OnRemoved -= Unsnap;
     }
@@ -106,13 +112,16 @@ public class SnappingGrid : MonoBehaviour
         return grid.CellToWorld(cellCoordinates) + grid.cellSize * 0.5f;
     }
 
-    void ProcessConnection(Module target)
+    void ProcessConnection(Module target, Vector3Int cellCoordinates)
     {
         target.ConfirmMovement();
         if (connectionState == PowerState.OFF)
             target.PowerOff();
         else
+        {
             target.PowerOn();
+            Synthetizer.RegisterSegment(cellCoordinates, target.GetSegment());
+        }
     }
 
     public SnappingGridData Serialize()
