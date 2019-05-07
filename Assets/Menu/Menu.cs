@@ -11,6 +11,9 @@ public class Menu : MonoBehaviour
     [SerializeField] Button save;
     [SerializeField] Button saveAndQuit;
     [SerializeField] Button destroyProgress;
+    [SerializeField] Button confirmDestruction;
+    [SerializeField] GameObject secondChance;
+
 
     bool available;
     bool isTranslating;
@@ -25,7 +28,8 @@ public class Menu : MonoBehaviour
         resume.onClick.AddListener(Hide);
         save.onClick.AddListener(Save);
         saveAndQuit.onClick.AddListener(SaveAndQuit);
-        destroyProgress.onClick.AddListener(DestroyProgress);
+        destroyProgress.onClick.AddListener(ShowDestructionPrompt);
+        confirmDestruction.onClick.AddListener(DestroyProgress);
         openedPosition = transform.localPosition;
         closedPosition = openedPosition + Vector3.down * ((RectTransform)transform).sizeDelta.y;
         transform.localPosition = closedPosition;
@@ -62,6 +66,7 @@ public class Menu : MonoBehaviour
         available = true;
         StartTransition();
         inputBlocker.gameObject.SetActive(true);
+        secondChance.SetActive(false);
     }
 
     void Hide()
@@ -90,10 +95,14 @@ public class Menu : MonoBehaviour
 #endif
     }
 
+    void ShowDestructionPrompt()
+    {
+        secondChance.SetActive(true);
+    }
+
     void DestroyProgress()
     {
         if (!available) return;
-        throw new System.NotImplementedException();
-        // TODO: implement chance to opt out of file destruction when pressing this button
+        SaveGame.DeleteSave();
     }
 }

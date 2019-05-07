@@ -15,6 +15,7 @@ public class SaveData
 
 public class SaveGame : SceneSingleton<SaveGame>
 {
+    const string SAVE_FILE_NAME = "save_01.txt";
     const string DEFAULT_JSON = @"{""bankBalance"":""10.00"",""grids"":[{""modules"":[]},{""modules"":[
                     {""index"":0,""prefab"":0,""tier"":0,""bought"":false,""powered"":false,""direction"":0},
                     {""index"":1,""prefab"":1,""tier"":0,""bought"":false,""powered"":false,""direction"":0},
@@ -39,7 +40,7 @@ public class SaveGame : SceneSingleton<SaveGame>
 
     string LoadJsonFromFile()
     {
-        string path = Path.Combine(Application.persistentDataPath, "save_01.txt");
+        string path = Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME);
         if (!File.Exists(path)) return string.Empty;
         string json = string.Empty;
         using (var stream = File.OpenText(path))
@@ -60,11 +61,20 @@ public class SaveGame : SceneSingleton<SaveGame>
         SaveData save = new SaveData(bankBalance, data);
 
         string json = JsonUtility.ToJson(save);
-        using (var stream = File.CreateText(Path.Combine(Application.persistentDataPath, "save_01.txt")))
+        using (var stream = File.CreateText(Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME)))
         {
-            Debug.Log(Path.Combine(Application.persistentDataPath, "save_01.txt"));
+            Debug.Log(Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME));
             stream.Write(json);
         }
+    }
+
+    public static void DeleteSave() => Instance._DeleteSave();
+    void _DeleteSave()
+    {
+        string path = Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME);
+        if (!File.Exists(path)) return;
+        string newPath = Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME + ".backup");
+        File.Move(path, newPath);
     }
 
     void Update()
