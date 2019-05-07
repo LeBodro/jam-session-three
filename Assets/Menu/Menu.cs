@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    const float INVERT_TRANSITION_DELAY = 5;
+
     [SerializeField] Button inputBlocker;
     [SerializeField] Button toggle;
     [SerializeField] Button resume;
@@ -13,6 +15,10 @@ public class Menu : MonoBehaviour
     [SerializeField] Button destroyProgress;
 
     bool available;
+    bool isTranslating;
+    Vector3 openedPosition;
+    Vector3 closedPosition;
+    float transitionTime;
 
     void Start()
     {
@@ -22,6 +28,29 @@ public class Menu : MonoBehaviour
         save.onClick.AddListener(Save);
         saveAndQuit.onClick.AddListener(SaveAndQuit);
         destroyProgress.onClick.AddListener(DestroyProgress);
+        openedPosition = transform.localPosition;
+        closedPosition = openedPosition + Vector3.down * ((RectTransform)transform).sizeDelta.y;
+        transform.localPosition = closedPosition;
+    }
+
+    void Update()
+    {
+        if (!isTranslating) return;
+        float deltaTime = Time.deltaTime * INVERT_TRANSITION_DELAY;
+        if (available)
+            transitionTime = Mathf.Min(transitionTime + deltaTime, 1);
+        else
+            transitionTime = Mathf.Max(transitionTime - deltaTime, 0);
+
+        transitionTime = Mathf.Clamp01(transitionTime);
+
+        transform.localPosition = Vector3.Lerp(closedPosition, openedPosition, transitionTime);
+        isTranslating = available ? transitionTime < 1 : transitionTime > 0;
+    }
+
+    void StartTransition()
+    {
+        isTranslating = true;
     }
 
     void Toggle()
@@ -33,6 +62,7 @@ public class Menu : MonoBehaviour
     void Show()
     {
         available = true;
+        StartTransition();
         inputBlocker.gameObject.SetActive(true);
     }
 
@@ -40,6 +70,7 @@ public class Menu : MonoBehaviour
     {
         if (!available) return;
         available = false;
+        StartTransition();
         inputBlocker.gameObject.SetActive(false);
     }
 
