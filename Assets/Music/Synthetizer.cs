@@ -8,11 +8,13 @@ public class Synthetizer : SceneSingleton<Synthetizer>
     [SerializeField] int totalMeasures = 8;
     [SerializeField] int beatsPerMeasure = 4;
     [SerializeField] int numberOfTracks = 2;
+    [SerializeField] int totalNotes = 16;
     [SerializeField] AudioSource speaker;
     [SerializeField] Instrument[] instruments;
 
     float secondsPerBeat;
     int trackLength;
+    int[] notes;
     Segment[] segments;
 
     // Used to keep track of changing beats between updates
@@ -21,6 +23,12 @@ public class Synthetizer : SceneSingleton<Synthetizer>
     void Reset()
     {
         speaker = GetComponent<AudioSource>();
+    }
+
+    public static void CycleNote(Vector3Int cellCoordinates)
+    {
+        var noteIndex = ToIndex(cellCoordinates);
+        Instance.notes[noteIndex] = (Instance.notes[noteIndex] + 1) % Instance.totalNotes;
     }
 
     public static void RegisterSegment(Vector3Int cellCoordinates, Segment s)
@@ -44,6 +52,7 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         speaker.volume = volume;
         secondsPerBeat = 1 / (tempo / 60f);
         segments = new Segment[totalMeasures * numberOfTracks];
+        notes = new int[totalMeasures * numberOfTracks];
         trackLength = totalMeasures / numberOfTracks;
     }
 
@@ -65,7 +74,9 @@ public class Synthetizer : SceneSingleton<Synthetizer>
             {
                 Segment s = segments[currentMeasure + (track * totalMeasures)];
                 if (s != null && s.PlayBeat(currentBeatInMeasure))
-                    speaker.PlayOneShot(instruments[s.instrument].notes[s.note]);
+                {
+                    speaker.PlayOneShot(instruments[s.instrument].notes[Instance.notes[currentMeasure + (track * totalMeasures)]]);
+                }
             }
         }
         lastBeatRaw = currentBeatRaw;

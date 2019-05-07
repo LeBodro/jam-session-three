@@ -11,6 +11,14 @@ public class VirtualClickerModule : Module
 
     protected override int Prefab { get => 1; }
 
+    public Segment GetSegment()
+    {
+        // TODO: Note should be set/increment by button
+        // TODO: Make sequence modifiable and serialize it in save
+        // TODO: Keep a reference to segment to modify it's sequence easily
+        return new Segment(Tier, 5);
+    }
+
     void Update()
     {
         if (!IsPowered) return;
