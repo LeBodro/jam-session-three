@@ -68,12 +68,12 @@ public class SnappingGrid : MonoBehaviour
         cells[cellIndex] = target;
         target.OnRemoved += Unsnap;
         ProcessConnection(target, cellCoordinates);
-        OnSnap(target, cellIndex);
+        OnSnap(target, cellCoordinates);
 
         return true;
     }
 
-    protected virtual void OnSnap(Module snapped, int index) { }
+    protected virtual void OnSnap(Module snapped, Vector3Int cellCoordinates) { }
 
 
     int ToIndex(Vector3Int coordinates) => ToIndex(coordinates.x, coordinates.y);

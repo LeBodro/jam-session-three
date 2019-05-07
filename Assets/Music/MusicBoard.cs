@@ -1,12 +1,14 @@
-﻿public class MusicBoard : SnappingGrid
+﻿using UnityEngine;
+
+public class MusicBoard : SnappingGrid
 {
-    protected override void OnSnap(Module snapped, int index)
+    protected override void OnSnap(Module snapped, Vector3Int cellCoordinates)
     {
-        Synthetizer.RegisterSegment(index, snapped.GetSegment());
+        Synthetizer.RegisterSegment(cellCoordinates, snapped.GetSegment());
     }
 
     protected override void OnUnsnap(Module unsnapped, int index)
     {
-        Synthetizer.RemoveSegment(index);
+        Synthetizer.RemoveSegment(FromIndex(index));
     }
 }

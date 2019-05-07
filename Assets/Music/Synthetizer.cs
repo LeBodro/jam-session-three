@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 public class Synthetizer : SceneSingleton<Synthetizer>
@@ -24,14 +22,20 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         speaker = GetComponent<AudioSource>();
     }
 
-    public static void RegisterSegment(int cellIndex, Segment s)
+    public static void RegisterSegment(Vector3Int cellCoordinates, Segment s)
     {
-        Instance.segments[cellIndex] = s;
+        Instance.segments[ToIndex(cellCoordinates)] = s;
     }
 
-    public static void RemoveSegment(int cellIndex)
+    public static void RemoveSegment(Vector3Int cellCoordinates)
     {
-        Instance.segments[cellIndex] = null;
+        Instance.segments[ToIndex(cellCoordinates)] = null;
+    }
+
+    private static int ToIndex(Vector3Int cellCoordinates)
+    {
+        // Y is reversed compared to how grid works. Top to bottom instead of bottom to top.
+        return cellCoordinates.x + (Instance.trackLength - 1 - cellCoordinates.y) * Instance.trackLength;
     }
 
     void Start()
