@@ -8,6 +8,13 @@ public class Segment
     [SerializeField] int instrument;
     [SerializeField] int sequence;
 
+    public Segment(int _note, int _instrument, int _sequence)
+    {
+        note = _note;
+        instrument = _instrument;
+        sequence = _sequence;
+    }
+
     public void PlayBeat(int beat)
     {
         Debug.Log("I was played! " + beat);

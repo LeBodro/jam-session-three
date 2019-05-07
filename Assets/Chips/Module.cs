@@ -88,10 +88,13 @@ public class Module : Poolable<Module>, IDraggable
         _isPowered = false;
     }
 
+    // TODO: This should be in Virtual Clicker
     public Segment GetSegment()
     {
-        // TODO: return actual segment, this was for dev.
-        return new Segment();
+        // TODO: Note should be in synthetizer, not in segment, and set by button
+        // TODO: Make sequence modifiable and serialize it in save
+        // TODO: Keep a reference to segment to modify it's sequence easily
+        return new Segment(3, Tier, 5);
     }
 
     public virtual void OnBeginDrag(PointerEventData eventData)

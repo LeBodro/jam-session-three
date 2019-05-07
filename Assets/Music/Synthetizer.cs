@@ -61,4 +61,9 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         }
         Instance.lastBeatRaw = currentBeatRaw;
     }
+
+    public void Serialize()
+    {
+        // TODO: This should return data containing volume, tempo and note per cell.
+    }
 }
