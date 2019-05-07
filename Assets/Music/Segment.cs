@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Segment
 {
-    [SerializeField] int note;
-    [SerializeField] int instrument;
-    [SerializeField] int sequence;
+    [SerializeField] public int note;
+    [SerializeField] public int instrument;
+    [SerializeField] public int sequence;
 
     public Segment(int _note, int _instrument, int _sequence)
     {
@@ -15,8 +15,8 @@ public class Segment
         sequence = _sequence;
     }
 
-    public void PlayBeat(int beat)
+    public bool PlayBeat(int beat)
     {
-        Debug.Log("I was played! " + beat);
+        return (beat & sequence) != 0;
     }
 }

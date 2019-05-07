@@ -9,6 +9,7 @@ public class Synthetizer : SceneSingleton<Synthetizer>
     [SerializeField] int beatsPerMeasure = 4;
     [SerializeField] int numberOfTracks = 2;
     [SerializeField] AudioSource speaker;
+    [SerializeField] Instrument[] instruments;
 
     float secondsPerBeat;
     int trackLength;
@@ -63,7 +64,8 @@ public class Synthetizer : SceneSingleton<Synthetizer>
             for (int track = 0; track < numberOfTracks; track++)
             {
                 Segment s = segments[currentMeasure + (track * totalMeasures)];
-                s?.PlayBeat(currentBeatInMeasure);
+                if (s != null && s.PlayBeat(currentBeatInMeasure))
+                    speaker.PlayOneShot(instruments[s.instrument].notes[s.note]);
             }
         }
         lastBeatRaw = currentBeatRaw;

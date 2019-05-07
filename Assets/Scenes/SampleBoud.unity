@@ -1418,11 +1418,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: 1
-  tempo: 160
+  tempo: 400
   totalMeasures: 8
   beatsPerMeasure: 4
   numberOfTracks: 2
   speaker: {fileID: 714370674}
+  instruments:
+  - {fileID: 11400000, guid: 3a5fccb86d125994f91a1a8c04ad2e4e, type: 2}
+  - {fileID: 11400000, guid: 7277416a94c81cc469e424540cc3c1c5, type: 2}
+  - {fileID: 11400000, guid: a6941336b5e40134c81169dbd812c895, type: 2}
+  - {fileID: 11400000, guid: 6ff8219b615e9574aa93fe4be7ee1a9f, type: 2}
+  - {fileID: 11400000, guid: 9b73838884ecb0742a5b0061290a99b0, type: 2}
+  - {fileID: 11400000, guid: 611e1bc99bda435478d5e22ae423e112, type: 2}
 --- !u!1 &810628608
 GameObject:
   m_ObjectHideFlags: 0
