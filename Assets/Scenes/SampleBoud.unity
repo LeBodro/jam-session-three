@@ -1458,7 +1458,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 877906035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32683b6b8d18d4917a6132e6ea062c6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fd0c1f6bd7993d449e7ca0a43cec2f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dropCollider: {fileID: 877906036}

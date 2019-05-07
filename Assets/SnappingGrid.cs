@@ -20,7 +20,7 @@ public class SnappingGrid : MonoBehaviour
 
     [SerializeField] BoxCollider2D dropCollider;
     [SerializeField] Grid grid;
-    [SerializeField] PowerState connectionState = PowerState.OFF;
+    [SerializeField] protected PowerState connectionState = PowerState.OFF;
     [SerializeField] protected Vector2Int gridSize;
     [SerializeField] protected ModuleFactory modules;
 
@@ -68,9 +68,13 @@ public class SnappingGrid : MonoBehaviour
         cells[cellIndex] = target;
         target.OnRemoved += Unsnap;
         ProcessConnection(target, cellCoordinates);
+        OnSnap(target, cellIndex);
 
         return true;
     }
+
+    protected virtual void OnSnap(Module snapped, int index) { }
+
 
     int ToIndex(Vector3Int coordinates) => ToIndex(coordinates.x, coordinates.y);
     protected int ToIndex(int x, int y) => x + y * gridSize.x;
@@ -80,16 +84,13 @@ public class SnappingGrid : MonoBehaviour
     {
         int index = 0;
         for (int i = 0; i < cells.Length; i++)
-            if (cells[i] == unsnapped) {
+            if (cells[i] == unsnapped)
+            {
                 index = i;
                 break;
             }
         cells[index] = null;
         OnUnsnap(unsnapped, index);
-        if (connectionState == PowerState.ON) {
-            Synthetizer.RemoveSegment(FromIndex(index));
-        }
-
         unsnapped.OnRemoved -= Unsnap;
     }
 
@@ -118,10 +119,7 @@ public class SnappingGrid : MonoBehaviour
         if (connectionState == PowerState.OFF)
             target.PowerOff();
         else
-        {
             target.PowerOn();
-            Synthetizer.RegisterSegment(cellCoordinates, target.GetSegment());
-        }
     }
 
     public SnappingGridData Serialize()

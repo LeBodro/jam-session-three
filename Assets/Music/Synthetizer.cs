@@ -16,14 +16,14 @@ public class Synthetizer : SceneSingleton<Synthetizer>
     // Used to keep track of changing beats between updates
     int lastBeatRaw = 0;
 
-    public static void RegisterSegment(Vector3Int cellCoordinates, Segment s)
-    {   
-        Instance.segments[ToIndex(cellCoordinates)] = s;
+    public static void RegisterSegment(int cellIndex, Segment s)
+    {
+        Instance.segments[cellIndex] = s;
     }
 
-    public static void RemoveSegment(Vector3Int cellCoordinates)
+    public static void RemoveSegment(int cellIndex)
     {
-        Instance.segments[ToIndex(cellCoordinates)] = null;
+        Instance.segments[cellIndex] = null;
     }
 
     private static int ToIndex(Vector3Int cellCoordinates)
@@ -32,7 +32,6 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         return cellCoordinates.x + (Instance.trackLength - 1 - cellCoordinates.y) * Instance.trackLength;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Instance.secondsPerBeat = 1 / (Instance.tempo / 60f);
@@ -49,7 +48,8 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         // Counts the current beat in the current measure. Oscillates between 0 and beatsPerMeasure-1
         var currentBeatInMeasure = currentBeatRaw % Instance.beatsPerMeasure;
 
-        if (currentBeatRaw != Instance.lastBeatRaw) {
+        if (currentBeatRaw != Instance.lastBeatRaw)
+        {
             // When beat changes. Should trigger something in current segment at current measure.
             Debug.Log(string.Format("Measure: {0} Beat: {1}", currentMeasure, currentBeatInMeasure));
 
