@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9ed60c26004934ca272ee6003e6a7b, type: 3}
+  m_Name: Buzzer
+  m_EditorClassIdentifier: 
+  notes:
+  - {fileID: 8300000, guid: 3a25d16e10676a749816640a72f65727, type: 3}
+  - {fileID: 8300000, guid: cdfae0db750d3da4683e1410532895a9, type: 3}
+  - {fileID: 8300000, guid: 58b84d53b2cca0e4bbac1b1aa944c914, type: 3}
+  - {fileID: 8300000, guid: 7c821ad7177a9ba45b1965459fa04e03, type: 3}
+  - {fileID: 8300000, guid: 0aa899195cd2b5d4fa3aecbfbf256ac0, type: 3}
+  - {fileID: 8300000, guid: ce8232f7c106c6944b55038774003c90, type: 3}
+  - {fileID: 8300000, guid: 7dd208bc2b2ab324993b7fe1b3154bab, type: 3}
+  - {fileID: 8300000, guid: 2e82defc938900a4aaf2008b3d3e33ac, type: 3}

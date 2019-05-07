@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9ed60c26004934ca272ee6003e6a7b, type: 3}
+  m_Name: Drum
+  m_EditorClassIdentifier: 
+  notes:
+  - {fileID: 8300000, guid: 20b2386f6d9771d4394b092be73aadc2, type: 3}
+  - {fileID: 8300000, guid: 39d4c8d4908c4a74eaab8c19b4b2da9b, type: 3}
+  - {fileID: 8300000, guid: d0051600808916d4388342a68d5118a3, type: 3}
+  - {fileID: 8300000, guid: e285b0667b8f5304dbb5ebbe67abc2cc, type: 3}
+  - {fileID: 8300000, guid: 1d4ba69c6da69304e89e1a6e65fe2155, type: 3}
+  - {fileID: 8300000, guid: 6489f8eaacde1df4d8abde6c3385c2a4, type: 3}
+  - {fileID: 8300000, guid: 3290c40881abbcc409b56ef139e0cb4a, type: 3}
+  - {fileID: 8300000, guid: 21c8e37f4fa3beb4281d8ec8d81ce310, type: 3}
