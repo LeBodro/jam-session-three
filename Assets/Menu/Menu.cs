@@ -14,7 +14,7 @@ public class Menu : MonoBehaviour
     [SerializeField] Button destroyProgress = null;
     [SerializeField] Button confirmDestruction = null;
     [SerializeField] GameObject secondChance = null;
-
+    [SerializeField] new AudioSource audio = null;
 
     bool available;
     bool isTranslating;
@@ -73,6 +73,7 @@ public class Menu : MonoBehaviour
     void Hide()
     {
         if (!available) return;
+        audio.Play();
         available = false;
         StartTransition();
         inputBlocker.gameObject.SetActive(false);
@@ -98,6 +99,7 @@ public class Menu : MonoBehaviour
 
     void ShowDestructionPrompt()
     {
+        audio.Play();
         secondChance.SetActive(true);
     }
 
