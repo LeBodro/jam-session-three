@@ -1915,7 +1915,7 @@ MonoBehaviour:
   totalMeasures: 8
   beatsPerMeasure: 4
   numberOfTracks: 2
-  totalNotes: 16
+  totalNotes: 8
   speaker: {fileID: 714370674}
   instruments:
   - {fileID: 11400000, guid: 3a5fccb86d125994f91a1a8c04ad2e4e, type: 2}
@@ -4366,6 +4366,7 @@ MonoBehaviour:
   - {fileID: 877906037}
   - {fileID: 1385817874}
   - {fileID: 261686717}
+  autosaveDelay: 300
 --- !u!1 &1940016725
 GameObject:
   m_ObjectHideFlags: 0
