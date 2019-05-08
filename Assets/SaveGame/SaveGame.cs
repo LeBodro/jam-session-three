@@ -23,11 +23,15 @@ public class SaveGame : SceneSingleton<SaveGame>
                     },{""modules"":[]}]}";
 
     [SerializeField] SnappingGrid[] grids = null;
+    [SerializeField] float autosaveDelay = 300;
+
+    float timeLeftToAutosave;
 
     void Start() => Load();
 
     void Load()
     {
+        timeLeftToAutosave = autosaveDelay;
         string json = LoadJsonFromFile();
         if (string.IsNullOrEmpty(json))
             json = DEFAULT_JSON;
@@ -53,6 +57,7 @@ public class SaveGame : SceneSingleton<SaveGame>
     public static void Save() => Instance._Save();
     void _Save()
     {
+        timeLeftToAutosave = autosaveDelay;
         SnappingGridData[] data = new SnappingGridData[grids.Length];
         for (int i = 0; i < grids.Length; i++)
             data[i] = grids[i].Serialize();
@@ -79,7 +84,8 @@ public class SaveGame : SceneSingleton<SaveGame>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Save();
+        timeLeftToAutosave -= Time.deltaTime;
+        if (timeLeftToAutosave <= 0)
+            _Save();
     }
 }
