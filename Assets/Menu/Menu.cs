@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
@@ -104,5 +105,6 @@ public class Menu : MonoBehaviour
     {
         if (!available) return;
         SaveGame.DeleteSave();
+        SceneManager.LoadScene(0);
     }
 }
