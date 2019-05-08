@@ -23,7 +23,7 @@ public class SnappingGrid : MonoBehaviour
     [SerializeField] protected Vector2Int gridSize;
     [SerializeField] protected ModuleFactory modules;
 
-    Module[] cells;
+    protected Module[] cells;
 
     // Called from the editor when adding or resetting the component
     void Reset()
@@ -73,7 +73,6 @@ public class SnappingGrid : MonoBehaviour
     }
 
     protected virtual void OnSnap(Module snapped, Vector3Int cellCoordinates) { }
-
 
     int ToIndex(Vector3Int coordinates) => ToIndex(coordinates.x, coordinates.y);
     protected int ToIndex(int x, int y) => x + y * gridSize.x;

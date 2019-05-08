@@ -1,9 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class VirtualClickerModule : Module
+public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandler
 {
     Stat hertz = null;
     Stat incomePerTick = null;
+    Segment segment = null;
+
+    event System.Action<VirtualClickerModule> _onMouseClick = delegate { };
+    public event System.Action<VirtualClickerModule> OnMouseClick
+    {
+        add { _onMouseClick += value; }
+        remove { _onMouseClick -= value; }
+    }
 
     float accumulator;
 
@@ -11,10 +20,8 @@ public class VirtualClickerModule : Module
 
     public Segment GetSegment()
     {
-        // TODO: Note should be set/increment by button
-        // TODO: Make sequence modifiable and serialize it in save
-        // TODO: Keep a reference to segment to modify it's sequence easily
-        return new Segment(Tier, 5);
+        // TODO: Serialize sequence in save
+        return segment;
     }
 
     void Update()
@@ -37,5 +44,19 @@ public class VirtualClickerModule : Module
         Price = CalculatePrice(3f, 2f, 1.25f);
         incomePerTick.BaseValue = CalculateIncome(0.15f, 3, 0.75f);
         hertz.BaseValue = Mathf.Pow(2, tier) * 0.5f;
+        segment = new Segment(Tier, 10);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (IsPowered)
+        {
+            _onMouseClick(this);
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // Must be implemented in order for onpointerup to work
     }
 }

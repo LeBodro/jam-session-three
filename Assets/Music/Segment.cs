@@ -9,5 +9,10 @@
         sequence = _sequence;
     }
 
-    public bool PlayBeat(int beat) => (beat & sequence) != 0;
+    public void CycleSequence()
+    {
+        sequence = (sequence + 1) % 17;
+    }
+
+    public bool PlayBeat(int beat) => ((beat + 1) & sequence) != 0;
 }

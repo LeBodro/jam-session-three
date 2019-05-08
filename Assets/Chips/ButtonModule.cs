@@ -8,6 +8,13 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     [SerializeField] SpriteRenderer up = null;
     [SerializeField] SpriteRenderer down = null;
 
+    event System.Action<ButtonModule> _onMouseClick = delegate { };
+    public event System.Action<ButtonModule> OnMouseClick
+    {
+        add { _onMouseClick += value; }
+        remove { _onMouseClick -= value; }
+    }
+
     Stat incomePerClick = null;
     int amountOfSimultaneousPresses = 0;
     bool wasRecentlyCancelled = false;
@@ -28,7 +35,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Release();
+        Release(true);
     }
 
     public void Press()
@@ -52,7 +59,7 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         RefreshVisual();
     }
 
-    public void Release()
+    public void Release(bool isMouseClick = false)
     {
         if (IsBeingDragged) return;
         if (wasRecentlyCancelled)
@@ -74,6 +81,10 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         if (IsUp && IsPowered)
         {
             GenerateIncome(incomePerClick.ProcessedDecimal);
+            if (isMouseClick)
+            {
+                _onMouseClick(this);
+            }
         }
         RefreshVisual();
     }

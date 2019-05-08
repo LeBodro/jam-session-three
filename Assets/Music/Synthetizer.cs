@@ -31,6 +31,11 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         Instance.notes[noteIndex] = (Instance.notes[noteIndex] + 1) % Instance.totalNotes;
     }
 
+    public static void CycleSegment(Vector3Int cellCoordinates)
+    {
+        Instance.segments[ToIndex(cellCoordinates)]?.CycleSequence();
+    }
+
     public static void RegisterSegment(Vector3Int cellCoordinates, Segment s)
     {
         Instance.segments[ToIndex(cellCoordinates)] = s;
@@ -47,6 +52,13 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         return cellCoordinates.x + (Instance.trackLength - 1 - cellCoordinates.y) * Instance.trackLength;
     }
 
+    private static int GetIndexForTrackAndMeasure(int track, int measure)
+    {
+        return Mathf.FloorToInt(measure / Instance.beatsPerMeasure) * Instance.beatsPerMeasure 
+        + track * Instance.beatsPerMeasure
+        + measure;
+    }
+
     void Start()
     {
         speaker.volume = volume;
@@ -56,7 +68,7 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         trackLength = totalMeasures / numberOfTracks;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Counts the current beat and always goes up as time flows
         var currentBeatRaw = Mathf.FloorToInt(Time.time / secondsPerBeat);
@@ -68,14 +80,14 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         if (currentBeatRaw != lastBeatRaw)
         {
             // When beat changes. Should trigger something in current segment at current measure.
-            Debug.Log(string.Format("Measure: {0} Beat: {1}", currentMeasure, currentBeatInMeasure));
 
             for (int track = 0; track < numberOfTracks; track++)
             {
-                Segment s = segments[currentMeasure + (track * totalMeasures)];
+                int indexForTrackAndMeasure = GetIndexForTrackAndMeasure(track, currentMeasure);
+                Segment s = segments[indexForTrackAndMeasure];
                 if (s != null && s.PlayBeat(currentBeatInMeasure))
                 {
-                    speaker.PlayOneShot(instruments[s.instrument].notes[Instance.notes[currentMeasure + (track * totalMeasures)]]);
+                    speaker.PlayOneShot(instruments[s.instrument].notes[Instance.notes[indexForTrackAndMeasure]]);
                 }
             }
         }
