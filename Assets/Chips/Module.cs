@@ -28,14 +28,14 @@ public class Module : Poolable<Module>, IDraggable
     protected const string STAT_HERTZ = "hertz";
     protected const string STAT_INCOME = "income";
 
-    [SerializeField] protected StatDictionnary stats;
+    [SerializeField] protected StatDictionnary stats = null;
     [SerializeField] protected bool bought = false;
-    [SerializeField] SpriteRenderer[] sprites;
+    [SerializeField] SpriteRenderer[] sprites = null;
     [SerializeField] TierMaterials tierMaterials = null;
 
-    [SerializeField] new AudioSource audio;
-    [SerializeField] AudioClip connect;
-    [SerializeField] AudioClip disconnect;
+    [SerializeField] new AudioSource audio = null;
+    [SerializeField] AudioClip connect = null;
+    [SerializeField] AudioClip disconnect = null;
 
     Vector3 lastAssignedPosition;
     bool _isPowered = false;

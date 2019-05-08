@@ -10,7 +10,7 @@ public class Synthetizer : SceneSingleton<Synthetizer>
     [SerializeField] int numberOfTracks = 2;
     [SerializeField] int totalNotes = 16;
     [SerializeField] AudioSource speaker;
-    [SerializeField] Instrument[] instruments;
+    [SerializeField] Instrument[] instruments = null;
 
     float secondsPerBeat;
     int trackLength;

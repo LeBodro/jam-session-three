@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Shop : SnappingGrid
 {
-    [SerializeField] PriceTag[] tags;
-    [SerializeField] AudioSource moneySound;
+    [SerializeField] PriceTag[] tags = null;
+    [SerializeField] AudioSource moneySound = null;
 
     int availableTier = 0;
     int tierCount = 6;

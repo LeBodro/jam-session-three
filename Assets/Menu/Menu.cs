@@ -6,14 +6,14 @@ public class Menu : MonoBehaviour
 {
     const float INVERT_TRANSITION_DELAY = 5;
 
-    [SerializeField] Button inputBlocker;
-    [SerializeField] Button toggle;
-    [SerializeField] Button resume;
-    [SerializeField] Button save;
-    [SerializeField] Button saveAndQuit;
-    [SerializeField] Button destroyProgress;
-    [SerializeField] Button confirmDestruction;
-    [SerializeField] GameObject secondChance;
+    [SerializeField] Button inputBlocker = null;
+    [SerializeField] Button toggle = null;
+    [SerializeField] Button resume = null;
+    [SerializeField] Button save = null;
+    [SerializeField] Button saveAndQuit = null;
+    [SerializeField] Button destroyProgress = null;
+    [SerializeField] Button confirmDestruction = null;
+    [SerializeField] GameObject secondChance = null;
 
 
     bool available;

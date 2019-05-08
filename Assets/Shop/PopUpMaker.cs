@@ -2,7 +2,7 @@
 
 public class PopUpMaker : SceneSingleton<PopUpMaker>
 {
-    [SerializeField] TransactionPopUp transactionPrefab;
+    [SerializeField] TransactionPopUp transactionPrefab = null;
 
     Pool<TransactionPopUp> transactions;
 

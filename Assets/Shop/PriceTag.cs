@@ -6,8 +6,8 @@ public class PriceTag : MonoBehaviour
 {
     [SerializeField] Color availablePriceMask = new Color(57 / 255f, 185 / 255f, 113 / 255f);
     [SerializeField] Color unavailableColorMask = Color.white;
-    [SerializeField] Text price;
-    [SerializeField] Image background;
+    [SerializeField] Text price = null;
+    [SerializeField] Image background = null;
     private decimal value;
 
     void Start()

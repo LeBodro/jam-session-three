@@ -22,7 +22,7 @@ public class SaveGame : SceneSingleton<SaveGame>
                     {""index"":2,""prefab"":2,""tier"":0,""bought"":false,""powered"":false,""direction"":0}]
                     },{""modules"":[]}]}";
 
-    [SerializeField] SnappingGrid[] grids;
+    [SerializeField] SnappingGrid[] grids = null;
 
     void Start() => Load();
 
