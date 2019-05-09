@@ -11,8 +11,8 @@
 
     public void CycleSequence()
     {
-        sequence = (sequence + 1) % 17;
+        sequence = (sequence + 1) % 16;
     }
 
-    public bool PlayBeat(int beat) => ((beat + 1) & sequence) != 0;
+    public bool PlayBeat(int beat) => ((1 << beat) & sequence) != 0;
 }

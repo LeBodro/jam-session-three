@@ -7,6 +7,8 @@ public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandl
     Stat incomePerTick = null;
     Segment segment = null;
 
+    [SerializeField] GameObject[] beatIndicators;
+
     event System.Action<VirtualClickerModule> _onMouseClick = delegate { };
     public event System.Action<VirtualClickerModule> OnMouseClick
     {
@@ -26,6 +28,10 @@ public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandl
 
     void Update()
     {
+        for (int i = 0; i < beatIndicators.Length; i++)
+        {
+            beatIndicators[i].SetActive(IsPowered && segment.PlayBeat(i));
+        }
         if (!IsPowered) return;
         accumulator += Time.deltaTime;
         float delay = 1 / hertz.ProcessedValue;
