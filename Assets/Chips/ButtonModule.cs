@@ -16,9 +16,9 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     }
 
     Stat incomePerClick = null;
-    int amountOfSimultaneousPresses = 0;
+    HashSet<string> pressSrouces = new HashSet<string>();
     bool wasRecentlyCancelled = false;
-    public bool IsDown { get => amountOfSimultaneousPresses > 0; }
+    public bool IsDown { get => pressSrouces.Count > 0; }
     public bool IsUp { get => !IsDown; }
     protected override int Prefab { get => 0; }
 
@@ -30,18 +30,18 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Press();
+        Press("mouse");
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Release(true);
+        Release("mouse");
     }
 
-    public void Press()
+    public void Press(string source)
     {
         if (IsBeingDragged) return;
-        amountOfSimultaneousPresses++;
+        pressSrouces.Add(source);
         wasRecentlyCancelled = false;
         RefreshVisual();
     }
@@ -54,34 +54,34 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
 
     void CancelAllPresses()
     {
-        amountOfSimultaneousPresses = 0;
+        pressSrouces.Clear();
         wasRecentlyCancelled = true;
         RefreshVisual();
     }
 
-    public void Release(bool isMouseClick = false)
+    public void Release(string source)
     {
         if (IsBeingDragged) return;
         if (wasRecentlyCancelled)
         {
-            amountOfSimultaneousPresses = 0;
+            pressSrouces.Clear();
             wasRecentlyCancelled = false;
             RefreshVisual();
             return;
         }
 
-        if (amountOfSimultaneousPresses <= 0)
+        if (pressSrouces.Count <= 0)
         {
-            amountOfSimultaneousPresses = 0;
+            pressSrouces.Clear();
             RefreshVisual();
             return;
         }
 
-        amountOfSimultaneousPresses--;
+        pressSrouces.Remove(source);
         if (IsUp && IsPowered)
         {
             GenerateIncome(incomePerClick.ProcessedDecimal);
-            if (isMouseClick)
+            if (source == "mouse")
             {
                 _onMouseClick(this);
             }

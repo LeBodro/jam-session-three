@@ -60,7 +60,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             ButtonModule bm = neighbor.GetComponent<ButtonModule>();
             if (bm)
             {
-                bm.Press();
+                bm.Press(name);
             }
         }
     }
@@ -73,7 +73,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             ButtonModule bm = neighbor.GetComponent<ButtonModule>();
             if (bm)
             {
-                bm.Release();
+                bm.Release(name);
             }
         }
     }
