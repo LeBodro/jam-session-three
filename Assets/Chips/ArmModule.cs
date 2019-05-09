@@ -31,6 +31,8 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     bool IsArmDown { get => Mathf.Sin(Time.time * hertz.ProcessedValue * TAU) > cutoff; }
     protected override int Prefab { get => 2; }
+    string InstanceIDString { get => _instanceIDString == null ? (_instanceIDString = GetInstanceID().ToString()) : _instanceIDString; }
+    string _instanceIDString = null;
 
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -60,7 +62,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             ButtonModule bm = neighbor.GetComponent<ButtonModule>();
             if (bm)
             {
-                bm.Press(name);
+                bm.Press(InstanceIDString);
             }
         }
     }
@@ -73,7 +75,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
             ButtonModule bm = neighbor.GetComponent<ButtonModule>();
             if (bm)
             {
-                bm.Release(name);
+                bm.Release(InstanceIDString);
             }
         }
     }
