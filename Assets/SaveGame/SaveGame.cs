@@ -5,22 +5,20 @@ public class SaveData
 {
     [SerializeField] public string bankBalance;
     [SerializeField] public SnappingGridData[] grids;
+    [SerializeField] public SynthetizerData synth;
 
-    public SaveData(string _bankBalance, SnappingGridData[] _grids)
+    public SaveData(string _bankBalance, SnappingGridData[] _grids, SynthetizerData _synth)
     {
         bankBalance = _bankBalance;
         grids = _grids;
+        synth = _synth;
     }
 }
 
 public class SaveGame : SceneSingleton<SaveGame>
 {
     const string SAVE_FILE_NAME = "save_01.txt";
-    const string DEFAULT_JSON = @"{""bankBalance"":""10.00"",""grids"":[{""modules"":[]},{""modules"":[
-                    {""index"":0,""prefab"":0,""tier"":0,""bought"":false,""powered"":false,""direction"":0},
-                    {""index"":1,""prefab"":1,""tier"":0,""bought"":false,""powered"":false,""direction"":0},
-                    {""index"":2,""prefab"":2,""tier"":0,""bought"":false,""powered"":false,""direction"":0}]
-                    },{""modules"":[]}]}";
+    const string DEFAULT_JSON = @"{""bankBalance"":""10.00"",""grids"":[{""modules"":[]},{""modules"":[{""index"":0,""prefab"":0,""tier"":0,""bought"":false,""powered"":false,""direction"":0,""segment"":{""instrument"":0,""sequence"":0}},{""index"":1,""prefab"":1,""tier"":0,""bought"":false,""powered"":false,""direction"":0,""segment"":{""instrument"":0,""sequence"":0}},{""index"":2,""prefab"":2,""tier"":0,""bought"":false,""powered"":false,""direction"":0,""segment"":{""instrument"":0,""sequence"":0}}]},{""modules"":[]}],""synth"":{""volume"":1,""tempo"":400,""notes"":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}}";
 
     [SerializeField] SnappingGrid[] grids = null;
     [SerializeField] float autosaveDelay = 300;
@@ -40,6 +38,8 @@ public class SaveGame : SceneSingleton<SaveGame>
         Bank.SetBalance(decimal.Parse(data.bankBalance));
         for (int i = 0; i < grids.Length; i++)
             grids[i].Deserialize(data.grids[i]);
+        
+        Synthetizer.Deserialize(data.synth);
     }
 
     string LoadJsonFromFile()
@@ -63,7 +63,7 @@ public class SaveGame : SceneSingleton<SaveGame>
             data[i] = grids[i].Serialize();
 
         string bankBalance = Bank.GetBalance().ToString();
-        SaveData save = new SaveData(bankBalance, data);
+        SaveData save = new SaveData(bankBalance, data, Synthetizer.Serialize());
 
         string json = JsonUtility.ToJson(save);
         using (var stream = File.CreateText(Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME)))

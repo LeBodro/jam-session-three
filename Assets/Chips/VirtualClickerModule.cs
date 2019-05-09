@@ -53,6 +53,17 @@ public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandl
         segment = new Segment(Tier, 10);
     }
 
+    public override ModuleData Serialize(int index)
+    {
+        return new ModuleData(index, Prefab, Tier, bought, IsPowered, segment);
+    }
+
+    public override void Deserialize(ModuleData data)
+    {
+        base.Deserialize(data);
+        segment = data.segment;
+    }
+
     public void OnPointerUp(PointerEventData eventData)
     {
         if (IsPowered)

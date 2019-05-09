@@ -1,5 +1,19 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
+public class SynthetizerData
+{
+    [SerializeField] public float volume;
+    [SerializeField] public float tempo;
+    [SerializeField] public int[] notes;
+    public SynthetizerData(float _volume, float _tempo, int[] _notes)
+    {
+        volume = _volume;
+        tempo = _tempo;
+        notes = _notes;
+    }
+}
+
 [RequireComponent(typeof(AudioSource))]
 public class Synthetizer : SceneSingleton<Synthetizer>
 {
@@ -94,14 +108,22 @@ public class Synthetizer : SceneSingleton<Synthetizer>
         lastBeatRaw = currentBeatRaw;
     }
 
-    // TODO: This should return data containing volume, tempo and note per cell.
-    public void Serialize()
+    public static SynthetizerData Serialize()
     {
+        return new SynthetizerData(
+            Instance.volume,
+            Instance.tempo,
+            Instance.notes
+        );
     }
-
-    // TODO: This should take synthetizer data to initialize variables.
-    //       "Start" should not be called. initialization should happen here.
-    public void Deserialize()
+    
+    public static void Deserialize(SynthetizerData synthetizerData)
     {
+        Instance.volume = synthetizerData.volume;
+        Instance.speaker.volume = synthetizerData.volume;
+        Instance.notes = synthetizerData.notes;
+
+        Instance.secondsPerBeat = 1 / (Instance.tempo / 60f);
+        Instance.trackLength = Instance.totalMeasures / Instance.numberOfTracks;
     }
 }

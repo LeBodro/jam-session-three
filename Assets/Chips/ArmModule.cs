@@ -138,7 +138,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
 
     public override ModuleData Serialize(int index)
     {
-        return new ModuleData(index, Prefab, Tier, bought, IsPowered, facing);
+        return new ModuleData(index, Prefab, Tier, bought, IsPowered, null, facing);
     }
 
     public override void Deserialize(ModuleData data)

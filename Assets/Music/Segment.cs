@@ -1,7 +1,10 @@
-﻿public class Segment
+﻿using UnityEngine;
+
+[System.Serializable]
+public class Segment
 {
-    public int instrument;
-    public int sequence;
+    [SerializeField] public int instrument;
+    [SerializeField] public int sequence;
 
     public Segment(int _instrument, int _sequence)
     {

@@ -10,8 +10,9 @@ public class ModuleData
     [SerializeField] public bool bought;
     [SerializeField] public bool powered;
     [SerializeField] public ArmModule.Direction direction;
+    [SerializeField] public Segment segment;
 
-    public ModuleData(int _index, int _prefab, int _tier, bool _bought, bool _powered, ArmModule.Direction _direction = ArmModule.Direction.LEFT)
+    public ModuleData(int _index, int _prefab, int _tier, bool _bought, bool _powered, Segment _segment = null, ArmModule.Direction _direction = ArmModule.Direction.LEFT)
     {
         index = _index;
         prefab = _prefab;
@@ -19,11 +20,12 @@ public class ModuleData
         bought = _bought;
         powered = _powered;
         direction = _direction;
+        segment = _segment;
     }
 }
 
 [RequireComponent(typeof(StatDictionnary))]
-public class Module : Poolable<Module>, IDraggable
+public abstract class Module : Poolable<Module>, IDraggable
 {
     protected const string STAT_HERTZ = "hertz";
     protected const string STAT_INCOME = "income";
