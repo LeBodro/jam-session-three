@@ -141,7 +141,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001191148}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transactionPrefab: {fileID: 5622121149008881194, guid: 2f39e38672e648446a714922b48fa3c6,
     type: 3}
+  notePrefab: {fileID: 0}
   transactionVerticalOffet: 0.5
 --- !u!1 &81674042
 GameObject:
@@ -2652,9 +2653,9 @@ RectTransform:
   - {fileID: 994618612}
   - {fileID: 978999988}
   - {fileID: 1392123123}
+  - {fileID: 55745843}
   - {fileID: 1252856130}
   - {fileID: 1739467987}
-  - {fileID: 55745843}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3170,7 +3171,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001191148}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4022,7 +4023,7 @@ RectTransform:
   - {fileID: 1940016726}
   - {fileID: 821239810}
   m_Father: {fileID: 1001191148}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
