@@ -7,7 +7,7 @@ public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandl
     Stat incomePerTick = null;
     Segment segment = null;
 
-    [SerializeField] GameObject[] beatIndicators;
+    [SerializeField] GameObject[] beatIndicators = null;
 
     event System.Action<VirtualClickerModule> _onMouseClick = delegate { };
     public event System.Action<VirtualClickerModule> OnMouseClick
@@ -22,7 +22,6 @@ public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandl
 
     public Segment GetSegment()
     {
-        // TODO: Serialize sequence in save
         return segment;
     }
 

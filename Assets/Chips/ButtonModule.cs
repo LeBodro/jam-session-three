@@ -8,19 +8,19 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     [SerializeField] SpriteRenderer up = null;
     [SerializeField] SpriteRenderer down = null;
 
-    event System.Action<ButtonModule> _onMouseClick = delegate { };
-    public event System.Action<ButtonModule> OnMouseClick
-    {
-        add { _onMouseClick += value; }
-        remove { _onMouseClick -= value; }
-    }
-
     Stat incomePerClick = null;
     HashSet<string> pressSrouces = new HashSet<string>();
     bool wasRecentlyCancelled = false;
     public bool IsDown { get => pressSrouces.Count > 0; }
     public bool IsUp { get => !IsDown; }
     protected override int Prefab { get => 0; }
+
+    event System.Action<ButtonModule> _onMouseClick = delegate { };
+    public event System.Action<ButtonModule> OnMouseClick
+    {
+        add { _onMouseClick += value; }
+        remove { _onMouseClick -= value; }
+    }
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
