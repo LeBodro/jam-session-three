@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "PCB/Tier")]
+[CreateAssetMenu(menuName = "PCB/TierMaterials")]
 public class TierMaterials : ScriptableObject
 {
     [SerializeField] Material[] materials = null;

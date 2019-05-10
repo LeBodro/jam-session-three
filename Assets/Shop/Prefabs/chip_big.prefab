@@ -322,7 +322,7 @@ MonoBehaviour:
   - {fileID: 1229597549035289802}
   - {fileID: 466994695211463946}
   - {fileID: 6278443528317838737}
-  tierMaterials: {fileID: 11400000, guid: acacf8abd14dfed4ebac22cf30da8a8b, type: 2}
+  tierMaterials: {fileID: 11400000, guid: 9c0e38e3b53db264fb52a1ec17c2f8f1, type: 2}
   audio: {fileID: 192689176539652868}
   connect: {fileID: 8300000, guid: daf4f5d8d0656b740b9d61d7c96bb812, type: 3}
   disconnect: {fileID: 8300000, guid: cf4d216ad82f54e4081f3559739f5022, type: 3}

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: TierMaterials
-  m_EditorClassIdentifier: Assembly-CSharp::TierMaterials
+  m_Script: {fileID: 11500000, guid: 7a5d86905ae054c49aa6d62f5da47efe, type: 3}
+  m_Name: Tiers
+  m_EditorClassIdentifier: 
   materials:
   - {fileID: 2100000, guid: 7abfebfb22ac27e4b894a27908941890, type: 2}
   - {fileID: 2100000, guid: e6d110063d2bba148a793038dc05dfcb, type: 2}

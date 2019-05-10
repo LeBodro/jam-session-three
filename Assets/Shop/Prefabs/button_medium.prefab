@@ -123,11 +123,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 7109967825661341587}
+  bought: 0
   sprites:
   - {fileID: 2052922218857699094}
   - {fileID: 2052922220315645784}
-  bought: 0
-  tierMaterials: {fileID: 11400000, guid: acacf8abd14dfed4ebac22cf30da8a8b, type: 2}
+  tierMaterials: {fileID: 11400000, guid: 9c0e38e3b53db264fb52a1ec17c2f8f1, type: 2}
   audio: {fileID: 106753502591638727}
   connect: {fileID: 8300000, guid: daf4f5d8d0656b740b9d61d7c96bb812, type: 3}
   disconnect: {fileID: 8300000, guid: cf4d216ad82f54e4081f3559739f5022, type: 3}

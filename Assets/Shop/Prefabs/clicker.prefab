@@ -124,12 +124,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 5216442340533130507}
+  bought: 0
   sprites:
   - {fileID: 648728842049642638}
   - {fileID: 648728840697959358}
   - {fileID: 648728842111179308}
-  bought: 0
-  tierMaterials: {fileID: 11400000, guid: acacf8abd14dfed4ebac22cf30da8a8b, type: 2}
+  tierMaterials: {fileID: 11400000, guid: 9c0e38e3b53db264fb52a1ec17c2f8f1, type: 2}
   audio: {fileID: 6400610668564311928}
   connect: {fileID: 8300000, guid: daf4f5d8d0656b740b9d61d7c96bb812, type: 3}
   disconnect: {fileID: 8300000, guid: cf4d216ad82f54e4081f3559739f5022, type: 3}
