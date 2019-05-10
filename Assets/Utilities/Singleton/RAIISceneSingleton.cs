@@ -13,7 +13,7 @@ public class RAIISceneSingleton<T> : CommonSingleton where T : RAIISceneSingleto
             {
                 var i = new GameObject();
                 _instance = i.AddComponent<T>();
-                i.name = GetGameObjectNameFromType(i.GetType());
+                i.name = GetGameObjectNameFromType(_instance.GetType());
             }
             return _instance;
         }
