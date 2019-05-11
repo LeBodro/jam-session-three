@@ -38,12 +38,15 @@ public class Menu : MonoBehaviour
 
     void Update()
     {
-        if (!isTranslating) return;
+        if (!isTranslating) {
+            transform.localPosition = available ? openedPosition : closedPosition;
+            return;
+        }
         float deltaTime = Time.deltaTime * INVERT_TRANSITION_DELAY;
         if (available)
-            transitionTime = Mathf.Min(transitionTime + deltaTime, 1);
+            transitionTime = transitionTime + deltaTime;
         else
-            transitionTime = Mathf.Max(transitionTime - deltaTime, 0);
+            transitionTime = transitionTime - deltaTime;
 
         transitionTime = Mathf.Clamp01(transitionTime);
 
