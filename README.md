@@ -7,5 +7,5 @@ Why don't you try making some beat, too? The board hides some interesting beat-m
 
 ## License
 
-[MIT](/LICENSE) © [Maxime Boudreault](https://github.com/lebodro)
+[MIT](/LICENSE) © [Maxime Boudreault](https://github.com/lebodro) and [Raphaël Côté](https://github.com/qwertyuu)
 
