@@ -139,7 +139,7 @@ public abstract class Module : Poolable<Module>, IDraggable
 
     protected decimal CalculatePrice(float expCoef, float coef, float constant)
     {
-        return (decimal)(Mathf.Pow(6, Tier * expCoef) + coef * Tier + constant);
+        return (decimal)(Mathf.Pow(3, Tier * expCoef) + coef * Tier + constant);
     }
 
     protected float CalculateIncome(float expCoef, float coef, float constant)

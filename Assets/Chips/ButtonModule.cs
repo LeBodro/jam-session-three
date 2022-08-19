@@ -59,6 +59,11 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
         RefreshVisual();
     }
 
+    public float IncomePerClick()
+    {
+        return incomePerClick.ProcessedValue;
+    }
+
     public void Release(string source)
     {
         if (IsBeingDragged) return;
@@ -92,8 +97,9 @@ public class ButtonModule : Module, IPointerDownHandler, IPointerUpHandler
     public override void Tierify(int tier)
     {
         incomePerClick = stats[STAT_INCOME];
+        var pricePerTier = new decimal[]{0.92m, 70.35m, 976.77m, 9626.26m, 93841.60m, 963449.41m};
         base.Tierify(tier);
-        Price = CalculatePrice(2, 1.25f, 0.5f);
+        Price = pricePerTier[tier];
         incomePerClick.BaseValue = CalculateIncome(0.25f, 5, 1.25f);
     }
 }

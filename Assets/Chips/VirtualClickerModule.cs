@@ -41,12 +41,18 @@ public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandl
         }
     }
 
+    public float IncomePerMinute()
+    {
+        return incomePerTick.ProcessedValue * hertz.ProcessedValue * 60;
+    }
+
     public override void Tierify(int tier)
     {
         hertz = stats[STAT_HERTZ];
         incomePerTick = stats[STAT_INCOME];
         base.Tierify(tier);
-        Price = CalculatePrice(3f, 2f, 1.25f);
+        var pricePerTier = new decimal[]{2.25m, 157.50m, 2186.81m, 21549.09m, 210093.14m, 2156976.28m};
+        Price = pricePerTier[tier];
         incomePerTick.BaseValue = CalculateIncome(0.15f, 3, 0.75f);
         hertz.BaseValue = Mathf.Pow(2, tier) * 0.5f;
         segment = new Segment(Tier, 10);

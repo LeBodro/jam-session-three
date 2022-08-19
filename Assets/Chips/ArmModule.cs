@@ -34,6 +34,11 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     string InstanceIDString { get => _instanceIDString == null ? (_instanceIDString = GetInstanceID().ToString()) : _instanceIDString; }
     string _instanceIDString = null;
 
+    public float ClicksPerMinute()
+    {
+        return hertz.ProcessedValue * 60;
+    }
+
     public void OnPointerUp(PointerEventData eventData)
     {
         if (!wasRecentlyDragged)
@@ -134,7 +139,8 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     {
         hertz = stats[STAT_HERTZ];
         base.Tierify(tier);
-        Price = CalculatePrice(2.5f, 0.5f, 0.25f);
+        var pricePerTier = new decimal[]{1.83m, 140.70m, 1953.55m, 19250.52m, 187683.20m, 1926898.81m};
+        Price = pricePerTier[tier];
         hertz.BaseValue = Mathf.Pow(2, tier) * 0.5f;
     }
 
