@@ -6,6 +6,7 @@ public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandl
     Stat hertz = null;
     Stat incomePerTick = null;
     Segment segment = null;
+    protected override decimal[] PricePerTier { get => new decimal[]{2.25m, 157.50m, 2186.81m, 21549.09m, 210093.14m, 2156976.28m}; }
 
     [SerializeField] GameObject[] beatIndicators = null;
 
@@ -41,6 +42,9 @@ public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandl
         }
     }
 
+    /*
+    For development purposes. Helps get a sense of how much the VCM produces on a minute basis
+    */
     public float IncomePerMinute()
     {
         return incomePerTick.ProcessedValue * hertz.ProcessedValue * 60;
@@ -51,8 +55,6 @@ public class VirtualClickerModule : Module, IPointerUpHandler, IPointerDownHandl
         hertz = stats[STAT_HERTZ];
         incomePerTick = stats[STAT_INCOME];
         base.Tierify(tier);
-        var pricePerTier = new decimal[]{2.25m, 157.50m, 2186.81m, 21549.09m, 210093.14m, 2156976.28m};
-        Price = pricePerTier[tier];
         incomePerTick.BaseValue = CalculateIncome(0.15f, 3, 0.75f);
         hertz.BaseValue = Mathf.Pow(2, tier) * 0.5f;
         segment = new Segment(Tier, 10);

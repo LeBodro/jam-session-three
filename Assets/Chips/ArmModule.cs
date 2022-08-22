@@ -19,6 +19,7 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     [SerializeField] SpriteRenderer up = null;
     [SerializeField] SpriteRenderer down = null;
 
+    protected override decimal[] PricePerTier { get => new decimal[]{1.83m, 140.70m, 1953.55m, 19250.52m, 187683.20m, 1926898.81m}; }
     Stat hertz = null;
     bool? armWasDown = false;
     Direction facing;
@@ -34,6 +35,9 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     string InstanceIDString { get => _instanceIDString == null ? (_instanceIDString = GetInstanceID().ToString()) : _instanceIDString; }
     string _instanceIDString = null;
 
+    /*
+    For development purposes. Helps get a sense of how much the Arm can press the button in a minute
+    */
     public float ClicksPerMinute()
     {
         return hertz.ProcessedValue * 60;
@@ -139,8 +143,6 @@ public class ArmModule : Module, IPointerUpHandler, IPointerDownHandler
     {
         hertz = stats[STAT_HERTZ];
         base.Tierify(tier);
-        var pricePerTier = new decimal[]{1.83m, 140.70m, 1953.55m, 19250.52m, 187683.20m, 1926898.81m};
-        Price = pricePerTier[tier];
         hertz.BaseValue = Mathf.Pow(2, tier) * 0.5f;
     }
 

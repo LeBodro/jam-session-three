@@ -43,6 +43,7 @@ public abstract class Module : Poolable<Module>, IDraggable
     bool _isPowered = false;
     public event System.Action<Module> OnBought = delegate { };
     public event System.Action<Module> OnRemoved = delegate { };
+    protected abstract decimal[] PricePerTier { get; }
 
     public int Tier { get; private set; }
     public decimal Price { get; protected set; }
@@ -133,13 +134,9 @@ public abstract class Module : Poolable<Module>, IDraggable
     public virtual void Tierify(int tier)
     {
         Tier = tier;
+        Price = PricePerTier[tier];
         foreach (var sprite in sprites)
             sprite.material = tierMaterials.Get(tier);
-    }
-
-    protected decimal CalculatePrice(float expCoef, float coef, float constant)
-    {
-        return (decimal)(Mathf.Pow(3, Tier * expCoef) + coef * Tier + constant);
     }
 
     protected float CalculateIncome(float expCoef, float coef, float constant)
